@@ -6,22 +6,19 @@ Page({
      */
     data: {
         hint: "匹配中...",
-        againstFlag: false,
         meInfo: {
             header: "../../assets/images/test/logo.jpg",
             name: "水木青蓝"
         },
-        rivalInfo: {
-            header: "../../assets/images/test/me_logo.png",
-            name: "小白"
-        }
+        rivalInfo: null,
+        matchSuc: false
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.getrival();
     },
 
     /**
@@ -71,5 +68,43 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+
+    /**
+     * 匹配
+     */
+    getrival: function () {
+        const _this = this;
+        let timer = setTimeout(function(){
+            clearTimeout(timer);
+            timer = null;
+            _this.setData({
+                rivalInfo: {
+                    header: "../../assets/images/test/me_logo.png",
+                    name: "小白"
+                },
+                matchSuc: true
+            })
+            let timer1 = setTimeout(function() {
+                clearTimeout(timer1);
+                timer1 = null;
+                wx.navigateTo({
+                    url: "../fight/index"
+                });
+            },1500)
+            
+        },3000)
+    },
+    /**
+     * 没匹配成功之前放弃对战
+     */
+    fqAgainst: function() {
+        let pages = getCurrentPages(); //当前页面
+        let beforePage = pages[pages.length - 2]; //前一页
+        wx.navigateBack({
+            success: function () {
+                beforePage.onLoad(); // 执行前一个页面的onLoad方法
+            }
+        });
     }
 })

@@ -1,0 +1,60 @@
+<!--pages/fight/index.wxml-->
+<view class="fight df flexCol">
+    <view class="both pr df flexCol justAround pb30">
+        <view class="me-box pr pt10">
+            <view class="me pa df ar justBet bounceInLeft animated">
+                <view class="info pr5">
+                    <view class="score fw900">{{meInfo.score}}分</view>
+                    <view class="name overeli fw900">{{meInfo.name}}</view>
+                </view>
+                <view class="header">
+                    <image src="{{meInfo.header}}"></image>
+                </view>
+            </view>
+        </view>
+        <view class="timer tHorCenter animation pr">
+            <canvas class="countDown-bg" type="2d" id="countdownBg"></canvas>
+            <canvas class='countDown pa' type="2d" id="countDown"></canvas>
+        </view>
+        <view class="rival-box pr">
+            <view class="rival pa al df justBet bounceInRight animated">
+                <view class="header">
+                    <image src="{{rivalInfo.header}}"></image>
+                </view>
+                <view class="info pl5">
+                    <view class="score fw900">{{rivalInfo.score}}分</view>
+                    <view class="name overeli fw900">{{rivalInfo.name}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="topic-box pt15 b-sizing df flexCol">
+        <view class="topic b-sizing">
+            <view class="type pr">
+                <view class="text ac b-sizing">{{questionType=='0'?"单选":"多选"}}</view>
+            </view>
+            <view class="subject">{{questionIndex+1}}.{{subject}}</view>
+            <view class="answer-list">
+                <view class="answer-box animation al-center justBet" 
+                    style="animation-delay:.{{index * 2}}s" 
+                    wx:for="{{answerList}}" 
+                    wx:key="index"
+                >
+                    <view class="me player">
+                        <image src="{{meInfo.header}}"></image>
+                    </view>
+                    <view class="answer b-sizing al-center justBet" bindtap="submitAnswer" data-id="{{index}}">
+                        <view class="text">{{item.answer}}</view>
+                        <view class="status">
+                            <text class="iconfont icon-zhengque"></text>
+                        </view>
+                    </view>
+                    <view class="rival player">
+                        <image src="{{rivalInfo.header}}"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="topic-footer"></view>
+    </view>
+</view>

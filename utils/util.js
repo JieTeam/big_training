@@ -1,5 +1,7 @@
 const moment = require('moment');
 const numeral = require('numeral');
+// 系统参数
+const systemInfo = wx.getSystemInfoSync();
 
 const formatTime = date => {
     const year = date.getFullYear()
@@ -39,7 +41,71 @@ const dateFormat = (date, type="YYYY-MM-DD HH:mm:ss")=> {
 }
 
 module.exports = {
+    WIN_WIDTH: systemInfo.screenWidth,
+    WIN_HEIGHT: systemInfo.screenHeight,
+    IS_IOS: /ios/i.test(systemInfo.system),
+    IS_ANDROID: /android/i.test(systemInfo.system),
+    STATUS_BAR_HEIGHT: systemInfo.statusBarHeight,
+    DEFAULT_HEADER_HEIGHT: 46, // systemInfo.screenHeight - systemInfo.windowHeight - systemInfo.statusBarHeight
+    DEFAULT_CONTENT_HEIGHT: systemInfo.screenHeight - systemInfo.statusBarHeight - wx.DEFAULT_HEADER_HEIGHT,
+    IS_APP: true,
     throttle: throttle,
     isNullOrUndefined: isNullOrUndefined,
-    dateFormat: dateFormat
+    dateFormat: dateFormat,
+    /**显示模态对话框 */
+    showModal(title, content, callback) {
+        wx.hideToast();
+        wx.showModal({
+            title: title || '提示',
+            content: content || '',
+            showCancel: false,
+            success: () => {
+                typeof callback == 'function' && callback();
+            }
+        })
+    },
+    /**显示 loading 提示框 */
+    showLoading(title, callback) {
+        wx.hideLoading(); // 先关闭已存在的loading
+        wx.showLoading({
+            title: title || '正在加载...',
+            mask: true,
+            success: () => {
+                typeof callback == 'function' && callback();
+            }
+        })
+    },
+    hideLoading() {
+        setTimeout(() => {
+            wx.hideLoading();
+        }, 100)
+    },
+    showToast(title) {
+        wx.showToast({
+            icon: 'none',
+            title: title,
+            duration: 2000,
+        })
+    },
+    success(title) {
+        wx.showToast({
+            image: '/assets/images/icon/success.png',
+            title: title,
+            duration: 2000,
+        })
+    },
+    error(title) {
+        wx.showToast({
+            image: '/assets/images/icon/error.png',
+            image: image,
+            title: title,
+            duration: 2000,
+        })
+    },
+    /**保持屏幕常亮 */
+    keepScreenOn(value = true) {
+        wx.setKeepScreenOn({
+            keepScreenOn: value,
+        })
+    }
 }

@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/matching/index"
+    "pages/matching/index",
+    "pages/fight/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

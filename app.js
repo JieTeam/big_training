@@ -37,6 +37,7 @@ App({
     http, // 全局请求
     globalData: {
         userInfo: null,
-        baseUrl: "",
+        openid: '',
+        sessionKey: '',
     }
 })
