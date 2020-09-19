@@ -1,0 +1,15 @@
+{
+  "name": "big_training",
+  "version": "1.0.0",
+  "description": "big training",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mrzhao",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.28.0",
+    "numeral": "^2.0.6"
+  }
+}
