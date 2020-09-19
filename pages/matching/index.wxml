@@ -1,0 +1,34 @@
+<!--pages/matching/index.wxml-->
+<view class="matching ac df flexCol justBet">
+    <view class="both df flexCol justAround">
+        <view class="me-box pr">
+            <view class="me pa df justBet b-sizing">
+                <view class="name overeli">{{meInfo.name}}</view>
+                <view class="header">
+                    <image src="{{meInfo.header}}"></image>
+                </view>
+            </view>
+        </view>
+        <view class="stata">
+            <view class="vs fw900">
+                <image src="../../assets/images/matching/vs.png" />
+            </view>
+            <text class="hint">{{hint}}</text>
+        </view>
+        <view class="rival-box pr">
+            <view class="rival pa df justBet b-sizing">
+                <view class="header">
+                    <image src="{{rivalInfo.header}}"></image>
+                </view>
+                <view class="name overeli">{{rivalInfo.name}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="footer pt20 pb20">
+        <view class="hint pt10 pb10">
+            <text>共5题，每题10秒答题时间</text>
+        </view>
+        <!-- hidden='{{startPKHidden}}' -->
+        <button type="primary" class="give_up" wx:if="{{!againstFlag}}" bindtap="fqAgainst">放弃对战</button>
+    </view>
+</view>

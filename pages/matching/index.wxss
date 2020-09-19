@@ -1,0 +1,78 @@
+Page {
+  height: 100%;
+  width: 100%;
+}
+.matching {
+  height: 100%;
+  width: 100%;
+  color: #dafffe;
+  background-color: #46d7b6;
+}
+.matching .both {
+  flex: 1;
+}
+.matching .both .me-box,
+.matching .both .rival-box {
+  width: 100%;
+  height: 170rpx;
+}
+.matching .both .me-box .me,
+.matching .both .rival-box .me,
+.matching .both .me-box .rival,
+.matching .both .rival-box .rival {
+  width: 400rpx;
+  background: #ffffff;
+  height: 100%;
+  padding: 20rpx;
+  top: 0;
+}
+.matching .both .me-box .me .name,
+.matching .both .rival-box .me .name,
+.matching .both .me-box .rival .name,
+.matching .both .rival-box .rival .name {
+  color: #3b393c;
+  line-height: 130rpx;
+  flex: 1;
+  font-size: 36rpx;
+}
+.matching .both .me-box .me .header image,
+.matching .both .rival-box .me .header image,
+.matching .both .me-box .rival .header image,
+.matching .both .rival-box .rival .header image {
+  border-radius: 50%;
+  height: 130rpx;
+  width: 130rpx;
+}
+.matching .both .me-box .me,
+.matching .both .rival-box .me {
+  left: 0;
+  border-radius: 0 85rpx 85rpx 0;
+}
+.matching .both .me-box .rival,
+.matching .both .rival-box .rival {
+  right: 0;
+  border-radius: 85rpx 0 0 85rpx;
+}
+.matching .both .stata .vs {
+  padding: 28rpx 0;
+}
+.matching .both .stata .vs image {
+  height: 80rpx;
+  width: 120rpx;
+}
+.matching .both .stata .hint {
+  font-size: 36rpx;
+}
+.matching .footer .hint {
+  font-size: 26rpx;
+}
+.matching .footer .give_up {
+  border-radius: 80rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  padding: 18rpx 0;
+  width: 350rpx;
+  background-color: transparent;
+  border: 14rpx solid #ffffff;
+  color: #fff;
+}
