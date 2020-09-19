@@ -1,7 +1,7 @@
 <!--pages/fight/index.wxml-->
 <view class="fight df flexCol">
-    <view class="both pr df flexCol justAround pb30">
-        <view class="me-box pr pt10">
+    <view class="both pr pt10 df flexCol justAround pb30">
+        <view class="me-box pr">
             <view class="me pa df ar justBet bounceInLeft animated">
                 <view class="info pr5">
                     <view class="score fw900">{{meInfo.score}}分</view>
