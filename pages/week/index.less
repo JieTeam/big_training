@@ -1,0 +1,42 @@
+.week-box {
+    width: 100%;
+    height: 100%;
+    .loading-box {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: #ffffff;
+        z-index: 9;
+        .loading {
+            width: 100%;
+            color: #34bdab;
+
+            .annulus {
+                width: 250rpx;
+                height: 250rpx;
+                margin: 0 auto;
+                image {
+                    width: 100%;
+                    height: 100%;
+                }
+                .image {
+                    border-radius: 50%;
+                }
+                .loop {
+                    width: 290rpx;
+                    height: 290rpx;
+                    top: -20rpx;
+                    left: -20rpx;
+                }
+            }
+            .progress {
+                font-size: 32rpx;
+                padding: 60rpx 0 40rpx;
+            }
+            .hint {
+                font-size: 36rpx;
+            }
+        }
+    }
+}

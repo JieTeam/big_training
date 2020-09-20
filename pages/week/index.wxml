@@ -1,0 +1,18 @@
+<!--pages/week/index.wxml-->
+<view class="week-box">
+    <view class="week"  wx:if="{{done}}">
+
+    </view>
+    <view wx:else class="loading-box pa">
+        <view class="loading tVerCenter ac">
+            <view class="annulus pr">
+                <image class="db icon" src="../../assets/images/week/loading.png"></image>
+                <canvas class='loop pa' type="2d" id="loop"></canvas>
+            </view>
+            <view class="progress">
+                {{progress}}%
+            </view>
+            <view class="hint">试题抽取中</view>
+        </view>
+    </view>
+</view>

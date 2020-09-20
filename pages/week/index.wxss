@@ -1,0 +1,41 @@
+.week-box {
+  width: 100%;
+  height: 100%;
+}
+.week-box .loading-box {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  z-index: 9;
+}
+.week-box .loading-box .loading {
+  width: 100%;
+  color: #34bdab;
+}
+.week-box .loading-box .loading .annulus {
+  width: 250rpx;
+  height: 250rpx;
+  margin: 0 auto;
+}
+.week-box .loading-box .loading .annulus image {
+  width: 100%;
+  height: 100%;
+}
+.week-box .loading-box .loading .annulus .image {
+  border-radius: 50%;
+}
+.week-box .loading-box .loading .annulus .loop {
+  width: 290rpx;
+  height: 290rpx;
+  top: -20rpx;
+  left: -20rpx;
+}
+.week-box .loading-box .loading .progress {
+  font-size: 32rpx;
+  padding: 60rpx 0 40rpx;
+}
+.week-box .loading-box .loading .hint {
+  font-size: 36rpx;
+}

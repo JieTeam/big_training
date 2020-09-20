@@ -86,6 +86,13 @@
           "pathName": "pages/fight_result/index",
           "query": "",
           "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/week/index",
+          "pathName": "pages/week/index",
+          "query": "",
+          "scene": null
         }
       ]
     }
