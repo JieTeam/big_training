@@ -39,3 +39,135 @@
 .week-box .loading-box .loading .hint {
   font-size: 36rpx;
 }
+.week-box .week {
+  height: 100%;
+  width: 100%;
+  background-color: #46d7b6;
+}
+.week-box .week .both {
+  padding: 70rpx 0 80rpx;
+}
+.week-box .week .both .me-box {
+  width: 386rpx;
+  height: 134rpx;
+}
+.week-box .week .both .me-box .me {
+  width: 100%;
+  background: #ffffff;
+  padding: 12rpx 0 12rpx 40rpx;
+  left: -40rpx;
+  border-radius: 0 67rpx 67rpx 0;
+}
+.week-box .week .both .me-box .me .info {
+  flex: 1;
+}
+.week-box .week .both .me-box .me .info .name {
+  color: #3b393c;
+  font-size: 32rpx;
+}
+.week-box .week .both .me-box .me .header {
+  padding: 0 20rpx 0 30rpx;
+}
+.week-box .week .both .me-box .me .header image {
+  border-radius: 50%;
+  height: 110rpx;
+  width: 110rpx;
+}
+.week-box .week .both .countDown-box {
+  flex: 1;
+}
+.week-box .week .both .countDown-box .timer {
+  margin: 0 auto;
+  width: 140rpx;
+  height: 140rpx;
+  animation-delay: 1s;
+}
+.week-box .week .both .countDown-box .timer .countDown-bg {
+  height: 140rpx;
+  width: 140rpx;
+}
+.week-box .week .both .countDown-box .timer .countDown {
+  top: 0;
+  left: 0;
+  height: 140rpx;
+  width: 140rpx;
+}
+.week-box .week .topic-box {
+  flex: 1;
+  background: #ffffff;
+  width: 100%;
+  border-radius: 20rpx 20rpx 0 0;
+}
+.week-box .week .topic-box .type {
+  padding: 0 40rpx 20rpx;
+}
+.week-box .week .topic-box .type .text {
+  width: 74rpx;
+  height: 40rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  border: 1px solid #46d7b6;
+  color: #46d7b6;
+  border-radius: 6rpx;
+}
+.week-box .week .topic-box .type .double {
+  width: 235rpx;
+  height: 87rpx;
+  bottom: 46rpx;
+  left: 40rpx;
+}
+.week-box .week .topic-box .topic {
+  color: #525053;
+  flex: 1;
+  width: 100%;
+  padding: 0 20rpx;
+  overflow-y: auto;
+}
+.week-box .week .topic-box .topic .subject {
+  padding: 0 20rpx;
+  font-size: 32rpx;
+  line-height: 46rpx;
+}
+.week-box .week .topic-box .topic .answer-list {
+  padding-top: 30rpx;
+}
+.week-box .week .topic-box .topic .answer-list .answer-box {
+  padding-top: 20rpx;
+}
+.week-box .week .topic-box .topic .answer-list .answer-box .player {
+  width: 60rpx;
+  padding: 0 12rpx;
+}
+.week-box .week .topic-box .topic .answer-list .answer-box .player image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+}
+.week-box .week .topic-box .topic .answer-list .answer-box .answer {
+  flex: 1;
+  padding: 20rpx 30rpx;
+  border-radius: 16rpx;
+  background: #f5f3f6;
+}
+.week-box .week .topic-box .topic .answer-list .answer-box .answer .text {
+  font-size: 24rpx;
+}
+.week-box .week .topic-box .topic .answer-list .answer-box .answer .status .iconfont {
+  font-size: 46rpx;
+}
+.week-box .week .topic-box .topic .answer-list.active {
+  color: #ffffff;
+}
+.week-box .week .topic-box .topic-footer {
+  height: 140rpx;
+}
+.week-box .week .topic-box .topic-footer .next-btn {
+  border-radius: 80rpx;
+  font-size: 36rpx;
+  font-weight: 400;
+  padding: 12rpx 0;
+  width: 350rpx;
+  background-color: transparent;
+  border: 10rpx solid #43d9be;
+  color: #43d9be;
+}

@@ -39,4 +39,142 @@
             }
         }
     }
+    .week {
+        height: 100%;
+        width: 100%;
+        background-color: #46d7b6;
+        .both {
+            padding: 70rpx 0 80rpx;
+            .me-box {
+                width: 386rpx;
+                height: 134rpx;
+                .me {
+                    width: 100%;
+                    background: #ffffff;
+                    padding: 12rpx 0 12rpx 40rpx;
+                    left: -40rpx;
+                    border-radius: 0 67rpx 67rpx 0;
+                    .info {
+                        flex: 1;
+                        .name {
+                            color: #3b393c;
+                            font-size: 32rpx;
+                        }
+                        .rank {
+                            
+                        }
+                    }
+                    .header {
+                        padding: 0 20rpx 0 30rpx;
+                        image {
+                            border-radius: 50%;
+                            height: 110rpx;
+                            width: 110rpx;
+                        }
+                    }
+                }
+            }
+            .countDown-box {
+                flex: 1;
+                .timer {
+                    margin: 0 auto;
+                    width: 140rpx;
+                    height: 140rpx;
+                    animation-delay:1s;
+                    .countDown-bg {
+                        height: 140rpx;
+                        width: 140rpx;
+                    }
+                    .countDown {
+                        top: 0;
+                        left: 0;
+                        height: 140rpx;
+                        width: 140rpx;
+                    }
+                }
+            }
+                
+        }
+        .topic-box {
+            flex: 1;
+            background: #ffffff;
+            width: 100%;
+            border-radius: 20rpx 20rpx 0 0;
+            .type {
+                padding: 0 40rpx 20rpx;
+                .text {
+                    width: 74rpx;
+                    height: 40rpx;
+                    font-size: 28rpx;
+                    line-height: 40rpx;
+                    border: 1px solid #46d7b6;
+                    color: #46d7b6;
+                    border-radius: 6rpx;
+                }
+                .double {
+                    width: 235rpx;
+                    height: 87rpx;
+                    bottom: 46rpx;
+                    left: 40rpx;
+                }
+            }
+            .topic {
+                color: #525053;
+                flex: 1;
+                width: 100%;
+                padding: 0 20rpx;
+                overflow-y: auto;
+                .subject {
+                    padding: 0 20rpx;
+                    font-size: 32rpx;
+                    line-height: 46rpx;
+                }
+                .answer-list {
+                    padding-top: 30rpx;
+                    .answer-box {
+                        padding-top: 20rpx;
+                        .player {
+                            width: 60rpx;
+                            padding: 0 12rpx;
+                            image {
+                                width: 60rpx;
+                                height: 60rpx;
+                                border-radius: 50%;
+                            }
+                        }
+                        .answer {
+                            flex: 1;
+                            padding: 20rpx 30rpx;
+                            border-radius: 16rpx;
+                            background: #f5f3f6;
+                            .text {
+                                font-size: 24rpx;
+                            }
+                            .status {
+                                .iconfont {
+                                    font-size: 46rpx;
+                                }
+                            }
+                        }
+                    }
+                    &.active {
+                        color: #ffffff;
+                    }
+                }
+            }
+            .topic-footer {
+                height: 140rpx;
+                .next-btn{
+                    border-radius: 80rpx;
+                    font-size: 36rpx;
+                    font-weight: 400;
+                    padding: 12rpx 0;
+                    width: 350rpx;
+                    background-color: transparent;
+                    border: 10rpx solid #43d9be;
+                    color:#43d9be;
+                }
+            }
+        }
+    }
 }
