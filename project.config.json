@@ -19,6 +19,8 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -28,9 +30,7 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": [],
-    "useMultiFrameRuntime": false,
-    "useApiHook": true
+    "packNpmRelationList": []
   },
   "compileType": "miniprogram",
   "libVersion": "2.13.0",
@@ -70,6 +70,20 @@
           "id": 0,
           "name": "pages/fight/index",
           "pathName": "pages/fight/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/matching/index",
+          "pathName": "pages/matching/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/fight_result/index",
+          "pathName": "pages/fight_result/index",
           "query": "",
           "scene": null
         }

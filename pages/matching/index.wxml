@@ -3,13 +3,16 @@
     <view class="both df flexCol justAround">
         <view class="me-box pr">
             <view class="me pa df justBet">
-                <view class="name overeli">{{meInfo.name}}</view>
+                <view class="name overeli">{{meInfo.nickName}}</view>
                 <view class="header">
-                    <image src="{{meInfo.header}}"></image>
+                    <image src="{{meInfo.avatarUrl}}"></image>
                 </view>
             </view>
         </view>
-        <view class="stata">
+        <view class="start" wx:if="{{!start}}">
+            <button type="primary" class="start-btn match-btn" bindtap="startMatch">开始匹配</button>
+        </view>
+        <view class="stata" wx:else>
             <view class="vs fw900">
                 <image class="{{matchSuc?'':'animated infinite flipInY'}}" src="../../assets/images/matching/vs.png" />
             </view>
@@ -28,6 +31,6 @@
         <view class="hint pt10 pb10">
             <text>共5题，每题10秒答题时间</text>
         </view>
-        <button hidden='{{matchSuc}}' type="primary" class="give_up" bindtap="fqAgainst">放弃对战</button>
+        <button hidden='{{matchSuc||!start}}' type="primary" class="give_up match-btn" bindtap="fqAgainst">放弃对战</button>
     </view>
 </view>

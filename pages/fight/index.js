@@ -28,7 +28,7 @@ Page({
         isAnswerLoaded: false, // 答案是否加载完成（动画完成）
 
         subject: '人们常说：“无事不登三宝殿”中的“三宝”是指哪三宝？', //当前题目名
-        questionType: '0', //题目类型 0：单选，1：多选
+        questionType: '1', //题目类型 0：单选，1：多选
         questionTypeId: '', //题目类型ID
         questionId: '', // 当前题目ID
         questionImageUrl: '', //题目图片地址

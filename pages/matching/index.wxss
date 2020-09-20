@@ -70,13 +70,13 @@ Page {
 .matching .footer .hint {
   font-size: 26rpx;
 }
-.matching .footer .give_up {
+.matching .match-btn {
   border-radius: 80rpx;
   font-size: 36rpx;
   font-weight: bold;
-  padding: 18rpx 0;
+  padding: 16rpx 0;
   width: 350rpx;
   background-color: transparent;
-  border: 14rpx solid #ffffff;
+  border: 10rpx solid #ffffff;
   color: #fff;
 }

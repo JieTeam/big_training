@@ -1,4 +1,6 @@
 // pages/matching/index.js
+let match_timer = null;
+const app = getApp();
 Page({
 
     /**
@@ -6,19 +8,17 @@ Page({
      */
     data: {
         hint: "匹配中...",
-        meInfo: {
-            header: "../../assets/images/test/logo.jpg",
-            name: "水木青蓝"
-        },
+        meInfo: null,
         rivalInfo: null,
-        matchSuc: false
+        matchSuc: false,
+        start: false
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getrival();
+        
     },
 
     /**
@@ -32,7 +32,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        this.resetPage();
     },
 
     /**
@@ -75,9 +75,9 @@ Page({
      */
     getrival: function () {
         const _this = this;
-        let timer = setTimeout(function(){
-            clearTimeout(timer);
-            timer = null;
+        match_timer = setTimeout(function(){
+            clearTimeout(match_timer);
+            match_timer = null;
             _this.setData({
                 rivalInfo: {
                     header: "../../assets/images/test/me_logo.png",
@@ -99,6 +99,11 @@ Page({
      * 没匹配成功之前放弃对战
      */
     fqAgainst: function() {
+        clearTimeout(match_timer);
+        match_timer = null;
+        this.setData({
+            start: false
+        })
         let pages = getCurrentPages(); //当前页面
         let beforePage = pages[pages.length - 2]; //前一页
         wx.navigateBack({
@@ -106,5 +111,23 @@ Page({
                 beforePage.onLoad(); // 执行前一个页面的onLoad方法
             }
         });
+    },
+    /**
+     * 开始匹配
+     */
+    startMatch() {
+        this.setData({
+            start: true
+        })
+        this.getrival();
+    },
+    resetPage() {
+        this.setData({
+            hint: "匹配中...",
+            meInfo: app.globalData.userInfo,
+            rivalInfo: null,
+            matchSuc: false,
+            start: false
+        })
     }
 })

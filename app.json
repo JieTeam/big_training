@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/matching/index",
-    "pages/fight/index"
+    "pages/fight/index",
+    "pages/fight_result/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

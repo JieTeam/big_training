@@ -36,7 +36,10 @@ App({
     },
     http, // 全局请求
     globalData: {
-        userInfo: null,
+        userInfo:  {
+            avatarUrl: "../../assets/images/test/logo.jpg",
+            nickName: "水木青蓝"
+        },
         openid: '',
         sessionKey: '',
     }

@@ -29,10 +29,11 @@
         </view>
     </view>
     <view class="topic-box pt15 b-sizing df flexCol">
+        <view class="type pr">
+            <view class="text ac b-sizing">{{questionType=='0'?"单选":"多选"}}</view>
+            <image wx:if="{{questionType=='1'}}" class="double pa" src="../../assets/images/fight/double.png" />
+        </view>
         <view class="topic b-sizing">
-            <view class="type pr">
-                <view class="text ac b-sizing">{{questionType=='0'?"单选":"多选"}}</view>
-            </view>
             <view class="subject">{{questionIndex+1}}.{{subject}}</view>
             <view class="answer-list">
                 <view class="answer-box animation al-center justBet" 
@@ -55,6 +56,8 @@
                 </view>
             </view>
         </view>
-        <view class="topic-footer"></view>
+        <view class="topic-footer">
+            <button hidden="{{questionType=='0'}}" type="primary" class="sub" bindtap="doubleSub">提交</button>
+        </view>
     </view>
 </view>
