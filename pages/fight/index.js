@@ -29,6 +29,7 @@ Page({
         //     name: "小白",
         //     score: 80
         // },
+        roomId: null, // 匹配房间id
         gameTime: 10, // 倒计时总时间（秒）
         userAnswerResultClass: '', // 用户选择答案的样式
         userAnswerResult: [], // 用户答题结果记录，答对1，答错0
@@ -103,6 +104,7 @@ Page({
         if (this.data.isGameOver) {
             
         } else {
+            wx.closeSocket();
             // 提前退出，不能获取任何奖励
             Utils.showModal('提示', '您放弃了挑战!');
         }
@@ -131,12 +133,11 @@ Page({
     },
     /**连接websocket */
     connectWebSocket() {
-        console.log(app.globalData.userInfo);
         let that = this;
         wx.connectSocket({
-            url: Utils.service.wsUrl + '/' + app.globalData.userInfo.openid + '/0',
+            url: Utils.service.wsUrl + '/' + app.globalData.userInfo.openid + '/2',
             success: res => {
-                console.log("建立连接")
+                console.log("建立连接");
                 that.initWebSocketListener();
             }
         });
@@ -146,68 +147,60 @@ Page({
         let that = this;
         wx.onSocketOpen(res => {
             // that.sendHeartBeat();  // 发送心跳
+            this.setData({
+                isMatch: true
+            });
             // 开始匹配对手
-            wx.sendSocketMessage(
-                JSON.stringify({
-                    status: 1,
-                    data: null
-                })
-            )
+            const msg = JSON.stringify({
+                status: 1,
+                data: null
+            })
+            wx.sendSocketMessage({
+                data: msg
+            })
             // that.initCountUp();
         })
         wx.onSocketError(res => {
             clearInterval(heartbeatTimerId);
             Utils.showModal('提示', '连接到服务器失败', () => {
                 wx.closeSocket();
-                that.connectWebSocket();
+                // that.connectWebSocket();
             });
         })
         wx.onSocketClose(res => {
             clearInterval(heartbeatTimerId);
         })
         wx.onSocketMessage(res => {
+            const _this = this;
             var msg = JSON.parse(res.data);
             console.log("msg==>",msg);
-            // _this.setData({
-            //     rivalInfo: {
-            //         header: "../../assets/images/test/me_logo.png",
-            //         name: "小白",
-            //         score: 0
-            //     },
-            //     matchSuc: true
-            // })
-            // let timer1 = setTimeout(function() {
-            //     clearTimeout(timer1);
-            //     timer1 = null;
-            //     _this.readyAnswer();
-            // },1500)
 
-
-            // switch (msg.returnMessage) {
-            //     case 'rankroom': // 推送匹配结果
-            //         clearInterval(countUpTimerId);
-            //         that.setData({
-            //         isMatched: true,
-            //         roomId: msg.returnData.roomid,
-            //         })
-            //         msg.returnData.userinfos.forEach(item => {
-            //         if (item.openid != App.globalData.openid) {
-            //             that.setData({
-            //             opponentName: item.name,
-            //             opponentAvatarUrl: item.avatar_url,
-            //             opponentLocation: item.department,
-            //             })
-            //         }
-            //         })
-            //         that.showMatchResult();
-            //         break;
-            //     case 'challengelimit':
-            //         that.cancelMatch();
-            //         Utils.showModal('提示', '今日的挑战次数已用完！', () => {
-            //             wx.navigateBack();
-            //         });
-            //         break;
-            // }
+            switch (msg.status) {
+                case 2||'2':  // 匹配成功
+                    // clearInterval(countUpTimerId);
+                    _this.setData({
+                        rivalInfo: {
+                            ...res.data.enemyUser,
+                            header: "../../assets/images/test/me_logo.png",
+                            name: "小白",
+                            score: 0
+                        },
+                        matchSuc: true,
+                        roomId: msg.data.roomid,
+                        questionIdList: msg.data.iusse
+                    });
+                    let timer = setTimeout(() => {
+                        clearTimeout(timer);
+                        _this.readyAnswer();
+                    }, 200);
+                    break;
+                case 'challengelimit':
+                    // that.cancelMatch();
+                    // Utils.showModal('提示', '今日的挑战次数已用完！', () => {
+                    //     wx.navigateBack();
+                    // });
+                    break;
+            }
         });
     },
     /**计算匹配用时 */
@@ -264,26 +257,15 @@ Page({
      * 没匹配成功之前放弃对战
      */
     fqAgainst: function() {
-        clearTimeout(match_timer);
-        match_timer = null;
         this.setData({
             isMatch: false
         })
-        let pages = getCurrentPages(); //当前页面
-        let beforePage = pages[pages.length - 2]; //前一页
-        wx.navigateBack({
-            success: function () {
-                beforePage.onLoad(); // 执行前一个页面的onLoad方法
-            }
-        });
+        wx.closeSocket();
     },
     /**
      * 开始匹配
      */
     startMatch() {
-        this.setData({
-            isMatch: true
-        });
         this.connectWebSocket();  // 建立socket连接，开始匹配
 
         // this.getrival();
@@ -310,7 +292,7 @@ Page({
         setTimeout(() => {
             this.drawCountdownBg();
             this.drawCountdownCircle();
-        }, 500)
+        }, 200);
         this.initQuestion();
     },
     /**绘制倒计时背景 */
