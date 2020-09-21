@@ -17,8 +17,10 @@
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
     "checkInvalidKey": true,
+    "uglifyFileName": false,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
     "useMultiFrameRuntime": false,
     "useApiHook": true,
     "babelSetting": {
@@ -64,12 +66,12 @@
       "list": []
     },
     "miniprogram": {
-      "current": -1,
+      "current": 0,
       "list": [
         {
-          "id": 0,
-          "name": "pages/fight/index",
-          "pathName": "pages/fight/index",
+          "id": -1,
+          "name": "登陆类型",
+          "pathName": "pages/loginType/loginType",
           "query": "",
           "scene": null
         },

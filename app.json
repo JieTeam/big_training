@@ -4,7 +4,13 @@
     "pages/logs/logs",
     "pages/fight/index",
     "pages/fight_result/index",
-    "pages/week/index"
+    "pages/week/index",
+    "pages/loginType/loginType",
+    "pages/login/login",
+    "pages/ranking/ranking",
+    "pages/adminIndex/adminIndex",
+    "pages/wrongQuestion/wrongQuestion",
+    "pages/record/record"
   ],
   "window": {
     "backgroundTextStyle": "light",

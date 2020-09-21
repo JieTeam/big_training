@@ -1,0 +1,109 @@
+page {
+  width: 100%;
+  height: 100%;
+}
+.bj-page{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.page__header{
+  background: #46d7b6;
+  border-radius: 0 0 30rpx 30rpx;
+  padding-bottom: 10rpx;
+  padding-top: 20rpx;
+}
+.ranking__person{
+  height: 160rpx;
+  width: 500rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 0 0 -80rpx 100rpx;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.ranking__person__headerpic {
+  height: 100rpx;
+  width: 100rpx;
+  margin: 0 20rpx 0 40rpx;
+}
+.ranking__person__headerpic image{
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+.ranking__person__des .name {
+  font-size: 30rpx;
+  color: #605e5f;
+  font-weight: 400;
+  line-height: 2;
+}
+.ranking__person__des .level{
+  display: flex;
+  color: #605e5f;
+  align-items: center;
+
+}
+.ranking__person__des .level image {
+  width: 60rpx;
+  height: 45rpx;
+}
+.level__content {
+  background: #e9bb99;
+  height: 33rpx;
+  border-radius: 0 15rpx 15rpx 0;
+  font-size: 24rpx;
+  color: #fff;
+  padding-right: 15rpx;
+}
+.page__content{
+  flex: 1;
+  height: 0;
+  overflow-y: auto;
+}
+.question__item{
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0px 6rpx 12rpx -4rpx rgba(0, 0, 0, 0.3);
+}
+.question__item__header{
+  font-size: 32rpx;
+  line-height: 1.5;
+  color: #3b393c;
+  margin-bottom: 30rpx;
+}
+.question__content__item{
+  padding: 20rpx 30rpx;
+  display: flex;
+  align-items: center;
+  line-height: 1.6;
+  font-size: 28rpx;
+  color: #434144;
+  font-weight: 400;
+  box-shadow: 0 3rpx 20rpx 3rpx rgba(0, 0, 0, 0.2);
+  border-radius: 15rpx;
+  margin-bottom: 15rpx;
+}
+.content__item__text{
+  flex: 1;
+  margin-right: 20rpx;
+}
+.content__item__icon {
+  font-size: 40rpx;
+}
+.content__item__icon.error{
+  color: #fc2920;
+}
+.content__item__icon.right{
+  color: #46d7b6;
+}
+.question__analysis{
+  padding: 30rpx 0;
+  font-size: 32rpx;
+  color: #3b393c;
+  line-height: 1.5;
+}

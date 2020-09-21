@@ -1,0 +1,43 @@
+<view class="bj-page">
+  <view class="page__header">
+    
+    <view class="ranking__person">
+      <view class="ranking__person__headerpic">
+        <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/miaS2lJxGUrbvRvvwdNn0iciaic2LWqFItdXjicicTEfrJMHgElUf4vibGicjlTwXQJt2jfdE7XicSzAyIYaEkmibhuEmibNw/132"></image>
+      </view>
+      <view class="ranking__person__des">
+        <view class="name">
+          张三
+        </view>
+        <view class="level">
+          <image src='/assets/images/grading.jpg'></image>
+          <view class="level__content">执法专家</view>
+        </view>
+      </view>
+      <view class="ranking__person__tips">
+        胜率83%
+      </view>
+    </view>
+  </view>
+  <view class="page__content" style="margin-top: 100rpx">
+    <view class="tab">
+      <view 
+        wx:for="{{rankingTabData}}" 
+        wx:key="index"
+        style="color: {{index === 0 ? '#95cde6': '#6d83b2'}}"
+        data-item="{{item}}"
+        bindtap="handleTab"
+        class="tab__item {{item.checked ? 'checked' : '' }}">
+        {{item.title}}
+      </view>
+    </view>
+    <view class="record__content">
+      <view class="record__item" wx:for="{{30}}">
+        <view class="record__item__block1">1</view>
+        <view wx:if="{{checkedType === 'matching'}}" class="record__item__block2 ">匹配对战</view>
+        <view wx:if="{{checkedType !== 'matching'}}" class="record__item__block2 week">每周一测</view>
+        <view class="record__item__block3 less">3</view>
+      </view>
+    </view>
+  </view>
+</view>

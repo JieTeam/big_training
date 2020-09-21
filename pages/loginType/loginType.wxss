@@ -1,0 +1,49 @@
+/**index.wxss**/
+
+page {
+  height: 100%;
+}
+.bj-page{
+  height: 100%;
+  position: relative;
+}
+.bj-page image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+.bj-loginType{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding-top: 200rpx; 
+}
+.bj-loginType__title{
+  font-size: 45rpx;
+  color: #46d7b6;
+  line-height: 1.7;
+}
+.bj-loginType__lawEn{
+  width: 380rpx !important;
+  font-size: 30rpx;
+  margin-top: 180rpx;
+  background: #46d7b6;
+  color: #fff;
+  border: 1rpx solid #46d7b6;
+  font-weight: 400;
+}
+.bj-loginType__public{
+  width: 380rpx !important;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  background: transparent;
+  border: 1rpx solid #46d7b6;
+  font-weight: 400;
+  color: #46d7b6;
+}
+button::after {
+  content: '';
+  border: 0;
+}

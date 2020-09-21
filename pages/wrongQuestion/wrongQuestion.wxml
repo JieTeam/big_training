@@ -1,0 +1,34 @@
+
+<view class="bj-page">
+  <view class="page__header">
+    <view class="ranking__person">
+      <view class="ranking__person__headerpic">
+        <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/miaS2lJxGUrbvRvvwdNn0iciaic2LWqFItdXjicicTEfrJMHgElUf4vibGicjlTwXQJt2jfdE7XicSzAyIYaEkmibhuEmibNw/132"></image>
+      </view>
+      <view class="ranking__person__des">
+        <view class="name">
+          张三
+        </view>
+        <view class="level">
+          <image src='/assets/images/grading.jpg'></image>
+          <view class="level__content">执法专家</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page__content" style="margin-top: 100rpx">
+   <view class="question__item" wx:for="{{5}}">
+     <view class="question__item__header">1.阿斯顿离开火箭发射了多款飞机哈里斯的减肥哈瞌睡的福利</view>
+     <view class="question__content__item">
+       <view class="content__item__text">
+        阿斯顿就放假了阿斯顿发接口啊
+       </view>
+       <view class="content__item__icon error iconfont icon-cuohao"></view>
+       <view class="content__item__icon right iconfont icon-zhengque"></view>
+     </view>
+     <view class="question__analysis">
+       解析: 阿斯顿了放假啊索朗多吉啊；是
+     </view>
+   </view>
+  </view>
+</view>

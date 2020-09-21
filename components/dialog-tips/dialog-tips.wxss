@@ -1,0 +1,49 @@
+@import '/assets/styles/iconfont';
+.dialog-tips{
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dialog-tips__content{
+  text-align: center;
+  width: 540rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dialog-tips__content__icon{
+  width: 150rpx;
+  height: 150rpx;
+  background: #46d7b6;
+  border-radius: 100%;
+  line-height: 150rpx;
+  color: #fff;
+  transform: translateY(-46%);
+}
+.dialog-tips__content__icon .iconfont {
+  font-size: 70rpx;
+  font-weight: 600;
+}
+.dialog-tips__content__tips{
+  font-size: 32rpx;
+  color: #46d7b6;
+  line-height: 1.8;
+}
+.dialog-tips__content_btn {
+  border: 4rpx #46d7b6 solid;
+  width: 220rpx;
+  padding: 10rpx 0;
+  margin-top: 50rpx;
+  margin-bottom: 30rpx;
+  border-radius: 40rpx;
+  color: #46d7b6;
+}
