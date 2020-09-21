@@ -8,50 +8,36 @@
         margin: 0 auto;
         background: #ffffff;
         border-radius: 20rpx;
-        padding: 140rpx 0 16rpx;
+        padding: 100rpx 0 46rpx;
         box-shadow: 0 4rpx 30rpx 10rpx rgba(0,0,0,0.08);
-        .me,.rival{
-            flex: 1;
-            padding: 0 68rpx;
-            .header {
-                image {
-                    height: 138rpx;
-                    width: 138rpx;
-                    border-radius: 50%;
-                }
-                .crown {
-                    width: 100%;
-                    left: 0;
-                    top: -58rpx;
-                    image {
-                        width: 76rpx;
-                        height: 60rpx;
-                    }
-                }
-            }
-            
-            .name {
-                padding: 30rpx 0;
+        .test-info {
+            .hint {
                 font-size: 32rpx;
+                color: #3b393c;
             }
             .score {
-                font-size: 34rpx;
-                color: #eeb50c;
+                font-size: 88rpx;
+                color: #f9b603;
+                padding: 50rpx 0 60rpx;
             }
-            .integral {
-                font-size: 24rpx;
-                color: #46d7b6;
-                padding: 24rpx 0;
-                &.error {
-                    color: #de5a68;
+            .info{
+                .item {
+                    flex: 1;
+                    .mark {
+                        font-size: 28rpx;
+                        padding: 0 0 16rpx;
+                        color: #686669;
+                    }
+                    .data {
+                        font-size: 50rpx;
+                        color: #46d7b6;
+                    }
                 }
-            }
-        }
-        .vs {
-            padding-top: 30rpx;
-            image {
-                width: 106rpx;
-                height: 72rpx;
+                .line {
+                    height: 70%;
+                    width: 2rpx;
+                    background: #46d7b6;
+                }
             }
         }
         .plate {

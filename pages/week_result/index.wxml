@@ -1,44 +1,27 @@
 <!--pages/week_result/index.wxml-->
 <view class="week_result b-sizing">
-    <view class="result pr df justBet ac">
-        <view class="me">
-            <view class="header">
-                <image src="{{meInfo.avatarUrl}}"></image>
-                <view 
-                    wx:if="{{meInfo.score>rivalInfo.score}}" 
-                    class="crown pa animated fadeInDown ac"
-                >
-                    <image src="../../assets/images/fight_result/crown.png"></image>
+    <view class="result pr ac">
+        <view class="test-info">
+            <view class="hint">得分</view>
+            <view class="score fw800">{{score}}</view>
+            <view class="info df pr">
+                <view class="accuracy item ac">
+                    <view class="mark">正确题目</view>
+                    <view class="data fw900">{{accuracy}}</view>
                 </view>
-            </view>
-            <view class="name">{{meInfo.nickName}}</view>
-            <view class="score fw600">{{meInfo.score}}分</view>
-            <view class="{{(meInfo.score>=rivalInfo.score?'':'error')+' integral fw600'}}">{{meInfo.score>=rivalInfo.score?'+1':'-1'}}积分</view>
-        </view>
-        <view class="vs">
-            <image src="../../assets/images/fight_result/vs_res.png"></image>
-        </view>
-        <view class="rival pr">
-            <view class="header">
-                <image src="{{rivalInfo.header}}"></image>
-                <view 
-                    wx:if="{{meInfo.score<rivalInfo.score}}" 
-                    class="crown pa animated fadeInDown"
-                >
-                    <image src="../../assets/images/fight_result/crown.png"></image>
+                <view class="time item ac">
+                    <view class="mark">时间</view>
+                    <view class="data fw900">{{time}}</view>
                 </view>
+                <view class="line tCenter"></view>
             </view>
-            <view class="name">{{rivalInfo.name}}</view>
-            <view class="score fw600">{{rivalInfo.score}}分</view>
-            <view class="{{(meInfo.score<=rivalInfo.score?'':'error')+' integral fw600'}}">{{meInfo.score<=rivalInfo.score?'+1':'-1'}}积分</view>
         </view>
         <view wx:if="{{plate}}" class="plate pa animated fadeInDown">
             <image src="{{plate}}"></image>
         </view>
     </view>
-    <view class="btn-box df justBet">
-        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" bindtap="reGame">再来一局</button>
-        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" bindtap="share">分享荣耀</button>
+    <view class="btn-box df justCen">
+        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" bindtap="back">返回</button>
     </view>
     <view class="rule">
         规则：执法学徒、执法新兵，失败-0积分，获胜+1积分，平局不加不扣；执法骨干、执法先锋、执法专家，失败-1积分，获胜+1积分，平局不加不扣；

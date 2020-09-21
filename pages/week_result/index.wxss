@@ -9,57 +9,34 @@
   margin: 0 auto;
   background: #ffffff;
   border-radius: 20rpx;
-  padding: 140rpx 0 16rpx;
+  padding: 100rpx 0 46rpx;
   box-shadow: 0 4rpx 30rpx 10rpx rgba(0, 0, 0, 0.08);
 }
-.week_result .result .me,
-.week_result .result .rival {
-  flex: 1;
-  padding: 0 68rpx;
-}
-.week_result .result .me .header image,
-.week_result .result .rival .header image {
-  height: 138rpx;
-  width: 138rpx;
-  border-radius: 50%;
-}
-.week_result .result .me .header .crown,
-.week_result .result .rival .header .crown {
-  width: 100%;
-  left: 0;
-  top: -58rpx;
-}
-.week_result .result .me .header .crown image,
-.week_result .result .rival .header .crown image {
-  width: 76rpx;
-  height: 60rpx;
-}
-.week_result .result .me .name,
-.week_result .result .rival .name {
-  padding: 30rpx 0;
+.week_result .result .test-info .hint {
   font-size: 32rpx;
+  color: #3b393c;
 }
-.week_result .result .me .score,
-.week_result .result .rival .score {
-  font-size: 34rpx;
-  color: #eeb50c;
+.week_result .result .test-info .score {
+  font-size: 88rpx;
+  color: #f9b603;
+  padding: 50rpx 0 60rpx;
 }
-.week_result .result .me .integral,
-.week_result .result .rival .integral {
-  font-size: 24rpx;
+.week_result .result .test-info .info .item {
+  flex: 1;
+}
+.week_result .result .test-info .info .item .mark {
+  font-size: 28rpx;
+  padding: 0 0 16rpx;
+  color: #686669;
+}
+.week_result .result .test-info .info .item .data {
+  font-size: 50rpx;
   color: #46d7b6;
-  padding: 24rpx 0;
 }
-.week_result .result .me .integral.error,
-.week_result .result .rival .integral.error {
-  color: #de5a68;
-}
-.week_result .result .vs {
-  padding-top: 30rpx;
-}
-.week_result .result .vs image {
-  width: 106rpx;
-  height: 72rpx;
+.week_result .result .test-info .info .line {
+  height: 70%;
+  width: 2rpx;
+  background: #46d7b6;
 }
 .week_result .result .plate {
   top: -170rpx;

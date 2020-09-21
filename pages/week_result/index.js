@@ -7,8 +7,10 @@ Page({
      */
     data: {
         meInfo: null,
-        rivalInfo: null,
-        plate: null
+        score: 520,
+        plate: null,
+        accuracy: "26/30",
+        time: "05:20"
     },
 
     /**
@@ -79,12 +81,8 @@ Page({
             },
         })
         setTimeout(() => {
-            const meScore = this.data.meInfo.score, 
-            rivalScore = this.data.rivalInfo.score;
             this.setData({
-                plate: meScore>rivalScore? "../../assets/images/fight_result/done.png":
-                       meScore==rivalScore ? "../../assets/images/fight_result/draw.png":
-                       "../../assets/images/fight_result/filed.png"
+                plate: "../../assets/images/fight_result/done.png"
             })
         }, 500);
     }
