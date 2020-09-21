@@ -1,0 +1,87 @@
+.week_result {
+    width: 100%;
+    min-height: 100%;
+    background: #46d7b6;
+    padding-top: 240rpx;
+    .result {
+        width: 670rpx;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 20rpx;
+        padding: 140rpx 0 16rpx;
+        box-shadow: 0 4rpx 30rpx 10rpx rgba(0,0,0,0.08);
+        .me,.rival{
+            flex: 1;
+            padding: 0 68rpx;
+            .header {
+                image {
+                    height: 138rpx;
+                    width: 138rpx;
+                    border-radius: 50%;
+                }
+                .crown {
+                    width: 100%;
+                    left: 0;
+                    top: -58rpx;
+                    image {
+                        width: 76rpx;
+                        height: 60rpx;
+                    }
+                }
+            }
+            
+            .name {
+                padding: 30rpx 0;
+                font-size: 32rpx;
+            }
+            .score {
+                font-size: 34rpx;
+                color: #eeb50c;
+            }
+            .integral {
+                font-size: 24rpx;
+                color: #46d7b6;
+                padding: 24rpx 0;
+                &.error {
+                    color: #de5a68;
+                }
+            }
+        }
+        .vs {
+            padding-top: 30rpx;
+            image {
+                width: 106rpx;
+                height: 72rpx;
+            }
+        }
+        .plate {
+            top: -170rpx;
+            left: calc(50% - 267rpx);
+            image {
+                width: 534rpx;
+                height: 238rpx;
+            }
+        }
+    }
+    .btn-box {
+        padding: 50rpx 40rpx 90rpx;
+        min-height: 80rpx;
+        .result-btn {
+            border-radius: 80rpx;
+            font-size: 34rpx;
+            line-height: 34rpx;
+            padding: 12rpx 0;
+            width: 280rpx;
+            background-color: transparent;
+            border: 10rpx solid #ffffff;
+            color:#fff;
+            font-weight: 300;
+        }
+    }
+    .rule {
+        padding: 0 40rpx;
+        font-size: 24rpx;
+        line-height: 34rpx;
+        color: rgba(255,255,255,0.5);
+    }
+}

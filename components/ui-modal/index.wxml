@@ -1,2 +1,12 @@
 <!--components/ui-modal/index.wxml-->
-<text>components/ui-modal/index.wxml</text>
+<view class="my-modal pf" wx:if="{{visible}}">
+    <!-- <view class="layer"></view> -->
+    <view class="content tCenter al-center justCen">
+        <view class="{{status+' title'}}">
+            {{title}}
+        </view>
+        <view class="{{status+' icon tHorCenter ac'}}">
+            <text class="{{(status=='success'?'icon-zhengque':'icon-cuohao')+' iconfont'}}"></text>
+        </view>
+    </view>
+</view>

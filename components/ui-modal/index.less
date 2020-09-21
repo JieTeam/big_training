@@ -1,0 +1,42 @@
+.my-modal {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    .content {
+        width: 480rpx;
+        min-height: 284rpx;
+        padding: 20rpx;
+        border-radius: 10rpx;
+        background: #ffffff;
+        overflow: initial;
+        .title {
+            &.success {
+                color: #02dab5;
+            }
+            &.error {
+                color: #dd2d53;
+            }
+        }
+    }
+    .icon {
+        width: 145rpx;
+        height: 145rpx;
+        top: -70rpx;
+        border-radius: 50%;
+        line-height: 145rpx;
+        &.success {
+            background: #02dab5;
+        }
+        &.error {
+            background: #dd2d53;
+        }
+        .iconfont {
+            font-size: 60rpx;
+            color: #ffffff;
+            
+        }
+    }
+}

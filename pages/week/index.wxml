@@ -16,7 +16,7 @@
                 </view>
             </view>
             <view class="countDown-box">
-                <view class="timer animation pr">
+                <view class="timer animation pr" wx:if="{{!subSuc}}">
                     <canvas class="countDown-bg" type="2d" id="countdownBg"></canvas>
                     <canvas class='countDown pa' type="2d" id="countDown"></canvas>
                 </view>
@@ -50,9 +50,9 @@
                 </view>
             </view>
             <view class="topic-footer df justAround">
-                <button wx:if="{{questionIndex>0}}" type="primary" class="switch-btn" bindtap="prevTopic">下一题</button>
-                <button wx:if="{{questionIndex<questionIdList.length-1}}" type="primary" class="switch-btn" bindtap="nextTopic">下一题</button>
-                <button wx:else type="primary" class="switch-btn" bindtap="submitAnswer">提交</button>
+                <button wx:if="{{questionIndex>0}}" type="primary" class="switch-btn b-sizing" bindtap="prevTopic">下一题</button>
+                <button wx:if="{{questionIndex<questionIdList.length-1}}" type="primary" class="switch-btn b-sizing" bindtap="nextTopic">下一题</button>
+                <button type="primary" class="switch-btn b-sizing" bindtap="submitAnswer">提交</button>
             </view>
         </view>
     </view>
@@ -68,5 +68,5 @@
             <view class="hint">试题抽取中</view>
         </view>
     </view>
-    
+    <ui-modal id="myModal"></ui-modal>
 </view>

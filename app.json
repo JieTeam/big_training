@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/fight/index",
     "pages/fight_result/index",
-    "pages/week/index"
+    "pages/week/index",
+    "pages/week_result/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,1 +1,39 @@
-/* components/ui-modal/index.wxss */
+.my-modal {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+.my-modal .content {
+  width: 480rpx;
+  min-height: 284rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  background: #ffffff;
+  overflow: initial;
+}
+.my-modal .content .title.success {
+  color: #02dab5;
+}
+.my-modal .content .title.error {
+  color: #dd2d53;
+}
+.my-modal .icon {
+  width: 145rpx;
+  height: 145rpx;
+  top: -70rpx;
+  border-radius: 50%;
+  line-height: 145rpx;
+}
+.my-modal .icon.success {
+  background: #02dab5;
+}
+.my-modal .icon.error {
+  background: #dd2d53;
+}
+.my-modal .icon .iconfont {
+  font-size: 60rpx;
+  color: #ffffff;
+}

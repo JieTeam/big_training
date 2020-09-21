@@ -9,7 +9,6 @@ Page({
      */
     data: {
         meInfo: null,
-
         done: false, // 是否加载完成
         progress: 0, // 加载进度
 
@@ -21,6 +20,7 @@ Page({
         answerList: [], //当前题目答案选项
         questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
         questionIndex: 0, //当前答题数组下标
+        subSuc: false
     },
 
     /**
@@ -33,14 +33,13 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+        this.myModal = this.selectComponent('#myModal');
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.getToPic();
-        this.setLoad();
         this.resetPage();
     },
 
@@ -214,8 +213,7 @@ Page({
     startCountdown(callback) {
         let that = this;
         let step = 30*60; // 计数动画次数
-
-        that.drawLoadCircle('#countdownBg', 0, 2 * Math.PI, 10, '#03d6b3');
+        that.drawLoadCircle('#countdownBg', 0, 2 * Math.PI, 10, 'rgba(255,255,255,0.4)');
         // 动画函数
         function animation() {
             if (step > 1) { // 30分钟
@@ -233,9 +231,25 @@ Page({
         typeof callback == 'function' && callback();
     },
     resetPage() {
+        const that = this;
         this.setData({
-            meInfo: app.globalData.userInfo
+            meInfo: app.globalData.userInfo,
+            done: false, // 是否加载完成
+            progress: 0, // 加载进度
+
+            subject: '', //当前题目名
+            questionType: '', //题目类型 0：单选，1：多选
+            questionTypeId: '', //题目类型ID
+            questionId: '', // 当前题目ID
+            questionImageUrl: '', //题目图片地址
+            answerList: [], //当前题目答案选项
+            questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
+            questionIndex: 0, //当前答题数组下标
         })
+        setTimeout(function(){
+            that.getToPic();
+            that.setLoad();
+        }, 500);
     },
     /**
      * 选择答案
@@ -259,6 +273,16 @@ Page({
      * 提交答案
      */
     submitAnswer() {
-        
+        this.setData({
+            subSuc: true
+        })
+        this.myModal.showModal("提交成功");
+        clearInterval(countdownId);
+        setTimeout(() => {
+            this.myModal.hideModal();
+            wx.redirectTo({
+                url: '../week_result/index'
+            })
+        }, 500);
     }
 })

@@ -19,16 +19,7 @@ Page({
         matchSuc: false, // 是否匹配成功
         isMatch: false, // 匹配
         enterAnswer: false, // 是否进入答题
-        // meInfo: {
-        //     header: "../../assets/images/test/logo.jpg",
-        //     name: "水木青蓝",
-        //     score: 60
-        // },
-        // rivalInfo: {
-        //     header: "../../assets/images/test/me_logo.png",
-        //     name: "小白",
-        //     score: 80
-        // },
+
         roomId: null, // 匹配房间id
         gameTime: 10, // 倒计时总时间（秒）
         userAnswerResultClass: '', // 用户选择答案的样式
@@ -147,6 +138,7 @@ Page({
         let that = this;
         wx.onSocketOpen(res => {
             // that.sendHeartBeat();  // 发送心跳
+            Utils.hideLoading();
             this.setData({
                 isMatch: true
             });
@@ -162,6 +154,7 @@ Page({
         })
         wx.onSocketError(res => {
             clearInterval(heartbeatTimerId);
+            Utils.hideLoading();
             Utils.showModal('提示', '连接到服务器失败', () => {
                 wx.closeSocket();
                 // that.connectWebSocket();
@@ -266,6 +259,7 @@ Page({
      * 开始匹配
      */
     startMatch() {
+        Utils.showLoading('');
         this.connectWebSocket();  // 建立socket连接，开始匹配
 
         // this.getrival();
@@ -278,8 +272,45 @@ Page({
                 score: 0
             },
             rivalInfo: null,
-            matchSuc: false,
-            isMatch: false
+            matchSuc: false, // 是否匹配成功
+            isMatch: false, // 匹配
+            enterAnswer: false, // 是否进入答题
+            
+            roomId: null, // 匹配房间id
+            gameTime: 10, // 倒计时总时间（秒）
+            userAnswerResultClass: '', // 用户选择答案的样式
+            userAnswerResult: [], // 用户答题结果记录，答对1，答错0
+            
+            isAnswerLoaded: false, // 答案是否加载完成（动画完成）
+
+            subject: '人们常说：“无事不登三宝殿”中的“三宝”是指哪三宝？', //当前题目名
+            questionType: '1', //题目类型 0：单选，1：多选
+            questionTypeId: '', //题目类型ID
+            questionId: '', // 当前题目ID
+            questionImageUrl: '', //题目图片地址
+            answerList: [
+                {
+                    answer: "A、纸、砚、笔",
+                    id: 0
+                },
+                {
+                    answer: "B、佛、法、僧",
+                    id: 1
+                },
+                {
+                    answer: "C、书、剑、琴",
+                    id: 2
+                },
+                {
+                    answer: "D、金、银、玉",
+                    id: 3
+                }
+            ], //当前题目答案选项
+            questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
+            questionIndex: 0, //当前答题数组下标
+
+            isGameOver: false, // 游戏是否正常结束
+            showGameResult: false  // 是否显示比赛结果
         })
     },
     /**
