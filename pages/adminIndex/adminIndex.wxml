@@ -1,0 +1,46 @@
+<!--pages/adminIndex/adminIndex.wxml-->
+<view class="adminIndex">
+  <view class="title">排行榜</view>
+  <view class="national-ranking">
+    <text>全国排行榜</text>
+    <image class="national-ranking_icon" src="/assets/images/person1.png"></image>
+  </view>
+  <view class="national-ranking province-ranking">
+    <image class="province-ranking_icon" src="/assets/images/person2.png"></image>
+    <text>本省战况</text>
+  </view>
+  <view class="bottom-fun">
+      <view class="bottom-fun_result" bindtap="rulesBoxShow">
+          <text class="bottom-fun_icon">图</text>
+          <text>赛制规则</text>
+      </view>
+      <view class="bottom-fun_result">
+          <text class="bottom-fun_icon">图</text>
+          <text>分享</text>
+      </view>
+  </view>
+</view>
+<view class="modal" hidden="{{!rulesBox}}">
+  <view class="rules-box">
+    <view class="rules-box_title">
+      赛制规则
+    </view>
+    <view class="rules-box_text">
+      <view class="text_p">
+        <view>
+          1.“匹配对战”模式
+        </view>
+        本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动
+      </view>
+      <view class="text_p">
+        <view>
+          2.“匹配对战”模式
+        </view>
+        本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动
+      </view>
+    </view>
+    <view class="rules-box_close" bindtap="rulesBoxShow">
+      关
+    </view>
+  </view>
+</view>

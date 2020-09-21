@@ -1,0 +1,121 @@
+/* pages/adminIndex/adminIndex.wxss */
+page {
+  width: 100%;
+  height: 100%;
+}
+.adminIndex {
+  width: 100%;
+  height: 100%;
+}
+.title {
+  width: 100%;
+  height: 145rpx;
+  background: #46d7b6;
+  border-radius: 0 0 30rpx 30rpx;
+  text-align: center;
+  font-size: 70rpx;
+  color: #fff;
+}
+.national-ranking {
+  position: relative;
+  width: 617rpx;
+  height: 168rpx;
+  background: #77d9fe;
+  margin: 76rpx auto 0;
+  border-radius: 25rpx;
+  text-align: center;
+  line-height: 168rpx;
+  font-size: 36rpx;
+  color: #e8ffff;
+}
+.national-ranking_icon {
+  width: 123rpx;
+  height: 120rpx;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.national-ranking.province-ranking {
+  background: #fdcc7f;
+  margin-top: 65rpx;
+}
+.province-ranking_icon {
+  width: 123rpx;
+  height: 120rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.bottom-fun {
+  width: 100%;
+  height: 35rpx;
+  position: absolute;
+  left: 0;
+  bottom: 3%;
+  padding: 0 80rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.bottom-fun_result {
+  font-size: 28rpx;
+  color: #46d7b6;
+  line-height: 35rpx;
+}
+.bottom-fun_icon {
+  margin-right: 4rpx;
+}
+/* 规则弹框 */
+.modal {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .4);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.rules-box {
+  width: 79%;
+  height: 81%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 37rpx;
+  overflow: hidden;
+}
+.rules-box_title {
+  width: 100%;
+  height: 85rpx;
+  background: #46d7b6;
+  border-radius: 37rpx 37rpx 0 0;
+  text-align: center;
+  font-size: 26rpx;
+  color: #cafffe;
+  line-height: 85rpx;
+}
+.rules-box_text {
+  width: 100%;
+  height: 90%;
+  box-sizing: border-box;
+  padding: 0 36rpx;
+  overflow: scroll;
+  font-size: 24rpx;
+  color: #58585a;
+}
+.text_p {
+  margin-top: 30rpx;
+}
+.rules-box_close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 23rpx;
+  right: 23rpx;
+  font-size: 26rpx;
+  color: #cafffe;
+}

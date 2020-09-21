@@ -1,4 +1,4 @@
-//index.js
+// pages/adminIndex/adminIndex.js
 Page({
 
   /**
@@ -7,28 +7,7 @@ Page({
   data: {
     rulesBox: false
   },
-  go(e) {
-    const type = e.currentTarget.dataset.type || e.target.dataset.type
-    console.log('>> e', e)
-    let url = null
-    switch (type) {
-      case 'ranking':
-        url = '/pages/ranking/ranking'
-        break;
-      case 'wrongQuestion':
-        url = '/pages/wrongQuestion/wrongQuestion'
-        break;
-      case 'record':
-        url = '/pages/record/record'
-        break;
-      default:
-        break;
-    }
-    if (!url) return
-    wx.navigateTo({
-      url,
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

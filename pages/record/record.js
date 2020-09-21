@@ -1,32 +1,37 @@
-//index.js
+// pages/record/record.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    rulesBox: false
+    checkedType: 'matching',
+    rankingTabData: [
+      {
+        title: '匹配对战',
+        type: 'matching',
+        checked: true,
+      },
+      {
+        title: '每周一测',
+        type: 'week',
+      },
+    ],
   },
-  go(e) {
-    const type = e.currentTarget.dataset.type || e.target.dataset.type
-    console.log('>> e', e)
-    let url = null
-    switch (type) {
-      case 'ranking':
-        url = '/pages/ranking/ranking'
-        break;
-      case 'wrongQuestion':
-        url = '/pages/wrongQuestion/wrongQuestion'
-        break;
-      case 'record':
-        url = '/pages/record/record'
-        break;
-      default:
-        break;
-    }
-    if (!url) return
-    wx.navigateTo({
-      url,
+  handleTab(e) {
+    const currentItem = e.target.dataset.item;
+    this.setData({
+      checkedType: currentItem.type
+    })
+    const newTabData = this.data.rankingTabData.map((item) => {
+      item.checked = false
+      if (item.type === currentItem.type) {
+        item.checked = true
+      }
+      return item;
+    })
+    this.setData({
+      rankingTabData: newTabData
     })
   },
   /**
@@ -35,11 +40,7 @@ Page({
   onLoad: function (options) {
 
   },
-  rulesBoxShow () {
-    this.setData({
-      rulesBox: !this.data.rulesBox
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

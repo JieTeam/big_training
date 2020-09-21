@@ -1,14 +1,95 @@
 <!--index.wxml-->
-<view class="container">
-    <view class="userinfo">
-        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-        <block wx:else>
-            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </block>
+<view class="home-container">
+  <view class="top"> 
+    <view class="top_userinfo">
+     <view class="userinfo_left">
+        <image class="headimg" src="https://thirdwx.qlogo.cn/mmopen/vi_32/miaS2lJxGUrbvRvvwdNn0iciaic2LWqFItdXjicicTEfrJMHgElUf4vibGicjlTwXQJt2jfdE7XicSzAyIYaEkmibhuEmibNw/132"></image>
+     </view>
+     <view class="userinfo_right">
+        <view class="userName">张三</view>
+        <view class="other_info">
+          <view class="identity">
+            <view class="identity_icon">
+              <image class="icon_img" src="/assets/images/xc.png"/>
+            </view>
+            <view class="identity_name">执法专家五级</view>
+          </view>
+          <view class="result">
+            <view class="result_left">9胜1负</view>
+            <view class="result_right">500分</view>
+          </view>
+        </view>
+     </view>
     </view>
-    <view class="usermotto">
-        <text class="iconfont icon-huangguan" style="color: lightblue;"></text>
-        <text class="user-motto">{{motto}}</text>
+    <view class="ranking-list" data-type="ranking" bindtap="go">
+      <text class="ranking-list_icon">
+        <text class="iconfont icon-huangguan"></text>
+      </text>
+      <text class="ranking-list_name" >排行榜</text>
     </view>
+  </view>
+  <view class="bottom-entry">
+    <view class="entry_list">
+        <view class="pk-entry">
+            <image class="pk-entry_img" src="/assets/images/dz.jpg"></image>
+            <view class="pk-entry_text">匹配对战</view>
+        </view>
+        <view class="pk-entry test">
+            <image class="pk-entry_img" src="/assets/images/weektest.jpg"></image>
+            <view class="pk-entry_text">每周一测</view>
+        </view>
+        <view class="pk-entry knowledge">
+            <image class="pk-entry_img" src="/assets/images/topics.jpg"></image>
+            <view class="pk-entry_text">知识库</view>
+        </view>
+        <view class="pk-entry wrongTopic" data-type="wrongQuestion" bindtap="go">
+            <image class="pk-entry_img" src="/assets/images/errors.jpg"></image>
+            <view class="pk-entry_text">错题库</view>
+        </view>
+    </view>
+  </view>
+  <view class="bottom-fun">
+      <view class="bottom-fun_result" data-type="record" bindtap="go">
+          <text class="bottom-fun_icon">
+            <text class="iconfont icon-jinggao"></text>
+          </text>
+          <text>战绩</text>
+      </view>
+      <view class="bottom-fun_result" bindtap="rulesBoxShow">
+          <text class="bottom-fun_icon">
+            <text class="iconfont icon-tishi"></text>
+          </text>
+          <text>赛制规则</text>
+      </view>
+      <view class="bottom-fun_result">
+          <text class="bottom-fun_icon">
+            <text class="iconfont icon-fenxiang"></text>
+          </text>
+          <text>分享</text>
+      </view>
+  </view>
+</view>
+<view class="modal" hidden="{{!rulesBox}}">
+  <view class="rules-box">
+    <view class="rules-box_title">
+      赛制规则
+    </view>
+    <view class="rules-box_text">
+      <view class="text_p">
+        <view>
+          1.“匹配对战”模式
+        </view>
+        本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动
+      </view>
+      <view class="text_p">
+        <view>
+          2.“匹配对战”模式
+        </view>
+        本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动本模式为常规活动
+      </view>
+    </view>
+    <view class="rules-box_close" bindtap="rulesBoxShow">
+      x
+    </view>
+  </view>
 </view>

@@ -1,45 +1,42 @@
-//index.js
+// pages/loginType/loginType.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    rulesBox: false
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isAuthSetting: false,
   },
-  go(e) {
-    const type = e.currentTarget.dataset.type || e.target.dataset.type
-    console.log('>> e', e)
-    let url = null
-    switch (type) {
-      case 'ranking':
-        url = '/pages/ranking/ranking'
-        break;
-      case 'wrongQuestion':
-        url = '/pages/wrongQuestion/wrongQuestion'
-        break;
-      case 'record':
-        url = '/pages/record/record'
-        break;
-      default:
-        break;
-    }
-    if (!url) return
+
+  getUserInfo: function(e) {
+    console.log('执法人员', e)
+    // app.globalData.userInfo = e.detail.userInfo
+    // this.setData({
+    //   userInfo: e.detail.userInfo,
+    //   hasUserInfo: true
+    // })
+    const type = 'law'
+    this.goLoginPage(type)
+  },
+  getUserInfoPublic(e) {
+    console.log('>>> 公众',  e.detail.userInfo)
+    const type = 'public'
+    this.goLoginPage(type)
+  },
+  goLoginPage(type) {
     wx.navigateTo({
-      url,
-    })
+      url: `/pages/login/login?type=${type}`,
+    })    
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
   },
-  rulesBoxShow () {
-    this.setData({
-      rulesBox: !this.data.rulesBox
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
