@@ -1,26 +1,34 @@
 // pages/fight/index.js
-const App = getApp();
+const app = getApp();
 const Utils = require('../../utils/util.js');
+let match_timer = null; // 匹配计时器
 const START_ANGLE = 1.5 * Math.PI; // 起始弧度，单位弧度（在3点钟方向）
 const END_ANGLE = -0.5 * Math.PI; // 终止弧度
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
+let heartbeatTimerId = null; // 心跳计时器
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        meInfo: {
-            header: "../../assets/images/test/logo.jpg",
-            name: "水木青蓝",
-            score: 60
-        },
-        rivalInfo: {
-            header: "../../assets/images/test/me_logo.png",
-            name: "小白",
-            score: 80
-        },
+        hint: "匹配中...",
+        meInfo: null,
+        rivalInfo: null,
+        matchSuc: false, // 是否匹配成功
+        isMatch: false, // 匹配
+        enterAnswer: false, // 是否进入答题
+        // meInfo: {
+        //     header: "../../assets/images/test/logo.jpg",
+        //     name: "水木青蓝",
+        //     score: 60
+        // },
+        // rivalInfo: {
+        //     header: "../../assets/images/test/me_logo.png",
+        //     name: "小白",
+        //     score: 80
+        // },
         gameTime: 10, // 倒计时总时间（秒）
         userAnswerResultClass: '', // 用户选择答案的样式
         userAnswerResult: [], // 用户答题结果记录，答对1，答错0
@@ -68,18 +76,14 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        setTimeout(() => {
-            this.drawCountdownBg();
-            this.drawCountdownCircle();
-        }, 500)
-        this.initQuestion();
+        
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        this.resetPage();
     },
 
     /**
@@ -124,6 +128,190 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+    /**连接websocket */
+    connectWebSocket() {
+        console.log(app.globalData.userInfo);
+        let that = this;
+        wx.connectSocket({
+            url: Utils.service.wsUrl + '/' + app.globalData.userInfo.openid + '/0',
+            success: res => {
+                console.log("建立连接")
+                that.initWebSocketListener();
+            }
+        });
+    },
+    /**初始化websocket监听 */
+    initWebSocketListener() {
+        let that = this;
+        wx.onSocketOpen(res => {
+            // that.sendHeartBeat();  // 发送心跳
+            // 开始匹配对手
+            wx.sendSocketMessage(
+                JSON.stringify({
+                    status: 1,
+                    data: null
+                })
+            )
+            // that.initCountUp();
+        })
+        wx.onSocketError(res => {
+            clearInterval(heartbeatTimerId);
+            Utils.showModal('提示', '连接到服务器失败', () => {
+                wx.closeSocket();
+                that.connectWebSocket();
+            });
+        })
+        wx.onSocketClose(res => {
+            clearInterval(heartbeatTimerId);
+        })
+        wx.onSocketMessage(res => {
+            var msg = JSON.parse(res.data);
+            console.log("msg==>",msg);
+            // _this.setData({
+            //     rivalInfo: {
+            //         header: "../../assets/images/test/me_logo.png",
+            //         name: "小白",
+            //         score: 0
+            //     },
+            //     matchSuc: true
+            // })
+            // let timer1 = setTimeout(function() {
+            //     clearTimeout(timer1);
+            //     timer1 = null;
+            //     _this.readyAnswer();
+            // },1500)
+
+
+            // switch (msg.returnMessage) {
+            //     case 'rankroom': // 推送匹配结果
+            //         clearInterval(countUpTimerId);
+            //         that.setData({
+            //         isMatched: true,
+            //         roomId: msg.returnData.roomid,
+            //         })
+            //         msg.returnData.userinfos.forEach(item => {
+            //         if (item.openid != App.globalData.openid) {
+            //             that.setData({
+            //             opponentName: item.name,
+            //             opponentAvatarUrl: item.avatar_url,
+            //             opponentLocation: item.department,
+            //             })
+            //         }
+            //         })
+            //         that.showMatchResult();
+            //         break;
+            //     case 'challengelimit':
+            //         that.cancelMatch();
+            //         Utils.showModal('提示', '今日的挑战次数已用完！', () => {
+            //             wx.navigateBack();
+            //         });
+            //         break;
+            // }
+        });
+    },
+    /**计算匹配用时 */
+    initCountUp() {
+        countUpTimerId = setInterval(() => {
+            let costTime = this.data.matchingCostTime;
+            this.setData({
+                matchingCostTime: costTime + 1
+            })
+
+            if (this.data.matchingCostTime == 15 && !this.data.isMatched) {
+                this.cancelMatch();
+                Utils.showModal('提示', '当前段位匹配人数不足，请选择其他段位进行匹配！', () => {
+                    wx.navigateBack();
+                })
+            }
+        }, 1000)
+    },
+    /**发送心跳 */
+    sendHeartBeat() {
+        heartbeatTimerId = setInterval(() => {
+            wx.sendSocketMessage({
+                data: JSON.stringify({
+                    interfaceName: 'heart',
+                    param: {}
+                })
+            })
+        }, 5000);
+    },
+    /**
+     * 匹配
+     */
+    getrival: function () {
+        const _this = this;
+        match_timer = setTimeout(function(){
+            clearTimeout(match_timer);
+            match_timer = null;
+            _this.setData({
+                rivalInfo: {
+                    header: "../../assets/images/test/me_logo.png",
+                    name: "小白",
+                    score: 0
+                },
+                matchSuc: true
+            })
+            let timer1 = setTimeout(function() {
+                clearTimeout(timer1);
+                timer1 = null;
+                _this.readyAnswer();
+            },1500)
+        },3000)
+    },
+    /**
+     * 没匹配成功之前放弃对战
+     */
+    fqAgainst: function() {
+        clearTimeout(match_timer);
+        match_timer = null;
+        this.setData({
+            isMatch: false
+        })
+        let pages = getCurrentPages(); //当前页面
+        let beforePage = pages[pages.length - 2]; //前一页
+        wx.navigateBack({
+            success: function () {
+                beforePage.onLoad(); // 执行前一个页面的onLoad方法
+            }
+        });
+    },
+    /**
+     * 开始匹配
+     */
+    startMatch() {
+        this.setData({
+            isMatch: true
+        });
+        this.connectWebSocket();  // 建立socket连接，开始匹配
+
+        // this.getrival();
+    },
+    resetPage() {
+        this.setData({
+            hint: "匹配中...",
+            meInfo: {
+                ...app.globalData.userInfo,
+                score: 0
+            },
+            rivalInfo: null,
+            matchSuc: false,
+            isMatch: false
+        })
+    },
+    /**
+     * 进入答题
+     */
+    readyAnswer() {
+        this.setData({
+            enterAnswer: true
+        })
+        setTimeout(() => {
+            this.drawCountdownBg();
+            this.drawCountdownCircle();
+        }, 500)
+        this.initQuestion();
     },
     /**绘制倒计时背景 */
     drawCountdownBg() {

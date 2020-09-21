@@ -6,5 +6,5 @@ const http = state ? formal : test; // 最终使用
 
 // 登录
 export function getLogin(params) {
-  return Api.result(params, 'GET', http + '/api').then(res => res);
+  return Api.request('GET', 'https://api.weixin.qq.com/sns/jscode2session', params).then(res => res);
 }

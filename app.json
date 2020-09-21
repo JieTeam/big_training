@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/matching/index",
     "pages/fight/index",
     "pages/fight_result/index",
     "pages/week/index"

@@ -1,5 +1,6 @@
 const moment = require('moment');
 const numeral = require('numeral');
+const request = require('./request');
 // 系统参数
 const systemInfo = wx.getSystemInfoSync();
 
@@ -49,6 +50,10 @@ module.exports = {
     DEFAULT_HEADER_HEIGHT: 46, // systemInfo.screenHeight - systemInfo.windowHeight - systemInfo.statusBarHeight
     DEFAULT_CONTENT_HEIGHT: systemInfo.screenHeight - systemInfo.statusBarHeight - wx.DEFAULT_HEADER_HEIGHT,
     IS_APP: true,
+    service: {
+        wsUrl: `ws://10.134.62.106:80/websocket`,
+    },
+    request: request,
     throttle: throttle,
     isNullOrUndefined: isNullOrUndefined,
     dateFormat: dateFormat,

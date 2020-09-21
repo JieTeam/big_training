@@ -238,13 +238,25 @@ Page({
         })
     },
     /**
+     * 选择答案
+     */
+    selAnswer() {
+        
+    },
+    /**
      * 下一题
      */
     nextTopic() {
         console.log("下一题")
     },
     /**
-     * 选择答案
+     * 上一题
+     */
+    prevTopic() {
+        console.log("上一题")
+    },
+    /**
+     * 提交答案
      */
     submitAnswer() {
         

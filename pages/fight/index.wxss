@@ -1,94 +1,170 @@
-.fight {
+.fight-box {
   height: 100%;
   width: 100%;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  color: #dafffe;
   background-color: #46d7b6;
 }
-.fight .both .me-box,
-.fight .both .rival-box {
+.fight-box .matching {
+  height: 100%;
+  width: 100%;
+  color: #dafffe;
+  overflow: hidden;
+}
+.fight-box .matching .both {
+  flex: 1;
+}
+.fight-box .matching .both .me-box,
+.fight-box .matching .both .rival-box {
+  width: 100%;
+  height: 170rpx;
+}
+.fight-box .matching .both .me-box .me,
+.fight-box .matching .both .rival-box .me,
+.fight-box .matching .both .me-box .rival,
+.fight-box .matching .both .rival-box .rival {
+  width: 360rpx;
+  background: #ffffff;
+  height: 130rpx;
+  padding: 20rpx;
+  top: 0;
+}
+.fight-box .matching .both .me-box .me .name,
+.fight-box .matching .both .rival-box .me .name,
+.fight-box .matching .both .me-box .rival .name,
+.fight-box .matching .both .rival-box .rival .name {
+  color: #3b393c;
+  line-height: 130rpx;
+  flex: 1;
+  font-size: 36rpx;
+}
+.fight-box .matching .both .me-box .me .header image,
+.fight-box .matching .both .rival-box .me .header image,
+.fight-box .matching .both .me-box .rival .header image,
+.fight-box .matching .both .rival-box .rival .header image {
+  border-radius: 50%;
+  height: 130rpx;
+  width: 130rpx;
+}
+.fight-box .matching .both .me-box .me,
+.fight-box .matching .both .rival-box .me {
+  left: 0;
+  border-radius: 0 85rpx 85rpx 0;
+}
+.fight-box .matching .both .me-box .rival,
+.fight-box .matching .both .rival-box .rival {
+  padding-right: 80rpx;
+  right: -60rpx;
+  border-radius: 85rpx 0 0 85rpx;
+}
+.fight-box .matching .both .stata .vs {
+  padding: 28rpx 0;
+}
+.fight-box .matching .both .stata .vs image {
+  height: 80rpx;
+  width: 120rpx;
+}
+.fight-box .matching .both .stata .hint {
+  font-size: 36rpx;
+}
+.fight-box .matching .footer .hint {
+  font-size: 26rpx;
+}
+.fight-box .matching .match-btn {
+  border-radius: 80rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  padding: 16rpx 0;
+  width: 350rpx;
+  background-color: transparent;
+  border: 10rpx solid #ffffff;
+  color: #fff;
+}
+.fight-box .fight {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.fight-box .fight .both .me-box,
+.fight-box .fight .both .rival-box {
   width: 100%;
   height: 110rpx;
 }
-.fight .both .me-box .me,
-.fight .both .rival-box .me,
-.fight .both .me-box .rival,
-.fight .both .rival-box .rival {
+.fight-box .fight .both .me-box .me,
+.fight-box .fight .both .rival-box .me,
+.fight-box .fight .both .me-box .rival,
+.fight-box .fight .both .rival-box .rival {
   width: 300rpx;
   background: #ffffff;
   height: 90rpx;
   padding: 10rpx;
   top: 0;
 }
-.fight .both .me-box .me .info,
-.fight .both .rival-box .me .info,
-.fight .both .me-box .rival .info,
-.fight .both .rival-box .rival .info {
+.fight-box .fight .both .me-box .me .info,
+.fight-box .fight .both .rival-box .me .info,
+.fight-box .fight .both .me-box .rival .info,
+.fight-box .fight .both .rival-box .rival .info {
   flex: 1;
 }
-.fight .both .me-box .me .info .score,
-.fight .both .rival-box .me .info .score,
-.fight .both .me-box .rival .info .score,
-.fight .both .rival-box .rival .info .score {
+.fight-box .fight .both .me-box .me .info .score,
+.fight-box .fight .both .rival-box .me .info .score,
+.fight-box .fight .both .me-box .rival .info .score,
+.fight-box .fight .both .rival-box .rival .info .score {
   color: #f5b613;
   font-size: 38rpx;
 }
-.fight .both .me-box .me .info .name,
-.fight .both .rival-box .me .info .name,
-.fight .both .me-box .rival .info .name,
-.fight .both .rival-box .rival .info .name {
+.fight-box .fight .both .me-box .me .info .name,
+.fight-box .fight .both .rival-box .me .info .name,
+.fight-box .fight .both .me-box .rival .info .name,
+.fight-box .fight .both .rival-box .rival .info .name {
   color: #3b393c;
   font-size: 24rpx;
 }
-.fight .both .me-box .me .header image,
-.fight .both .rival-box .me .header image,
-.fight .both .me-box .rival .header image,
-.fight .both .rival-box .rival .header image {
+.fight-box .fight .both .me-box .me .header image,
+.fight-box .fight .both .rival-box .me .header image,
+.fight-box .fight .both .me-box .rival .header image,
+.fight-box .fight .both .rival-box .rival .header image {
   border-radius: 50%;
   height: 90rpx;
   width: 90rpx;
 }
-.fight .both .me-box .me,
-.fight .both .rival-box .me {
+.fight-box .fight .both .me-box .me,
+.fight-box .fight .both .rival-box .me {
   padding-left: 50rpx;
   left: -40rpx;
   border-radius: 0 55rpx 55rpx 0;
 }
-.fight .both .me-box .rival,
-.fight .both .rival-box .rival {
+.fight-box .fight .both .me-box .rival,
+.fight-box .fight .both .rival-box .rival {
   padding-right: 50rpx;
   right: -40rpx;
   border-radius: 55rpx 0 0 55rpx;
 }
-.fight .both .timer {
+.fight-box .fight .both .timer {
   width: 110rpx;
   height: 110rpx;
   top: 60rpx;
   border-radius: 104rpx;
   animation-delay: 1s;
 }
-.fight .both .timer .countDown-bg {
+.fight-box .fight .both .timer .countDown-bg {
   height: 110rpx;
   width: 110rpx;
 }
-.fight .both .timer .countDown {
+.fight-box .fight .both .timer .countDown {
   top: 0;
   left: 0;
   height: 110rpx;
   width: 110rpx;
 }
-.fight .topic-box {
+.fight-box .fight .topic-box {
   flex: 1;
   background: #ffffff;
   width: 100%;
   border-radius: 20rpx 20rpx 0 0;
 }
-.fight .topic-box .type {
+.fight-box .fight .topic-box .type {
   padding: 0 40rpx 20rpx;
 }
-.fight .topic-box .type .text {
+.fight-box .fight .topic-box .type .text {
   width: 74rpx;
   height: 40rpx;
   font-size: 28rpx;
@@ -97,58 +173,58 @@
   color: #46d7b6;
   border-radius: 6rpx;
 }
-.fight .topic-box .type .double {
+.fight-box .fight .topic-box .type .double {
   width: 235rpx;
   height: 87rpx;
   bottom: 46rpx;
   left: 40rpx;
 }
-.fight .topic-box .topic {
+.fight-box .fight .topic-box .topic {
   color: #525053;
   flex: 1;
   width: 100%;
   padding: 0 20rpx;
   overflow-y: auto;
 }
-.fight .topic-box .topic .subject {
+.fight-box .fight .topic-box .topic .subject {
   padding: 0 20rpx;
   font-size: 32rpx;
   line-height: 46rpx;
 }
-.fight .topic-box .topic .answer-list {
+.fight-box .fight .topic-box .topic .answer-list {
   padding-top: 30rpx;
 }
-.fight .topic-box .topic .answer-list .answer-box {
+.fight-box .fight .topic-box .topic .answer-list .answer-box {
   padding-top: 20rpx;
 }
-.fight .topic-box .topic .answer-list .answer-box .player {
+.fight-box .fight .topic-box .topic .answer-list .answer-box .player {
   width: 60rpx;
   padding: 0 12rpx;
 }
-.fight .topic-box .topic .answer-list .answer-box .player image {
+.fight-box .fight .topic-box .topic .answer-list .answer-box .player image {
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
 }
-.fight .topic-box .topic .answer-list .answer-box .answer {
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer {
   flex: 1;
   padding: 20rpx 30rpx;
   border-radius: 16rpx;
   background: #f5f3f6;
 }
-.fight .topic-box .topic .answer-list .answer-box .answer .text {
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer .text {
   font-size: 24rpx;
 }
-.fight .topic-box .topic .answer-list .answer-box .answer .status .iconfont {
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer .status .iconfont {
   font-size: 46rpx;
 }
-.fight .topic-box .topic .answer-list.active {
+.fight-box .fight .topic-box .topic .answer-list.active {
   color: #ffffff;
 }
-.fight .topic-box .topic-footer {
+.fight-box .fight .topic-box .topic-footer {
   height: 120rpx;
 }
-.fight .topic-box .topic-footer .sub {
+.fight-box .fight .topic-box .topic-footer .sub {
   background-color: #46d7b6;
 }
 .animation {

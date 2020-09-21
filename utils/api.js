@@ -33,7 +33,7 @@ const Api = {
             wx.request({
                 url: url,
                 method: method,
-                data: Object.assign({}, params.data),
+                data: Object.assign({}, params),
                 header: {
                     'content-type': method == 'GET'?'application/json':'application/x-www-form-urlencoded',
                     'Accept': 'application/json'
@@ -62,7 +62,7 @@ const Api = {
                             }
                         }
                     }
-                    resolve(res.data.result);
+                    resolve(res);
                 },
                 fail: function(err) {
                     reject(err);
@@ -73,10 +73,6 @@ const Api = {
                 }
             })
         })
-    },
-    result: function(method, url, params) {
-        let _this = this;
-        return _this.fetchApi(params, method, url).then(res => res);
     }
 }
 export default Api;
