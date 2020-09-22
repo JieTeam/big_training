@@ -16,6 +16,12 @@ Page({
     const type = e.currentTarget.dataset.type || e.target.dataset.type;
     let url = null;
     switch (type) {
+      case "fight":
+        url = "/pages/fight/index";
+        break;
+      case "week":
+        url = "/pages/week/index";
+        break;
       case "knowledgeBase":
         url = '/pages/knowledgeBase/knowledgeBase'
         break;
@@ -79,13 +85,6 @@ Page({
     //     },
     //   });
     // }
-  },
-  gofight() {
-    let timer = setTimeout(() => {
-      wx.navigateTo({
-        url: "../fight/index",
-      });
-    }, 200);
   },
   getUserInfo: function (e) {
     this.setData({
