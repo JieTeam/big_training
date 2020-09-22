@@ -54,7 +54,8 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        if(prigressTime) clearInterval(prigressTime);  // 清除加载计时器
+        if(countdownId) clearInterval(countdownId);  // 清除答题计时器
     },
 
     /**

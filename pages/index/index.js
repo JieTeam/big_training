@@ -10,26 +10,36 @@ Page({
     rulesBox: false,
   },
   go(e) {
-    const type = e.currentTarget.dataset.type || e.target.dataset.type;
-    console.log(">> e", e);
-    let url = null;
-    switch (type) {
-      case "ranking":
-        url = "/pages/ranking/ranking";
-        break;
-      case "wrongQuestion":
-        url = "/pages/wrongQuestion/wrongQuestion";
-        break;
-      case "record":
-        url = "/pages/record/record";
-        break;
-      default:
-        break;
-    }
-    if (!url) return;
-    wx.navigateTo({
-      url,
-    });
+    // if(app.globalData.userInfo&&app.globalData.userInfo.openid) {
+      const type = e.currentTarget.dataset.type || e.target.dataset.type; 
+      console.log(">> e", e);
+      let url = null;
+      switch (type) {
+        case "fight":
+          url = "/pages/fight/index";
+          break;
+        case "week":
+            url = "/pages/week/index";
+            break;
+        case "ranking":
+          url = "/pages/ranking/ranking";
+          break;
+        case "wrongQuestion":
+          url = "/pages/wrongQuestion/wrongQuestion";
+          break;
+        case "record":
+          url = "/pages/record/record";
+          break;
+        default:
+          break;
+      }
+      if (!url) return;
+      wx.navigateTo({
+        url,
+      });
+    // } else {
+      
+    // }
   },
   rulesBoxShow() {
     this.setData({
@@ -76,7 +86,6 @@ Page({
     if (userInfo) {
       userInfo = JSON.parse(userInfo);
       app.globalData.userInfo = Object.assign({}, userInfo);
-      that.gofight();
     } else {
       wx.login({
         success: async function (res) {
@@ -94,17 +103,9 @@ Page({
           };
           app.globalData.userInfo = Object.assign({}, userInfo);
           wx.setStorageSync("userInfo", JSON.stringify(userInfo));
-          that.gofight();
         },
       });
     }
-  },
-  gofight() {
-    let timer = setTimeout(() => {
-      wx.navigateTo({
-        url: "../fight/index",
-      });
-    }, 200);
   },
   getUserInfo: function (e) {
     this.setData({

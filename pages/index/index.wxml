@@ -30,11 +30,11 @@
   </view>
   <view class="bottom-entry">
     <view class="entry_list">
-        <view class="pk-entry">
+        <view class="pk-entry" data-type="fight" bindtap="go">
             <image class="pk-entry_img" src="/assets/images/dz.jpg"></image>
             <view class="pk-entry_text">匹配对战</view>
         </view>
-        <view class="pk-entry test">
+        <view class="pk-entry test" data-type="week" bindtap="go">
             <image class="pk-entry_img" src="/assets/images/weektest.jpg"></image>
             <view class="pk-entry_text">每周一测</view>
         </view>
