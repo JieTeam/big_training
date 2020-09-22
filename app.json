@@ -6,7 +6,13 @@
     "pages/fight_result/index",
     "pages/week/index",
     "pages/week_result/index",
-    "pages/honor/index"
+    "pages/honor/index",
+    "pages/loginType/loginType",
+    "pages/login/login",
+    "pages/ranking/ranking",
+    "pages/adminIndex/adminIndex",
+    "pages/wrongQuestion/wrongQuestion",
+    "pages/record/record"
   ],
   "window": {
     "backgroundTextStyle": "light",

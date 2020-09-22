@@ -1,0 +1,56 @@
+/* components/ranking-table/ranking-table.wxss */
+.ranking-table{
+  height: 100%;
+  margin: 0 30rpx;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 6rpx 0 12rpx -5rpx rgba(0, 0, 0, 0.1), -6rpx 0 12rpx -5rpx rgba(0, 0, 0, 0.1);
+  padding-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+/* .ranking-table::before {
+  content:'';
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 100%;
+  position: absolute;
+  top: 60rpx;
+  left: -10rpx;
+  background: #fff;
+} */
+.ranking-table__header {
+  display: flex;
+  height: 70rpx;
+  border-bottom: 1rpx dashed #46d7b6;
+  color: #383639;
+  margin: 0 25rpx;
+}
+.content__item__block{
+  flex: 1;
+  text-align: center;
+  color: inherit;
+  font-size: 30rpx;
+  font-weight: 400;
+}
+.ranking-table__content{
+  padding: 0 15rpx;
+  flex: 1;
+  height: 0;
+  overflow-y: auto;
+  color: #7b7b7d;
+}
+.ranking-table__content__item{
+  display: flex;
+  height: 110rpx;
+  align-items: center;
+}
+.content__item__block image {
+  width: 45rpx;
+  height: 65rpx;
+}
+.ranking-table__content__item  .content__item__block{
+  font-size: 28rpx;
+  font-weight: 400;
+}

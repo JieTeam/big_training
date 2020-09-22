@@ -1,0 +1,30 @@
+<view class='bj-page'>
+  <image src='/assets/images/bg1.jpg'></image>
+  <view class='bj-loginType'>
+    <view class='bj-loginType__title'>2020年生态环境</view>
+    <view class='bj-loginType__title'>执法大练兵知识竞赛</view>
+    <button 
+      class='bj-loginType__lawEn'
+      wx:if="{{!isAuthSetting && canIUse}}" 
+      open-type="getUserInfo"
+      bindgetuserinfo="getUserInfo"
+    >
+      执法人员
+    </button>
+    <button wx:else class='bj-loginType__lawEn'>
+      执法人员
+    </button>
+    <button 
+      class='bj-loginType__public'
+      wx:if="{{!isAuthSetting && canIUse}}" 
+      open-type="getUserInfo"
+      bindgetuserinfo="getUserInfoPublic"
+    >
+      辅助执法人员与公众
+    </button>
+    <button wx:else class='bj-loginType__public'>
+      辅助执法人员与公众
+    </button>
+  </view>
+</view>
+

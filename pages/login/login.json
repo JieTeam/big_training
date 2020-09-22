@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "dialog-tips": "/components/dialog-tips/dialog-tips"
+  },
+  "navigationBarTitleText": "登陆",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#46d7b6"
+}
