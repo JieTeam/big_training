@@ -92,11 +92,11 @@ Page({
         // 返回后，关闭计时器，避免后台继续调用题目接口
         clearInterval(countdownId);
         
-        if (this.data.isGameOver) {
+        if (this.data.isGameOver||!this.data.matchSuc) {
             
         } else {
             wx.closeSocket();
-            // 提前退出，不能获取任何奖励
+            
             Utils.showModal('提示', '您放弃了挑战!');
         }
         
@@ -259,7 +259,7 @@ Page({
      * 开始匹配
      */
     startMatch() {
-        Utils.showLoading('');
+        Utils.showLoading('进入匹配');
         this.connectWebSocket();  // 建立socket连接，开始匹配
 
         // this.getrival();
