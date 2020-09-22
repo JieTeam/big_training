@@ -1,0 +1,83 @@
+<!--pages/provinceWarSituation/provinceWarSituation.wxml-->
+<view class="provinceWarSituation">
+  <view class="province-info">
+    <view class="province-info_name">河北省</view>
+    <view class="result-info">
+      <view class="result-info_data">
+        <view class="result-title">在编在岗</view>
+        <view class="result-data">
+          <text class="result-data_num">99</text>
+          <text class="result-data_text">人</text>
+        </view>
+      </view>
+      <view class="result-info_data">
+        <view class="result-title">平均积分</view>
+        <view class="result-data">
+          <text class="result-data_num">48.55</text>
+          <text class="result-data_text">分</text>
+        </view>
+      </view>
+      <view class="result-info_data">
+        <view class="result-title">排名</view>
+        <view class="result-data">
+          <text class="result-data_num">7</text>
+          <text class="result-data_text">名</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="personal-result">
+    <view class="today-result">
+      <view class="today-result_title">当日表现</view>
+      <view class="today-result_data">
+        <view class="today-result_info">
+          <view class="result_info_title">参与人数</view>
+          <view class="result_info_data">
+            <text class="data_num">57</text>
+            <text>人</text>
+          </view>
+        </view>
+        <view class="today-result_info">
+          <view class="result_info_title">答题次数</view>
+          <view class="result_info_data">
+            <text class="data_num">520</text>
+            <text>次</text>
+          </view>
+        </view>
+        <view class="today-result_info">
+          <view class="result_info_title">胜率</view>
+          <view class="result_info_data">
+            <text class="data_num">50</text>
+            <text>%</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="today-result">
+      <view class="today-result_title">累计表现</view>
+      <view class="today-result_data">
+        <view class="today-result_info">
+          <view class="result_info_title">参与人数</view>
+          <view class="result_info_data">
+            <text class="data_num">57</text>
+            <text>人</text>
+          </view>
+        </view>
+        <view class="today-result_info">
+          <view class="result_info_title">答题次数</view>
+          <view class="result_info_data">
+            <text class="data_num">520</text>
+            <text>次</text>
+          </view>
+        </view>
+        <view class="today-result_info">
+          <view class="result_info_title">胜率</view>
+          <view class="result_info_data">
+            <text class="data_num">50</text>
+            <text>%</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

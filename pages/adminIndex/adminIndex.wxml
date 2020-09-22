@@ -1,21 +1,25 @@
 <!--pages/adminIndex/adminIndex.wxml-->
 <view class="adminIndex">
   <view class="title">排行榜</view>
-  <view class="national-ranking">
+  <view class="national-ranking" data-type='adminRanking' bindtap="go">
     <text>全国排行榜</text>
     <image class="national-ranking_icon" src="/assets/images/person1.png"></image>
   </view>
-  <view class="national-ranking province-ranking">
+  <view class="national-ranking province-ranking" data-type='provinceWarSituation' bindtap="go">
     <image class="province-ranking_icon" src="/assets/images/person2.png"></image>
     <text>本省战况</text>
   </view>
   <view class="bottom-fun">
       <view class="bottom-fun_result" bindtap="rulesBoxShow">
-          <text class="bottom-fun_icon">图</text>
+          <text class="bottom-fun_icon">
+            <text class="iconfont icon-tishi"></text>
+          </text>
           <text>赛制规则</text>
       </view>
       <view class="bottom-fun_result">
-          <text class="bottom-fun_icon">图</text>
+          <text class="bottom-fun_icon">
+            <text class="iconfont icon-fenxiang"></text>
+          </text>
           <text>分享</text>
       </view>
   </view>
@@ -40,7 +44,7 @@
       </view>
     </view>
     <view class="rules-box_close" bindtap="rulesBoxShow">
-      关
+      x
     </view>
   </view>
 </view>

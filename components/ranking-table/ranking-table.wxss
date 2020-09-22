@@ -10,16 +10,6 @@
   flex-direction: column;
   box-sizing: border-box;
 }
-/* .ranking-table::before {
-  content:'';
-  width: 30rpx;
-  height: 30rpx;
-  border-radius: 100%;
-  position: absolute;
-  top: 60rpx;
-  left: -10rpx;
-  background: #fff;
-} */
 .ranking-table__header {
   display: flex;
   height: 70rpx;

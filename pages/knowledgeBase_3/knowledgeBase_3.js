@@ -1,48 +1,20 @@
-// pages/adminIndex/adminIndex.js
-const App = getApp();
+// pages/knowledgeBase_3/knowledgeBase_3.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    rulesBox: false
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!App.globalData.userInfo || App.globalData.userInfo.login === false) {
-      wx.redirectTo({
-        url: '/pages/loginType/loginType',
-      })
-    }
+
   },
-  go(e) {
-    const type = e.currentTarget.dataset.type;
-    let url = null
-    switch (type) {
-      case 'provinceWarSituation':
-        url='/pages/provinceWarSituation/provinceWarSituation'
-        break;
-      case 'adminRanking':
-        url='/pages/adminRanking/adminRanking'
-        break;
-      default:
-        break;
-    }
-    if (!url) return;
-    wx.navigateTo({
-      url: url,
-    })
-    console.log('e', e)
-  },
-  rulesBoxShow () {
-    this.setData({
-      rulesBox: !this.data.rulesBox
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

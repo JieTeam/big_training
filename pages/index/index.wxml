@@ -38,7 +38,7 @@
             <image class="pk-entry_img" src="/assets/images/weektest.jpg"></image>
             <view class="pk-entry_text">每周一测</view>
         </view>
-        <view class="pk-entry knowledge">
+        <view class="pk-entry knowledge" data-type="knowledgeBase" bindtap="go" >
             <image class="pk-entry_img" src="/assets/images/topics.jpg"></image>
             <view class="pk-entry_text">知识库</view>
         </view>

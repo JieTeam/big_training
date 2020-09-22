@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "ranking-table": "/components/ranking-table/ranking-table"
+  },
+  "navigationBarTitleText": "排行榜",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#46d7b6"
+}

@@ -18,7 +18,6 @@
     "scopeDataCheck": false,
     "uglifyFileName": false,
     "checkInvalidKey": true,
-    "uglifyFileName": false,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
@@ -101,6 +100,27 @@
           "id": -1,
           "name": "pages/honor/index",
           "pathName": "pages/honor/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "pages/adminIndex/adminIndex",
+          "pathName": "pages/adminIndex/adminIndex",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "排行榜",
+          "pathName": "pages/ranking/ranking",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "管理-排行榜",
+          "pathName": "pages/adminRanking/adminRanking",
           "scene": null
         }
       ]
