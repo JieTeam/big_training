@@ -5,7 +5,8 @@
     "pages/fight/index",
     "pages/fight_result/index",
     "pages/week/index",
-    "pages/week_result/index"
+    "pages/week_result/index",
+    "pages/honor/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

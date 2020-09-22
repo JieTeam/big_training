@@ -16,9 +16,11 @@
     "autoAudits": false,
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
+    "uglifyFileName": false,
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
     "useMultiFrameRuntime": false,
     "useApiHook": true,
     "babelSetting": {
@@ -92,6 +94,12 @@
           "name": "pages/week/index",
           "pathName": "pages/week/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/honor/index",
+          "pathName": "pages/honor/index",
           "scene": null
         }
       ]
