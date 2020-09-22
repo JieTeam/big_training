@@ -1,4 +1,5 @@
 // pages/loginType/loginType.js
+const App = getApp()
 Page({
 
   /**
@@ -8,20 +9,23 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isAuthSetting: false,
   },
-
   getUserInfo: function(e) {
     console.log('执法人员', e)
-    // app.globalData.userInfo = e.detail.userInfo
-    // this.setData({
-    //   userInfo: e.detail.userInfo,
-    //   hasUserInfo: true
-    // })
+    const userInfo = e.detail.userInfo
+    App.globalData.userInfo = Object.assign(App.globalData.userInfo, userInfo)
     const type = 'law'
     this.goLoginPage(type)
   },
   getUserInfoPublic(e) {
-    console.log('>>> 公众',  e.detail.userInfo)
+    const userInfo = e.detail.userInfo
+    App.globalData.userInfo = Object.assign(App.globalData.userInfo, userInfo)
     const type = 'public'
+    this.goLoginPage(type)
+  },
+  getUserInfoAdmin(e) {
+    const userInfo = e.detail.userInfo
+    App.globalData.userInfo = Object.assign(App.globalData.userInfo, userInfo)
+    const type = 'admin'
     this.goLoginPage(type)
   },
   goLoginPage(type) {
@@ -29,12 +33,14 @@ Page({
       url: `/pages/login/login?type=${type}`,
     })    
   },
-
+  handleGo(e) {
+    console.log('>>> e', e)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
@@ -48,7 +54,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // if (App.globalData.userInfo.avatarUrl) {
+    //   this.setData({
+    //     isAuthSetting: true
+    //   })
+    // } else {
+    //   this.setData({
+    //     isAuthSetting: false
+    //   })
+    // }
   },
 
   /**

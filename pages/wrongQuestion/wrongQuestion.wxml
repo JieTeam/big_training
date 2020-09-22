@@ -10,7 +10,7 @@
           张三
         </view>
         <view class="level">
-          <image src='/assets/images/grading.jpg'></image>
+          <image src='/assets/images/grading.png'></image>
           <view class="level__content">执法专家</view>
         </view>
       </view>

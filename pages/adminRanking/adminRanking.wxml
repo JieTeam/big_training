@@ -1,0 +1,21 @@
+<view class="bj-page">
+  <view class="page__header">
+    <view class="title">河北省</view>
+    <view class="tab">
+      <view 
+        wx:for="{{rankingTabData}}" 
+        wx:key="index"
+        data-item="{{item}}"
+        bindtap="handleTab"
+        class="tab__item {{item.checked ? 'checked' : '' }}">
+        {{item.title}}
+      </view>
+    </view>
+  </view>
+  <view class="page__content" hidden="{{checkedType !== 'person'}}">
+    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+  </view>
+  <view class="page__content" hidden="{{checkedType !== 'province'}}">
+    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+  </view>
+</view>

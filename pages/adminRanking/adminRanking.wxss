@@ -1,0 +1,53 @@
+page {
+  width: 100%;
+  height: 100%;
+}
+.bj-page{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.tab {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20rpx;
+}
+.tab__item {
+  flex: 1;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  padding-bottom: 20rpx;
+  position: relative;
+}
+.tab__item.checked::before {
+  content: '';
+  position: absolute;
+  height: 4rpx;
+  border-radius: 2rpx;
+  background: #fff;
+  width: 60rpx;
+  bottom: 18rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.page__header{
+  background: #46d7b6;
+  border-radius: 0 0 30rpx 30rpx;
+  padding-bottom: 10rpx;
+}
+
+.page__header .title {
+  font-size: 40rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 2;
+}
+.page__content{
+  flex: 1;
+  height: 0;
+  margin-top: 40rpx ;
+}

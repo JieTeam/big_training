@@ -1,4 +1,5 @@
 <view class="ranking-table">
+  <!-- <image src="/assets/images/table-bj.png"></image> -->
   <view class="ranking-table__header">
     <view class="content__item__block" 
       wx:for="{{cloumn}}" 

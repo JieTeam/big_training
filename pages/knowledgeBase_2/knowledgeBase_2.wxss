@@ -1,0 +1,29 @@
+/* pages/knowledgeBase_2/knowledgeBase_2.wxss */
+page {
+  width: 100%;
+  height: 100%;
+}
+.page_box {
+  width: 100%;
+  height: 100%;
+  background: #fefefe;
+}
+.page_list {
+  width: 652rpx;
+  margin: 50rpx auto 0;
+}
+.title {
+  font-size: 38rpx;
+}
+.file_name {
+  width: 100%;
+  height: 88rpx;
+  background: #fefefe;
+  margin-top: 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0px 4px 12px -6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 36rpx;
+  color: #46d7b6;
+}

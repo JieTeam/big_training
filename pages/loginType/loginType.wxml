@@ -25,6 +25,14 @@
     <button wx:else class='bj-loginType__public'>
       辅助执法人员与公众
     </button>
+    <button 
+      class='bj-loginType__public'
+      wx:if="{{!isAuthSetting && canIUse}}" 
+      open-type="getUserInfo"
+      bindgetuserinfo="getUserInfoAdmin"
+    >
+     管理员 test
+    </button>
   </view>
 </view>
 

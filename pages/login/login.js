@@ -1,4 +1,4 @@
-// pages/login/login.js
+const App = getApp()
 Page({
 
   /**
@@ -9,12 +9,13 @@ Page({
     getCodeMsg: '获取验证码',
     codeTime: 60,
     isGetMsgCode: false,
+    type: 'law',
     params: {
       region: [],
       name: '',
       phone: '',
       msgCode: '',
-      personType: 0,
+      roleType: '3',
     }
   },
   getMsgCode() {
@@ -37,6 +38,11 @@ Page({
       }
     },  1000);
   },
+  handleSubmit(){
+    this.setData({
+      tipsDialogVisible: true,
+    })
+  },
   bindRegionChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -52,18 +58,45 @@ Page({
   
   radioChange(e) {
     this.setData({
-      ['params.personType']: e.detail.value
+      ['params.roleType']: e.detail.value
     })
   },
   handleFix() {
     console.log('>>> test')
+   
+    const userInfo = App.globalData.userInfo
+    switch(this.data.type) {
+      case 'admin':
+        userInfo.roleType = '1'
+        break;
+      case 'law':
+        userInfo.roleType = '2'
+        break;
+      case 'public':
+        userInfo.roleType = this.data.params.roleType
+        break;
+    }
+    userInfo.login = true;
+    wx.setStorageSync('userInfo', userInfo)
+    if (userInfo.roleType === '1') {
+      wx.navigateTo({
+        url: '/pages/adminIndex/adminIndex',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log('>>> options', options)
+    this.setData({
+      type: options.type,
+    })
   },
 
   /**

@@ -61,27 +61,28 @@ page {
 .identity {
   width: 240rpx;
   height: 70rpx;
+  display: flex;
+  align-items: center;
 }
 .identity_icon {
-  float: left;
   width: 70rpx;
   height: 70rpx;
   background: #fff;
   border-radius: 50%;
   text-align: center;
   line-height: 70rpx;
+  box-sizing: border-box;
+  padding: 15rpx;
 }
 .icon_img {
   width: 40rpx;
   height: 40rpx;
-  margin-top: 15rpx;
+  vertical-align: top;
 }
 .identity_name {
-  float: left;
   width: 175rpx;
   height: 62rpx;
-  margin-top: 4rpx;
-  margin-left: -20rpx;
+  margin-left: -18rpx;
   padding-left: 15rpx;
   background: #fff;
   border-radius:0 31rpx 31rpx 0;

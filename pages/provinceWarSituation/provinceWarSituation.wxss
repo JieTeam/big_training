@@ -1,0 +1,80 @@
+/* pages/provinceWarSituation/provinceWarSituation.wxss */
+page {
+  width: 100%;
+  height: 100%;
+}
+.provinceWarSituation {
+  width: 100%;
+  height: 100%;
+  background: #f9f7fa;
+}
+.province-info {
+  width: 100%;
+  height: 220rpx;
+  background:  #46d7b6;
+  border-radius: 0 0 36rpx 36rpx;
+}
+.province-info_name {
+  text-align: center;
+  font-size: 46rpx;
+  color: #fff;
+}
+.result-info {
+  width: 100%;
+  height: 100rpx;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+.result-info_data {
+  width: 33%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #a1fdfa;
+}
+.result-data_num {
+  font-size: 46rpx;
+  color: #fff;
+  font-weight: 600;
+}
+.personal-result {
+  width: 100%;
+  padding-top: 17rpx;
+}
+.today-result {
+  width: 700rpx;
+  height: 216rpx;
+  background: #fefefe;
+  border-radius: 12rpx;
+  margin: 20rpx auto 0;
+  box-shadow: 0px 4px 12px -6px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  padding: 0 16rpx;
+  overflow: hidden;
+}
+.today-result_title {
+  margin-top: 30rpx;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+}
+.today-result_data {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-top: 25rpx;
+}
+.today-result_info {
+  width: 33%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #3b393c;
+}
+.data_num {
+  font-size: 46rpx;
+  color: #46d7b6;
+  font-weight: 600;
+}

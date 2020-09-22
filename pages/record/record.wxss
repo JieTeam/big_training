@@ -46,19 +46,20 @@ page {
   display: flex;
   color: #605e5f;
   align-items: center;
-
+  position: relative;
 }
 .ranking__person__des .level image {
-  width: 60rpx;
-  height: 45rpx;
+  width: 180rpx;
+  height: 50rpx;
 }
 .level__content {
-  background: #e9bb99;
   height: 33rpx;
-  border-radius: 0 15rpx 15rpx 0;
   font-size: 24rpx;
   color: #fff;
   padding-right: 15rpx;
+  position: absolute;
+  left: 63rpx;
+  top: 9rpx;
 }
 .ranking__person__tips {
   background: #46d7b6;

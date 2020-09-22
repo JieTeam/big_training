@@ -48,18 +48,20 @@
         <button class="login-content__getcode" bindtap="getMsgCode">{{getCodeMsg}}</button>
       </view>
     </view>
-    <view class="login-content__item login-content__item1">
-      <view class="login-content__icon iconfont icon-renyuanjieshao">
+    <block wx:if="{{type === 'public'}}">
+      <view class="login-content__item login-content__item1">
+        <view class="login-content__icon iconfont icon-renyuanjieshao">
+        </view>
+        <view class="login-content__input login-content__input__placeholder">身份选择</view>
       </view>
-      <view class="login-content__input login-content__input__placeholder">身份选择</view>
-    </view>
-    <radio-group class="login-content__radio" bindchange="radioChange">
-      <radio class="radio__item" value="0" checked="true">辅助执法人员</radio>
-      <radio class="radio__item" value="1">公众人员</radio>
-    </radio-group>
+      <radio-group  class="login-content__radio" bindchange="radioChange">
+        <radio class="radio__item" value="3" checked="true">辅助执法人员</radio>
+        <radio class="radio__item" value="4">公众人员</radio>
+      </radio-group>
+    </block>
   </view>
   <view class="login-footer">
-    <button class="login-save">提交</button>
+    <button class="login-save" bindtap="handleSubmit">提交</button>
   </view>
   <dialog-tips wx:if="{{tipsDialogVisible}}" catch:ok='handleFix'></dialog-tips>
 </view>

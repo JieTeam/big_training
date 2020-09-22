@@ -12,7 +12,12 @@
     "pages/ranking/ranking",
     "pages/adminIndex/adminIndex",
     "pages/wrongQuestion/wrongQuestion",
-    "pages/record/record"
+    "pages/record/record",
+    "pages/provinceWarSituation/provinceWarSituation",
+    "pages/knowledgeBase/knowledgeBase",
+    "pages/knowledgeBase_2/knowledgeBase_2",
+    "pages/knowledgeBase_3/knowledgeBase_3",
+    "pages/adminRanking/adminRanking"
   ],
   "window": {
     "backgroundTextStyle": "light",

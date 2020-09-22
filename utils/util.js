@@ -1,6 +1,6 @@
 const moment = require('moment');
 const numeral = require('numeral');
-const request = require('./request');
+const request = require('./server/request');
 // 系统参数
 const systemInfo = wx.getSystemInfoSync();
 
