@@ -1,0 +1,73 @@
+.week_result {
+    width: 100%;
+    min-height: 100%;
+    background: #46d7b6;
+    padding-top: 240rpx;
+    .result {
+        width: 670rpx;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 20rpx;
+        padding: 100rpx 0 46rpx;
+        box-shadow: 0 4rpx 30rpx 10rpx rgba(0,0,0,0.08);
+        .test-info {
+            .hint {
+                font-size: 32rpx;
+                color: #3b393c;
+            }
+            .score {
+                font-size: 88rpx;
+                color: #f9b603;
+                padding: 50rpx 0 60rpx;
+            }
+            .info{
+                .item {
+                    flex: 1;
+                    .mark {
+                        font-size: 28rpx;
+                        padding: 0 0 16rpx;
+                        color: #686669;
+                    }
+                    .data {
+                        font-size: 50rpx;
+                        color: #46d7b6;
+                    }
+                }
+                .line {
+                    height: 70%;
+                    width: 2rpx;
+                    background: #46d7b6;
+                }
+            }
+        }
+        .plate {
+            top: -170rpx;
+            left: calc(50% - 267rpx);
+            image {
+                width: 534rpx;
+                height: 238rpx;
+            }
+        }
+    }
+    .btn-box {
+        padding: 50rpx 40rpx 90rpx;
+        min-height: 80rpx;
+        .result-btn {
+            border-radius: 80rpx;
+            font-size: 34rpx;
+            line-height: 34rpx;
+            padding: 12rpx 0;
+            width: 280rpx;
+            background-color: transparent;
+            border: 10rpx solid #ffffff;
+            color:#fff;
+            font-weight: 300;
+        }
+    }
+    .rule {
+        padding: 0 40rpx;
+        font-size: 24rpx;
+        line-height: 34rpx;
+        color: rgba(255,255,255,0.5);
+    }
+}

@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "每周一测",
-  "usingComponents": {}
+    "navigationBarTitleText": "每周一测",
+    "usingComponents": {
+        "ui-modal": "/components/ui-modal/index"
+    }
 }
