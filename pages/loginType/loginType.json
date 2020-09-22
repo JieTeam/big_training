@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarTitleText": "授权",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#46d7b6"
 }
