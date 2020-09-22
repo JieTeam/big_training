@@ -51,7 +51,8 @@ module.exports = {
     DEFAULT_CONTENT_HEIGHT: systemInfo.screenHeight - systemInfo.statusBarHeight - wx.DEFAULT_HEADER_HEIGHT,
     IS_APP: true,
     service: {
-        wsUrl: `ws://10.134.62.106:80/websocket`,
+        wsUrl: `ws://3435k69g44.zicp.vip:80/websocket`,
+        // wsUrl: `ws://10.134.53.153:8090/websocket`,
     },
     request: request,
     throttle: throttle,
@@ -71,7 +72,12 @@ module.exports = {
     },
     /**显示 loading 提示框 */
     showLoading(title, callback) {
-        wx.hideLoading(); // 先关闭已存在的loading
+        wx.hideLoading({
+            complete: ()=>{
+
+            }
+        }); // 先关闭已存在的loading
+        
         wx.showLoading({
             title: title || '正在加载...',
             mask: true,
@@ -82,7 +88,11 @@ module.exports = {
     },
     hideLoading() {
         setTimeout(() => {
-            wx.hideLoading();
+            wx.hideLoading({
+                complete: ()=>{
+                    
+                }
+            });
         }, 100)
     },
     showToast(title) {

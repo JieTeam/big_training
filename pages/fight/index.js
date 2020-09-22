@@ -2,11 +2,13 @@
 const app = getApp();
 const Utils = require('../../utils/util.js');
 let match_timer = null; // 匹配计时器
+let startMatchTimer = null;
 const START_ANGLE = 1.5 * Math.PI; // 起始弧度，单位弧度（在3点钟方向）
 const END_ANGLE = -0.5 * Math.PI; // 终止弧度
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
 let heartbeatTimerId = null; // 心跳计时器
+let uid = null;
 Page({
 
     /**
@@ -26,32 +28,8 @@ Page({
         userAnswerResult: [], // 用户答题结果记录，答对1，答错0
         
         isAnswerLoaded: false, // 答案是否加载完成（动画完成）
-
-        subject: '人们常说：“无事不登三宝殿”中的“三宝”是指哪三宝？', //当前题目名
-        questionType: '1', //题目类型 0：单选，1：多选
-        questionTypeId: '', //题目类型ID
-        questionId: '', // 当前题目ID
-        questionImageUrl: '', //题目图片地址
-        answerList: [
-            {
-                answer: "A、纸、砚、笔",
-                id: 0
-            },
-            {
-                answer: "B、佛、法、僧",
-                id: 1
-            },
-            {
-                answer: "C、书、剑、琴",
-                id: 2
-            },
-            {
-                answer: "D、金、银、玉",
-                id: 3
-            }
-        ], //当前题目答案选项
-        questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
-        questionIndex: 0, //当前答题数组下标
+        questionList: [], // 返回的本次挑战题目所有数据的ID
+        currentQuestion: {}, // 当前答题信息
 
         isGameOver: false, // 游戏是否正常结束
         showGameResult: false  // 是否显示比赛结果
@@ -61,7 +39,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.resetPage();
     },
 
     /**
@@ -75,7 +53,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.resetPage();
+        
     },
 
     /**
@@ -122,11 +100,27 @@ Page({
     onShareAppMessage: function () {
 
     },
+    /**
+     * 开始匹配
+     */
+    startMatch() {
+        Utils.showLoading('进入匹配');
+        let n = 0;
+        startMatchTimer = setInterval(() => {
+            n+=1;
+            if(n>=10) {
+                clearInterval(startMatchTimer);
+                Utils.hideLoading();
+            }
+        }, 1000);
+        this.connectWebSocket();  // 建立socket连接，开始匹配
+    },
     /**连接websocket */
     connectWebSocket() {
         let that = this;
+        uid = new Date().getTime().toString().slice(-5);
         wx.connectSocket({
-            url: Utils.service.wsUrl + '/' + app.globalData.userInfo.openid + '/2',
+            url: Utils.service.wsUrl + '/' + uid + '/2',
             success: res => {
                 console.log("建立连接");
                 that.initWebSocketListener();
@@ -137,7 +131,6 @@ Page({
     initWebSocketListener() {
         let that = this;
         wx.onSocketOpen(res => {
-            // that.sendHeartBeat();  // 发送心跳
             Utils.hideLoading();
             this.setData({
                 isMatch: true
@@ -150,37 +143,32 @@ Page({
             wx.sendSocketMessage({
                 data: msg
             })
-            // that.initCountUp();
         })
         wx.onSocketError(res => {
-            clearInterval(heartbeatTimerId);
             Utils.hideLoading();
             Utils.showModal('提示', '连接到服务器失败', () => {
                 wx.closeSocket();
-                // that.connectWebSocket();
             });
         })
         wx.onSocketClose(res => {
-            clearInterval(heartbeatTimerId);
+            clearInterval(countdownId);
         })
         wx.onSocketMessage(res => {
             const _this = this;
             var msg = JSON.parse(res.data);
-            console.log("msg==>",msg);
-
             switch (msg.status) {
                 case 2||'2':  // 匹配成功
-                    // clearInterval(countUpTimerId);
+                    console.log("msg==>",msg.data);
                     _this.setData({
                         rivalInfo: {
                             ...res.data.enemyUser,
-                            header: "../../assets/images/test/me_logo.png",
-                            name: "小白",
+                            header: res.data.head||"../../assets/images/test/me_logo.png",
+                            name: res.data.nickName,
                             score: 0
                         },
                         matchSuc: true,
-                        roomId: msg.data.roomid,
-                        questionIdList: msg.data.iusse
+                        roomId: msg.data.roomId,
+                        questionList: msg.data.iusse
                     });
                     let timer = setTimeout(() => {
                         clearTimeout(timer);
@@ -188,7 +176,7 @@ Page({
                     }, 200);
                     break;
                 case 'challengelimit':
-                    // that.cancelMatch();
+                    
                     // Utils.showModal('提示', '今日的挑战次数已用完！', () => {
                     //     wx.navigateBack();
                     // });
@@ -196,55 +184,78 @@ Page({
             }
         });
     },
-    /**计算匹配用时 */
-    initCountUp() {
-        countUpTimerId = setInterval(() => {
-            let costTime = this.data.matchingCostTime;
-            this.setData({
-                matchingCostTime: costTime + 1
-            })
-
-            if (this.data.matchingCostTime == 15 && !this.data.isMatched) {
-                this.cancelMatch();
-                Utils.showModal('提示', '当前段位匹配人数不足，请选择其他段位进行匹配！', () => {
-                    wx.navigateBack();
-                })
-            }
-        }, 1000)
-    },
-    /**发送心跳 */
-    sendHeartBeat() {
-        heartbeatTimerId = setInterval(() => {
-            wx.sendSocketMessage({
-                data: JSON.stringify({
-                    interfaceName: 'heart',
-                    param: {}
-                })
-            })
-        }, 5000);
-    },
     /**
-     * 匹配
+     * 进入答题
      */
-    getrival: function () {
-        const _this = this;
-        match_timer = setTimeout(function(){
-            clearTimeout(match_timer);
-            match_timer = null;
-            _this.setData({
-                rivalInfo: {
-                    header: "../../assets/images/test/me_logo.png",
-                    name: "小白",
-                    score: 0
-                },
-                matchSuc: true
+    readyAnswer() {
+        const that = this;
+        const question = Object.assign({},this.data.questionList[0]);
+        question.questionCategoryName = question.questionCategory=="1" ? "政治理论":
+                                        question.questionCategory=="2" ? "政策":
+                                        question.questionCategory=="3" ? "法律法规":
+                                        "规章制度";
+        question.questionTypeName = question.questionType=="1" ? "判断":
+                                        question.questionType=="2" ? "单选":
+                                        "多选";
+        question.options = [
+            { key: "option1", value: question.option1 },
+            { key: "option2", value: question.option2 },
+            { key: "option3", value: question.option3 },
+            { key: "option4", value: question.option4 }
+        ]
+        console.log("question==>",question);
+        this.setData({
+            enterAnswer: true,
+            currentQuestion: question
+        })
+        wx.nextTick(()=> {
+            that.getCountdownCanvas(()=>{
+                that.drawCountdownBg();
+                that.startCountdown(() => {
+                    that.setData({
+                        isAnswerLoaded: true
+                    })
+                });
             })
-            let timer1 = setTimeout(function() {
-                clearTimeout(timer1);
-                timer1 = null;
-                _this.readyAnswer();
-            },1500)
-        },3000)
+        })
+    },
+    /**开始倒计时 */
+    startCountdown(callback) {
+        let that = this;
+        let step = 0; // 计数动画次数
+        let sAngle = START_ANGLE; // 起始弧度，单位弧度（在3点钟方向）
+        let eAngle = END_ANGLE; // 终止弧度
+
+        // 动画函数
+        function animation() {
+            console.log(234);
+            if (step < 10) {
+                eAngle = eAngle - 2 * Math.PI / that.data.gameTime;
+                that.drawCountdownCircle(sAngle, eAngle, () => {
+                    count++;
+                });
+                step++;
+            } else {
+                clearInterval(countdownId);
+                // 如果倒计时结束，用户还未选择答案，也算答错
+                that.setData({
+                    userAnswerResult: [],
+                });
+                that.showAnswerResult([],false);
+                // 最后一题
+                if (that.data.currentQuestion.num>= that.data.questionList.length) {
+                    that.gameOver();
+                } else {
+                    setTimeout(() => {
+                        that.getNextQuestion();
+                    }, 1000)
+                }
+            }
+        };
+        clearInterval(countdownId);
+        console.log(123);
+        countdownId = setInterval(animation, 1000);
+        typeof callback == 'function' && callback();
     },
     /**
      * 没匹配成功之前放弃对战
@@ -254,15 +265,6 @@ Page({
             isMatch: false
         })
         wx.closeSocket();
-    },
-    /**
-     * 开始匹配
-     */
-    startMatch() {
-        Utils.showLoading('进入匹配');
-        this.connectWebSocket();  // 建立socket连接，开始匹配
-
-        // this.getrival();
     },
     resetPage() {
         this.setData({
@@ -280,51 +282,15 @@ Page({
             gameTime: 10, // 倒计时总时间（秒）
             userAnswerResultClass: '', // 用户选择答案的样式
             userAnswerResult: [], // 用户答题结果记录，答对1，答错0
-            
+            rivalAnswerResult: [], // 对方答题结果
+            questionList: [], //返回的本次挑战题目所有数据
             isAnswerLoaded: false, // 答案是否加载完成（动画完成）
-
-            subject: '人们常说：“无事不登三宝殿”中的“三宝”是指哪三宝？', //当前题目名
-            questionType: '1', //题目类型 0：单选，1：多选
-            questionTypeId: '', //题目类型ID
-            questionId: '', // 当前题目ID
-            questionImageUrl: '', //题目图片地址
-            answerList: [
-                {
-                    answer: "A、纸、砚、笔",
-                    id: 0
-                },
-                {
-                    answer: "B、佛、法、僧",
-                    id: 1
-                },
-                {
-                    answer: "C、书、剑、琴",
-                    id: 2
-                },
-                {
-                    answer: "D、金、银、玉",
-                    id: 3
-                }
-            ], //当前题目答案选项
-            questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
-            questionIndex: 0, //当前答题数组下标
+            isShowRightAnswer: false, // 是否显示正确答案
+            currentQuestion: {}, // 当前答题信息
 
             isGameOver: false, // 游戏是否正常结束
             showGameResult: false  // 是否显示比赛结果
         })
-    },
-    /**
-     * 进入答题
-     */
-    readyAnswer() {
-        this.setData({
-            enterAnswer: true
-        })
-        setTimeout(() => {
-            this.drawCountdownBg();
-            this.drawCountdownCircle();
-        }, 200);
-        this.initQuestion();
     },
     /**绘制倒计时背景 */
     drawCountdownBg() {
@@ -345,8 +311,8 @@ Page({
         })
     },
 
-    /**绘制倒计时圆环 */
-    drawCountdownCircle(sAngle = START_ANGLE, eAngle = END_ANGLE, callback) {
+    getCountdownCanvas(callback) {
+        const that = this;
         const query = wx.createSelectorQuery();
         query.select('#countDown')
         .fields({ node: true, size: true })
@@ -355,94 +321,49 @@ Page({
             canvas.width = 200;
             canvas.height = 200;
             const context = canvas.getContext('2d');
-
-            // 绘制圆环
-            context.save();
-            context.strokeStyle = '#ffffff';
-            context.beginPath();
-            context.lineWidth = 10;
-            context.arc(100, 100, 90, sAngle, eAngle, false);
-            context.stroke();
-            context.closePath();
-            context.restore();
-
-            // 绘制倒计时文本
-            context.save();
-            let time = this.data.gameTime - count+'';
-            context.font = "bold 80px Arial";             // 设置字体大小
-            context.fillStyle = "#ffffff";           // 设置文字颜色
-            // 姓名（距左：间距 + 头像直径 + 间距）（距下：总高 - 间距 - 文字高 - 头像直径 + 下移一点 ）
-            context.fillText(time, 100-(time.length*24), 130);
-            context.restore();
-            typeof callback == 'function' && callback();
+            that.setData({
+                countdownContext: context
+            })
+            wx.nextTick(() => {
+                typeof callback == 'function' && callback();
+            })
         })
     },
-    /**开始倒计时 */
-    startCountdown(callback) {
-        let that = this;
-        let step = 0; // 计数动画次数
-        let sAngle = START_ANGLE; // 起始弧度，单位弧度（在3点钟方向）
-        let eAngle = END_ANGLE; // 终止弧度
 
-        // 动画函数
-        function animation() {
-            if (step < 3) {
-                eAngle = eAngle - 2 * Math.PI / that.data.gameTime;
-                that.drawCountdownCircle(sAngle, eAngle, () => {
-                    count++;
-                });
-                step++;
-            } else {
-                clearInterval(countdownId);
+    /**绘制倒计时圆环 */
+    drawCountdownCircle(sAngle = START_ANGLE, eAngle = END_ANGLE, callback) {
+        countdownContext.fillStyle = 'rgba(0,0,0,0)';
+        countdownContext.fillRect(0, 0, 200, 200)
+        // 绘制圆环
+        countdownContext.save();
+        countdownContext.strokeStyle = '#ffffff';
+        countdownContext.beginPath();
+        countdownContext.lineWidth = 10;
+        countdownContext.arc(100, 100, 90, sAngle, eAngle, false);
+        countdownContext.stroke();
+        countdownContext.closePath();
+        countdownContext.restore();
 
-                // 如果倒计时结束，用户还未选择答案，也算答错
-                // 记录每道题答题结果
-                let userAnswerResult = that.data.userAnswerResult;
-                userAnswerResult[that.data.questionIndex] = 0;
-                that.setData({
-                    userAnswerResult: userAnswerResult,
-                });
-
-                that.submitAnswerToServer(false);
-
-                // 最后一题
-                if (that.data.questionIndex + 1 >= that.data.questionIdList.length) {
-                    that.gameOver();
-                } else {
-                    // setTimeout(() => {
-                    //     that.getNextQuestion();
-                    // }, 1000)
-                }
-            }
-        };
-
-        clearInterval(countdownId);
-        countdownId = setInterval(animation, 1000);
+        // 绘制倒计时文本
+        countdownContext.save();
+        let time = this.data.gameTime - count+'';
+        countdownContext.font = "bold 80px Arial";             // 设置字体大小
+        countdownContext.fillStyle = "#ffffff";           // 设置文字颜色
+        // 姓名（距左：间距 + 头像直径 + 间距）（距下：总高 - 间距 - 文字高 - 头像直径 + 下移一点 ）
+        countdownContext.fillText(time, 100-(time.length*24), 130);
+        countdownContext.restore();
         typeof callback == 'function' && callback();
     },
-
-    /**初始化题目 */
-    initQuestion() {
-        let that = this;
-        setTimeout(() => {
-            that.startCountdown(() => {
-                that.setData({
-                    isAnswerLoaded: true
-                })
-            });
-        }, 600)
-    },
-
     /**获取下一道题目 */
     getNextQuestion() {
         let that = this;
         // 题目数组下标
         let questionIndex = that.data.questionIndex + 1;
         // 避免出现多余的题目
-        if (questionIndex >= that.data.questionIdList.length) {
+        if (questionIndex >= that.data.questionList.length) {
             that.gameOver();
         } else {
-            let nextQuestionId = that.data.questionIdList[questionIndex];
+            let nextQuestionId = that.data.questionList[questionIndex];
             that.doGetNextQuestion(questionIndex, nextQuestionId);
         }
     },
@@ -467,7 +388,6 @@ Page({
     /**比赛结束 */
     gameOver() {
         let that = this;
-        that.calculateIntegral(); // 计算挑战积分
         setTimeout(() => {
             console.log("游戏结束")
             that.setData({
@@ -476,30 +396,78 @@ Page({
             })
         }, 1000)
     },
-    /**
-     * 计算得分
-     */
-    calculateIntegral() {
-        
-    },
-    /**提交答案给后台 */
-    submitAnswerToServer(isRightAnswer, callback) {
-        
-    },
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
+        if(count>=10) return false;
         let that = this;
         if (that.data.isAnswerLoaded) { // 答案加载完成后才能答题
-            if(that.data.questionType=='0') {
+            let userAnswer = event.currentTarget.dataset.id;
+            let result = that.data.userAnswerResult;
+            result.push(userAnswer);
+            that.setData({
+                userAnswerResult: result
+            })
+            if(that.data.currentQuestion.questionType!='3') { // 判断或者单选直接提交
+                clearInterval(countdownId);
+                let isRight = that.data.userAnswerResult.join(",")== that.currentQuestion.rightAnswer;
+                this.setData({
+                    isShowRightAnswer: true
+                })
                 // 用户选择的答案
-                let userAnswer = event.currentTarget.dataset.id;
-                that.showAnswerResult(userAnswer)
+                that.showAnswerResult(result,isRight)
             } else {
 
             }
         }
     },
-    showAnswerResult(userAnswer) {
-
+    showAnswerResult(result,isRight) {
+        let score = 0;
+        switch (count) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                score = 100;
+                break;
+            case 7:
+                score = 80;
+                break;
+            case 8:
+                score = 60;
+                break;
+            case 9:
+                score = 40;
+                break;
+            case 10:
+                score = 20;
+                break;
+            default:
+                break;
+        }
+        let meInfo = this.data.meInfo;
+        meInfo.score = score;
+        this.setData({
+            meInfo:meInfo
+        })
+        const msg = JSON.stringify({
+            status: 2,
+            data: {
+                uid: uid,
+                num: this.currentQuestion.num,
+                answer: result&&result.length?result.join(","):"",
+                ansTime: count,
+                score: score,
+                yes: isRight,
+                subjectId: this.currentQuestion.id
+            }
+        })
+        wx.sendSocketMessage({
+            data: msg
+        })
+        wx.nextTick(() =>{
+            count = 0;
+        })
     }
 })
