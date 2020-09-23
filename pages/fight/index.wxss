@@ -218,6 +218,15 @@
 .fight-box .fight .topic-box .topic .answer-list .answer-box .answer .status .iconfont {
   font-size: 46rpx;
 }
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer.active,
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answeractive.right {
+  background: #46d7b6;
+  color: #ffffff;
+}
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer.error {
+  background: #de5a68;
+  color: #ffffff;
+}
 .fight-box .fight .topic-box .topic .answer-list.active {
   color: #ffffff;
 }

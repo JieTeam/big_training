@@ -27,6 +27,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.resetPage();
     },
 
     /**
@@ -34,13 +35,16 @@ Page({
      */
     onReady: function () {
         this.myModal = this.selectComponent('#myModal');
+        // 保持屏幕常亮
+        Utils.keepScreenOn();
+        wx.hideShareMenu(); // 隐藏转发按钮
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.resetPage();
+        
     },
 
     /**
