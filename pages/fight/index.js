@@ -19,9 +19,9 @@ Page({
         
         roomId: null, // 匹配房间id
         gameTime: 10, // 倒计时总时间（秒）
-        userAnswerResultClass: '', // 用户选择答案的样式
-        userAnswerResult: [], // 用户答题结果记录，答对1，答错0
-        rivalAnswerResult: [], // 对方答题结果
+        userAnswerResult: [], // 用户答题结果记录
+        meisAnswer: false, // 我方是否完成答题
+        rivalisAnswer: false, // 对方是否答题
         questionList: [], //返回的本次挑战题目所有数据
         isAnswerLoaded: false, // 答案是否加载完成（动画完成）
         isShowRightAnswer: false, // 是否显示正确答案
@@ -35,6 +35,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        count = 0;
         this.resetPage();
     },
 
@@ -66,18 +67,17 @@ Page({
      */
     onUnload: function () {
         // 返回后，关闭计时器，避免后台继续调用题目接口
+        const that = this;
+        count = 0;
         clearInterval(countdownId);
-        
-        if (this.data.isGameOver||!this.data.matchSuc) {
+        that.resetPage();
+        if (that.data.isGameOver||!that.data.matchSuc) {
             
         } else {
-            wx.closeSocket();
-            
             Utils.showModal('提示', '您放弃了挑战!');
         }
-        
+        wx.closeSocket();
     },
-
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
@@ -104,7 +104,6 @@ Page({
     startMatch() {
         Utils.showLoading('进入匹配');
         this.connectWebSocket();  // 建立socket连接，开始匹配
-        // this.test();
     },
     /**连接websocket */
     connectWebSocket() {
@@ -118,36 +117,10 @@ Page({
             }
         });
     },
-    test() {
-        const that = this;
-        this.setData({
-            matchSuc: true,
-            questionList: [
-                {
-                    questionTypeName: "单选",
-                    questionType: 2,
-                    questionCategory:1,
-                    questionCategoryName: "规章制度",
-                    num: 1,
-                    questionDesc: "你猜我猜不猜？",
-                    rightAnswer: "option2",
-                    option1: "猜",
-                    option2: "不猜",
-                    option3: "猜不猜",
-                    option4: "不猜猜不猜"
-                }
-            ]
-        })
-        let timer = setTimeout(() => {
-            clearTimeout(timer);
-            that.readyAnswer(0);
-        }, 200);
-    },
     /**初始化websocket监听 */
     initWebSocketListener() {
         const that = this;
         wx.onSocketOpen(res => {
-            console.log("建立连接");
             Utils.hideLoading();
             that.setData({
                 isMatch: true
@@ -172,8 +145,11 @@ Page({
         })
         wx.onSocketMessage(res => {
             var msg = JSON.parse(res.data);
-            console.log("msg==>",msg.data);
+            console.log("msg==>",msg);
             switch (msg.status) {
+                case 1||'1':
+                    console.log("上线");
+                    break;
                 case 2||'2':  // 匹配成功
                     that.setData({
                         rivalInfo: {
@@ -191,12 +167,37 @@ Page({
                         that.readyAnswer(0);
                     }, 200);
                     break;
-                case 'challengelimit':
-                    
-                    // Utils.showModal('提示', '今日的挑战次数已用完！', () => {
-                    //     wx.navigateBack();
-                    // });
+                case 3||'3': // 对方答题
+                    const rivalAnswer = msg.data.answer.split(",");
+                    let question = Object.assign({},that.data.currentQuestion);
+                    let rivalInfo = Object.assign({},that.data.rivalInfo);
+                    if(rivalAnswer.length) {
+                        console.log("rivalAnswer==>",rivalAnswer)
+                        for (let i = 0; i < question.options.length; i++) {
+                            const item = question.options[i];
+                            if(rivalAnswer.indexOf(item.key)>=0) item.rivalActive = true;
+                        }
+                        that.setData({
+                            currentQuestion: question,
+                        })
+                        wx.nextTick(() => {
+                            console.log("question==>",that.data.currentQuestion);
+                        })
+                    }
+                    rivalInfo.score = msg.data.score;
+                    that.setData({
+                        rivalInfo: rivalInfo,
+                        rivalisAnswer: true
+                    })
+                    if(that.data.meisAnswer) {
+                        console.log("敌方clear");
+                        that.getNextQuestion();
+                    }
                     break;
+                case 4||'4': // 答题结束
+                    break;
+                case 5||'5': // 对方断线
+                    break;   
             }
         });
     },
@@ -209,7 +210,6 @@ Page({
             isAnswerLoaded: false
         })
         const question = Object.assign({},that.data.questionList[index]);
-        console.log("that.data.questionList[index]==>",that.data.questionList[index])
         question.questionCategoryName = question.questionCategory=="1" ? "政治理论":
                                         question.questionCategory=="2" ? "政策":
                                         question.questionCategory=="3" ? "法律法规":
@@ -217,11 +217,18 @@ Page({
         question.questionTypeName = question.questionType=="1" ? "判断":
                                         question.questionType=="2" ? "单选":
                                         "多选";
+        let optFlag1 = question.rightAnswer.indexOf("option1")>=0, 
+            optFlag2 = question.rightAnswer.indexOf("option2")>=0,
+            optFlag3 = question.rightAnswer.indexOf("option3")>=0, 
+            optFlag4 = question.rightAnswer.indexOf("option4")>=0;
+            /**
+             * 正确选项默认错误类名，用户选中才改为正确类名
+             */
         question.options = [
-            { key: "option1", value: question.option1, isRight: question.rightAnswer.indexOf("option1")>=0 },
-            { key: "option2", value: question.option2, isRight: question.rightAnswer.indexOf("option2")>=0 },
-            { key: "option3", value: question.option3, isRight: question.rightAnswer.indexOf("option3")>=0 },
-            { key: "option4", value: question.option4, isRight: question.rightAnswer.indexOf("option4")>=0 }
+            { key: "option1", value: question.option1, isRight: optFlag1, className: optFlag1? 'right':'error' }, 
+            { key: "option2", value: question.option2, isRight: optFlag2, className: optFlag2? 'right':'error' },
+            { key: "option3", value: question.option3, isRight: optFlag3, className: optFlag3? 'right':'error' },
+            { key: "option4", value: question.option4, isRight: optFlag4, className: optFlag4? 'right':'error' }
         ]
         console.log("question==>",question);
         that.setData({
@@ -232,7 +239,11 @@ Page({
             if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
             that.startCountdown().then(()=> {
                 that.setData({
-                    isAnswerLoaded: true
+                    isAnswerLoaded: true, // 题目加载完成
+                    userAnswerResult: [], // 用户答题结果记录
+                    meisAnswer: false, // 我方是否完成答题
+                    rivalisAnswer: false, // 对方是否答题
+                    isShowRightAnswer: false, // 是否显示正确答案
                 })
             })
         })
@@ -241,39 +252,50 @@ Page({
     startCountdown() {
         return new Promise((resolve,reject) => {
             let that = this;
-            let step = that.data.gameTime; // 计数动画次数
             let sAngle = -0.5*Math.PI; // 起始弧度，单位弧度（在3点钟方向）
             let eAngle = 0; // 终止弧度
 
             // 动画函数
-            async function animation() {
-                if (step > 0) {
-                    eAngle = (step*2*Math.PI/that.data.gameTime)-0.5*Math.PI;
-                    that.drawCountdown('#countDown', sAngle, eAngle, '#ffffff', true);
-                    step-=1;
-                } else {
-                    clearInterval(countdownId);
-                    // 如果倒计时结束，用户还未选择答案，也算答错
-                    await that.showAnswerResult([],false);
-                    // 最后一题
-                    if (that.data.currentQuestion.num>= that.data.questionList.length) {
-                        that.gameOver();
-                    } else {
-                        if(that.data.isShowRightAnswer) return;
-                        setTimeout(() => {
-                            count = 0;
-                            that.setData({
-                                userAnswerResult: [],
-                            });
-                            that.getNextQuestion();
-                        }, 1000)
+            function animation() {
+                eAngle = ((that.data.gameTime-count)*2*Math.PI/that.data.gameTime)-0.5*Math.PI;
+                that.drawCountdown('#countDown', sAngle, eAngle, '#ffffff', true).then(() => {
+                    console.log("count==>",count)
+                    if(count >= that.data.gameTime) {
+                        console.log("倒计时clear")
+                        that.getNextQuestion();
                     }
-                }
+                })
             };
             clearInterval(countdownId);
             countdownId = setInterval(animation, 1000);
             resolve(true)
         })
+    },
+    /**获取下一道题目 */
+    async getNextQuestion() {
+        let that = this;
+        that.setData({
+            isShowRightAnswer: true
+        });
+        if(countdownId)clearInterval(countdownId);
+        // 如果倒计时结束，用户还未选择答案，也算答错
+        if(!that.data.meisAnswer) {
+            await that.showAnswerResult([],false);
+        }
+        // 下一题
+        let timer = setTimeout(() => {
+            clearInterval(timer);
+            count = 0;
+            // 题目数组下标
+            let questionIndex = that.data.currentQuestion.num;
+            console.log(`第${questionIndex}题`);
+            // 避免出现多余的题目
+            if (questionIndex >= that.data.questionList.length) {
+                that.gameOver();
+            } else {
+                that.readyAnswer(questionIndex);
+            }
+        }, 600)
     },
     /**
      * 没匹配成功之前放弃对战
@@ -286,7 +308,6 @@ Page({
     },
     resetPage() {
         this.setData({
-            hint: "匹配中...",
             meInfo: {
                 ...app.globalData.userInfo,
                 score: 0
@@ -298,9 +319,9 @@ Page({
             
             roomId: null, // 匹配房间id
             gameTime: 10, // 倒计时总时间（秒）
-            userAnswerResultClass: '', // 用户选择答案的样式
-            userAnswerResult: [], // 用户答题结果记录，答对1，答错0
-            rivalAnswerResult: [], // 对方答题结果
+            userAnswerResult: [], // 用户答题结果记录
+            meisAnswer: false, // 我方是否完成答题
+            rivalisAnswer: false, // 对方是否答题
             questionList: [], //返回的本次挑战题目所有数据
             isAnswerLoaded: false, // 答案是否加载完成（动画完成）
             isShowRightAnswer: false, // 是否显示正确答案
@@ -317,6 +338,7 @@ Page({
             query.select(domId)
             .fields({ node: true, size: true })
             .exec((res) => {
+                count+=1;
                 const canvas = res[0].node;
                 canvas.width = 200;
                 canvas.height = 200;
@@ -333,23 +355,10 @@ Page({
                     ctx.fillStyle = "#ffffff";           // 设置文字颜色
                     // 姓名（距左：间距 + 头像直径 + 间距）（距下：总高 - 间距 - 文字高 - 头像直径 + 下移一点 ）
                     ctx.fillText(time, 100-(time.length*24), 130);
-                    count+=1;
                 }
                 resolve(true);
             })
         })
-    },
-    /**获取下一道题目 */
-    getNextQuestion() {
-        let that = this;
-        // 题目数组下标
-        let questionIndex = that.data.currentQuestion.num;
-        // 避免出现多余的题目
-        if (questionIndex >= that.data.questionList.length) {
-            that.gameOver();
-        } else {
-            that.readyAnswer(questionIndex);
-        }
     },
 
     /**比赛结束 */
@@ -367,7 +376,7 @@ Page({
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
         let that = this;
-        if(count>=10 || that.data.isShowRightAnswer) return false;
+        // if(count>=10 || that.data.meisAnswer) return false;
         if (that.data.isAnswerLoaded) { // 答案加载完成后才能答题
             let userAnswerIndex = event.currentTarget.dataset.id;
             let question = that.data.currentQuestion;
@@ -381,21 +390,23 @@ Page({
                 currentQuestion: question
             })
             if(that.data.currentQuestion.questionType!='3') { // 判断或者单选直接提交
-                clearInterval(countdownId);
-                let isRight = (result.length&&result.join(","))&&(result.join(",") == that.data.currentQuestion.rightAnswer);
-                
-                this.setData({
-                    isShowRightAnswer: true
-                })
                 // 用户选择的答案
+                let isRight = result.length&&(result.join(",") == that.data.currentQuestion.rightAnswer);
                 that.showAnswerResult(result,isRight);
-            } else {
-
             }
         }
     },
+    doubleSub() {
+        // 用户选择的答案
+        let result = that.data.userAnswerResult;
+        let isRight = result.length&&(result.join(",") == that.data.currentQuestion.rightAnswer);
+        this.showAnswerResult(result,isRight);
+    },
     showAnswerResult(result,isRight) {
-        console.log("result,isRight==>",result,isRight)
+        const that = this;
+        that.setData({
+            meisAnswer: true
+        })
         let score = 0;
         if(isRight) {
             switch (count) {
@@ -423,25 +434,33 @@ Page({
                     break;
             }
         } 
-        let meInfo = this.data.meInfo;
+        let meInfo = that.data.meInfo;
         meInfo.score = score;
-        this.setData({
+        that.setData({
             meInfo: meInfo
         })
         const msg = JSON.stringify({
             status: 2,
             data: {
                 uid: uid,
-                num: this.data.currentQuestion.num,
+                num: that.data.currentQuestion.num,
                 answer: result&&result.length?result.join(","):"",
                 ansTime: count,
                 score: score,
                 yes: isRight,
-                subjectId: this.data.currentQuestion.id
+                subjectId: that.data.currentQuestion.id
             }
         })
+        console.log("msg==>",msg)
         wx.sendSocketMessage({
             data: msg
         })
+        console.log("that.data.rivalisAnswer==>",that.data.rivalisAnswer)
+        
+        console.log("我方答题")
+        if(that.data.rivalisAnswer) {
+            console.log("我方clear");
+            that.getNextQuestion()
+        }
     }
 })

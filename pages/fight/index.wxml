@@ -56,7 +56,7 @@
                             >
                                 <view class="text">{{item.value}}</view>
                                 <view wx:if="{{isShowRightAnswer&&(item.meActive||item.isRight)}}" class="status">
-                                    <text wx:if="{{item.isRight&&item.meActive}}" class="iconfont icon-zhengque"></text>
+                                    <text wx:if="{{item.isRight}}" class="iconfont icon-zhengque"></text>
                                     <text wx:else class="iconfont icon-cuohao"></text>
                                 </view>
                             </view>
