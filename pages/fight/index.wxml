@@ -6,10 +6,10 @@
                 <view class="me pa df ar justBet bounceInLeft animated">
                     <view class="info pr5">
                         <view class="score fw900">{{meInfo.score}}分</view>
-                        <view class="name overeli fw900">{{meInfo.nickName}}</view>
+                        <view class="name overeli fw900">{{meInfo.nickName||'我方'}}</view>
                     </view>
                     <view class="header">
-                        <image src="{{meInfo.avatarUrl}}"></image>
+                        <image src="{{meInfo.avatarUrl||'../../assets/images/test/user.png'}}"></image>
                     </view>
                 </view>
             </view>
@@ -48,7 +48,7 @@
                             class="answer-item al-center justBet"
                         >
                             <view class="me player">
-                                <image wx:if="{{item.meActive}}" src="{{meInfo.avatarUrl}}" alt="{{item.key}}"></image>
+                                <image wx:if="{{item.meActive}}" src="{{meInfo.avatarUrl||'../../assets/images/test/user.png'}}" alt="{{item.key}}"></image>
                             </view>
                             <view
                                 class="{{(isShowRightAnswer?item.className:item.meActive?'active':'')+' answer b-sizing al-center justBet'}}" 
@@ -61,7 +61,7 @@
                                 </view>
                             </view>
                             <view class="rival player">
-                                <image wx:if="{{item.rivalActive}}" src="{{rivalInfo.header}}"></image> 
+                                <image wx:if="{{meisAnswer&&item.rivalActive}}" src="{{rivalInfo.header}}"></image> 
                             </view>
                         </view>
                     </view>

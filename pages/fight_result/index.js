@@ -8,14 +8,32 @@ Page({
     data: {
         meInfo: null,
         rivalInfo: null,
-        plate: null
+        plate: null,
+        roomId: null,
+        fightResut: null
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log("options==>",options)
+        const that = this;
+        this.setData({
+            roomId: options.roomId
+        })
+        wx.getStorage({
+            key: 'roomId',
+            success: (result) => {
+                console.log("result==>",result)
+                const data = result.data;
+                that.setData({
+                    fightResut: data,
+                    plate: data.homeScore>data.awayScore? "../../assets/images/fight_result/done.png":
+                    data.homeScore==data.awayScore ? "../../assets/images/fight_result/draw.png":
+                           "../../assets/images/fight_result/filed.png"
+                })
+            }
+        });
     },
 
     /**

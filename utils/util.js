@@ -51,8 +51,8 @@ module.exports = {
     DEFAULT_CONTENT_HEIGHT: systemInfo.screenHeight - systemInfo.statusBarHeight - wx.DEFAULT_HEADER_HEIGHT,
     IS_APP: true,
     service: {
-        wsUrl: `ws://10.134.62.106:8090/websocket`,
-        // wsUrl: `ws://3435k69g44.zicp.vip:80/websocket`,
+        // wsUrl: `ws://10.134.62.106:8090/websocket`,
+        wsUrl: `ws://3435k69g44.zicp.vip:47355/websocket`,
         // wsUrl: `ws://10.134.53.153:8090/websocket`,
     },
     request: request,

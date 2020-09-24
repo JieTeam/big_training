@@ -37,6 +37,7 @@ Page({
     onLoad: function (options) {
         count = 0;
         this.resetPage();
+        uid = new Date().getTime().toString().slice(-5);
     },
 
     /**
@@ -108,8 +109,6 @@ Page({
     /**连接websocket */
     connectWebSocket() {
         let that = this;
-        uid = new Date().getTime().toString().slice(-5);
-        console.log("uid==>",uid)
         wx.connectSocket({
             url: Utils.service.wsUrl + '/' + uid + '/2',
             success: res => {
@@ -162,26 +161,21 @@ Page({
                         roomId: msg.data.roomId,
                         questionList: msg.data.iusse
                     });
-                    let timer = setTimeout(() => {
-                        clearTimeout(timer);
+                    wx.nextTick(() => {
                         that.readyAnswer(0);
-                    }, 200);
+                    })
                     break;
                 case 3||'3': // 对方答题
                     const rivalAnswer = msg.data.answer.split(",");
                     let question = Object.assign({},that.data.currentQuestion);
                     let rivalInfo = Object.assign({},that.data.rivalInfo);
                     if(rivalAnswer.length) {
-                        console.log("rivalAnswer==>",rivalAnswer)
                         for (let i = 0; i < question.options.length; i++) {
                             const item = question.options[i];
                             if(rivalAnswer.indexOf(item.key)>=0) item.rivalActive = true;
                         }
                         that.setData({
                             currentQuestion: question,
-                        })
-                        wx.nextTick(() => {
-                            console.log("question==>",that.data.currentQuestion);
                         })
                     }
                     rivalInfo.score = msg.data.score;
@@ -190,7 +184,6 @@ Page({
                         rivalisAnswer: true
                     })
                     if(that.data.meisAnswer) {
-                        console.log("敌方clear");
                         that.getNextQuestion();
                     }
                     break;
@@ -205,10 +198,12 @@ Page({
      * 进入答题
      */
     readyAnswer(index) {
+        console.log(`第${index+1}题`);
         const that = this;
         that.setData({
             isAnswerLoaded: false
-        })
+        });
+        if(!that.data.questionList[index]) return;
         const question = Object.assign({},that.data.questionList[index]);
         question.questionCategoryName = question.questionCategory=="1" ? "政治理论":
                                         question.questionCategory=="2" ? "政策":
@@ -261,7 +256,6 @@ Page({
             eAngle = ((that.data.gameTime-count)*2*Math.PI/that.data.gameTime)-0.5*Math.PI;
             that.drawCountdown('#countDown', sAngle, eAngle, '#ffffff', true).then(() => {
                 if(count >= that.data.gameTime) {
-                    console.log("倒计时clear");
                     that.getNextQuestion();
                 }
             })
@@ -272,9 +266,6 @@ Page({
     /**获取下一道题目 */
     async getNextQuestion() {
         let that = this;
-        that.setData({
-            isShowRightAnswer: true
-        });
         if(countdownId)clearInterval(countdownId);
         // 如果倒计时结束，用户还未选择答案，也算答错
         if(!that.data.meisAnswer) {
@@ -286,10 +277,8 @@ Page({
             count = 0;
             // 题目数组下标
             let questionIndex = that.data.currentQuestion.num;
-            console.log(`第${questionIndex}题`);
             // 避免出现多余的题目
             if (questionIndex >= that.data.questionList.length) {
-                // that.gameOver();
                 console.log("等待服务端发送结果");
             } else {
                 that.readyAnswer(questionIndex);
@@ -362,22 +351,32 @@ Page({
     /**比赛结束 */
     gameOver(data) {
         let that = this;
+        if(that.data.isGameOver) return;
         that.setData({
             isGameOver: true
         })
         const fightResult = {
             ...data,
             awayHeader: that.data.rivalInfo?that.data.rivalInfo.header:"../../assets/images/test/user.png",
-            awayName: that.data.rivalInfo?that.data.rivalInfo.name:"未知用户"
+            awayName: that.data.rivalInfo?that.data.rivalInfo.name:"佚名"
         }
-        wx.setStorageSync(data.roomId, fightResult);
+        console.log("fightResult===>",fightResult);
+        wx.setStorage({
+            key: 'roomId',
+            data: fightResult,
+            success: (result) => {
+                console.log("保存成功1")
+            }
+        });
+        // wx.setStorageSync('roomId1', fightResult);
+          
         wx.closeSocket();
-        setTimeout(() => {
+        wx.nextTick(() => {
             console.log("游戏结束");
             wx.redirectTo({
                 url: `/pages/fight_result/index?roomId=${data.roomId}`
             });
-        }, 500)
+        })
     },
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
@@ -390,7 +389,9 @@ Page({
             selOpt.meActive = true;
             selOpt.className = selOpt.isRight?'right':'error'
             let result = that.data.userAnswerResult;
-            result.push(selOpt.key);
+            const findIndex = result.findIndex(v=>v==selOpt.key); // 多选可取消
+            console.log("findIndex==>",findIndex)
+            findIndex>=0 ? result.splice(findIndex,1):result.push(selOpt.key);
             that.setData({
                 userAnswerResult: result,
                 currentQuestion: question
@@ -415,7 +416,8 @@ Page({
     showAnswerResult(result,isRight) {
         const that = this;
         that.setData({
-            meisAnswer: true
+            meisAnswer: true,
+            isShowRightAnswer: true
         })
         let score = 0;
         if(isRight) {
@@ -443,6 +445,7 @@ Page({
                 default:
                     break;
             }
+            if(that.data.currentQuestion.questionType=='3')score=2*score;
         } 
         let meInfo = that.data.meInfo;
         meInfo.score = score;
@@ -461,15 +464,10 @@ Page({
                 subjectId: that.data.currentQuestion.id
             }
         })
-        console.log("msg==>",msg)
         wx.sendSocketMessage({
             data: msg
         })
-        console.log("that.data.rivalisAnswer==>",that.data.rivalisAnswer)
-        
-        console.log("我方答题")
         if(that.data.rivalisAnswer) {
-            console.log("我方clear");
             that.getNextQuestion()
         }
     }
