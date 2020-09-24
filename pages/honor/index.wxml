@@ -1,14 +1,10 @@
-<!--pages/honor/index.wxml-->
-<view class="honor df flexCol">
+<view class="honor">
     <view class="header ac">
         <image class="title" src="../../assets/images/honor/ry.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
     </view>
-    <view class="medal-box ac">
+    <view class="medal-box">
         <view class="medal-item" wx:for="{{medalList}}" wx:key="index">
-            <view class="name">{{item.name}}</view>
-            <view class="medal">
-                <image src="{{item.type==1?'../../assets/images/honor/gold.png':item.type==2?'../../assets/images/honor/silver.png':'../../assets/images/honor/bronze.png'}}" />
-            </view>
+            <image src="/assets/images/honor/group-1.png"></image>
         </view>
     </view>
 </view>

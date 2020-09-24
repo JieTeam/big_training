@@ -25,16 +25,16 @@
         class="login-content__input" 
         data-type="name"
         bindinput="handleInputChange"
-        auto-focus 
         placeholder="请输入真实姓名"/>
     </view>
     <view class="login-content__item">
       <view class="login-content__icon iconfont icon-icon">
       </view>
       <input 
-        placeholder-class='login-content__input__placeholder' 
-        class="login-content__input" 
-        auto-focus 
+        placeholder-class='login-content__input__placeholder'
+        data-type="phone" 
+        class="login-content__input"
+        bindinput="handleInputChange" 
         placeholder="手机号"/>
     </view>
     <view class="login-content__item">
@@ -42,8 +42,10 @@
       </view>
       <input 
         placeholder-class='login-content__input__placeholder' 
-        class="login-content__input" 
-        auto-focus placeholder="验证码"/>
+        class="login-content__input"
+        data-type="msgCode"
+        bindinput="handleInputChange" 
+        placeholder="验证码"/>
       <view class="login-content__rightIcon">
         <button class="login-content__getcode" bindtap="getMsgCode">{{getCodeMsg}}</button>
       </view>

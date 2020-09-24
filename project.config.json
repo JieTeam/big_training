@@ -121,6 +121,21 @@
           "id": -1,
           "name": "管理-排行榜",
           "pathName": "pages/adminRanking/adminRanking",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 8,
+          "name": "登陆",
+          "pathName": "pages/login/login",
+          "query": "type=law",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "荣耀墙",
+          "pathName": "pages/honor/index",
+          "query": "type=law",
           "scene": null
         }
       ]

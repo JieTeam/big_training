@@ -1,5 +1,5 @@
 import { baseUrl } from './config'
-
+import Api from './api'
 
 // 校验用户信息
 export const ApiCheckUser = (params) => {
@@ -7,8 +7,8 @@ export const ApiCheckUser = (params) => {
 }
 
 // 获取open_id
-export const ApiGetOpenId = (params) => {
-  return Api.request('POST', `${baseUrl}/bt/login/auth`, params).then(res => res);
+export const ApiGetOpenId = (code) => {
+  return Api.request('POST', `${baseUrl}/bt/login/auth?code=${code}`, {}).then(res => res);
 }
 
 // 登陆

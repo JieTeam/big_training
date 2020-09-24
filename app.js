@@ -2,7 +2,11 @@
 App({
     onLaunch: function () {
         // 展示本地存储能力
-        const userInfo = wx.getStorageSync('userInfo') || {login: false};
+        const initUserInfo = {
+            login: true,
+            roleType: 3, // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
+        }
+        const userInfo = wx.getStorageSync('userInfo') || initUserInfo;
         // var logs = wx.getStorageSync('logs') || []
         // logs.unshift(Date.now())
         // wx.setStorageSync('logs', logs)
