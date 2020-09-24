@@ -26,9 +26,9 @@ Page({
         isAnswerLoaded: false, // 答案是否加载完成（动画完成）
         isShowRightAnswer: false, // 是否显示正确答案
         currentQuestion: {}, // 当前答题信息
+        isSubDouble: false,  // 多选是否提交
 
         isGameOver: false, // 游戏是否正常结束
-        showGameResult: false  // 是否显示比赛结果
     },
 
     /**
@@ -68,15 +68,15 @@ Page({
     onUnload: function () {
         // 返回后，关闭计时器，避免后台继续调用题目接口
         const that = this;
-        count = 0;
-        clearInterval(countdownId);
-        that.resetPage();
         if (that.data.isGameOver||!that.data.matchSuc) {
             
         } else {
             Utils.showModal('提示', '您放弃了挑战!');
         }
+        count = 0;
         wx.closeSocket();
+        clearInterval(countdownId);
+        that.resetPage();
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
@@ -195,9 +195,9 @@ Page({
                     }
                     break;
                 case 4||'4': // 答题结束
+                case 5||'5': // 对方逃跑
+                    that.gameOver(msg.data);
                     break;
-                case 5||'5': // 对方断线
-                    break;   
             }
         });
     },
@@ -237,39 +237,37 @@ Page({
         })
         wx.nextTick(()=> {
             if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
-            that.startCountdown().then(()=> {
-                that.setData({
-                    isAnswerLoaded: true, // 题目加载完成
-                    userAnswerResult: [], // 用户答题结果记录
-                    meisAnswer: false, // 我方是否完成答题
-                    rivalisAnswer: false, // 对方是否答题
-                    isShowRightAnswer: false, // 是否显示正确答案
-                })
+            that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
+            that.setData({
+                isAnswerLoaded: true, // 题目加载完成
+                userAnswerResult: [], // 用户答题结果记录
+                meisAnswer: false, // 我方是否完成答题
+                rivalisAnswer: false, // 对方是否答题
+                isShowRightAnswer: false, // 是否显示正确答案
+                isSubDouble: false,  // 多选是否提交
             })
+            that.startCountdown();  // 开始画圆
         })
     },
     /**开始倒计时 */
     startCountdown() {
-        return new Promise((resolve,reject) => {
-            let that = this;
-            let sAngle = -0.5*Math.PI; // 起始弧度，单位弧度（在3点钟方向）
-            let eAngle = 0; // 终止弧度
+        let that = this;
+        let sAngle = -0.5*Math.PI; // 起始弧度，单位弧度（在3点钟方向）
+        let eAngle = 0; // 终止弧度
 
-            // 动画函数
-            function animation() {
-                eAngle = ((that.data.gameTime-count)*2*Math.PI/that.data.gameTime)-0.5*Math.PI;
-                that.drawCountdown('#countDown', sAngle, eAngle, '#ffffff', true).then(() => {
-                    console.log("count==>",count)
-                    if(count >= that.data.gameTime) {
-                        console.log("倒计时clear")
-                        that.getNextQuestion();
-                    }
-                })
-            };
-            clearInterval(countdownId);
-            countdownId = setInterval(animation, 1000);
-            resolve(true)
-        })
+        // 动画函数
+        function animation() {
+            count+=1;
+            eAngle = ((that.data.gameTime-count)*2*Math.PI/that.data.gameTime)-0.5*Math.PI;
+            that.drawCountdown('#countDown', sAngle, eAngle, '#ffffff', true).then(() => {
+                if(count >= that.data.gameTime) {
+                    console.log("倒计时clear");
+                    that.getNextQuestion();
+                }
+            })
+        };
+        clearInterval(countdownId);
+        countdownId = setInterval(animation, 1000);
     },
     /**获取下一道题目 */
     async getNextQuestion() {
@@ -291,7 +289,8 @@ Page({
             console.log(`第${questionIndex}题`);
             // 避免出现多余的题目
             if (questionIndex >= that.data.questionList.length) {
-                that.gameOver();
+                // that.gameOver();
+                console.log("等待服务端发送结果");
             } else {
                 that.readyAnswer(questionIndex);
             }
@@ -326,9 +325,9 @@ Page({
             isAnswerLoaded: false, // 答案是否加载完成（动画完成）
             isShowRightAnswer: false, // 是否显示正确答案
             currentQuestion: {}, // 当前答题信息
+            isSubDouble: false,  // 多选是否提交
 
             isGameOver: false, // 游戏是否正常结束
-            showGameResult: false  // 是否显示比赛结果
         })
     },
     /**绘制倒计时圆环 */
@@ -338,7 +337,6 @@ Page({
             query.select(domId)
             .fields({ node: true, size: true })
             .exec((res) => {
-                count+=1;
                 const canvas = res[0].node;
                 canvas.width = 200;
                 canvas.height = 200;
@@ -362,21 +360,29 @@ Page({
     },
 
     /**比赛结束 */
-    gameOver() {
+    gameOver(data) {
         let that = this;
+        that.setData({
+            isGameOver: true
+        })
+        const fightResult = {
+            ...data,
+            awayHeader: that.data.rivalInfo?that.data.rivalInfo.header:"../../assets/images/test/user.png",
+            awayName: that.data.rivalInfo?that.data.rivalInfo.name:"未知用户"
+        }
+        wx.setStorageSync(data.roomId, fightResult);
+        wx.closeSocket();
         setTimeout(() => {
             console.log("游戏结束");
-            wx.closeSocket();
-            that.setData({
-                isGameOver: true,
-                showGameResult: true
-            })
-        }, 1000)
+            wx.redirectTo({
+                url: `/pages/fight_result/index?roomId=${data.roomId}`
+            });
+        }, 500)
     },
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
         let that = this;
-        // if(count>=10 || that.data.meisAnswer) return false;
+        if(count>=10 || that.data.meisAnswer) return false;
         if (that.data.isAnswerLoaded) { // 答案加载完成后才能答题
             let userAnswerIndex = event.currentTarget.dataset.id;
             let question = that.data.currentQuestion;
@@ -397,7 +403,11 @@ Page({
         }
     },
     doubleSub() {
+        const that = this;
         // 用户选择的答案
+        that.setData({
+            isSubDouble: true
+        })
         let result = that.data.userAnswerResult;
         let isRight = result.length&&(result.join(",") == that.data.currentQuestion.rightAnswer);
         this.showAnswerResult(result,isRight);
@@ -464,3 +474,18 @@ Page({
         }
     }
 })
+
+const res = {
+    status: 4,
+    data: {
+        roomId: 12,
+        homeUId: 23, // 主场用户id
+        awayUId: 345, // 客场用户id
+        homeScore: 3465, // 主场得分
+        awayScore: 4545, // 客场得分
+        beginTime: 364,  // 比赛开始时间
+        endTime: 45, // 边塞结束时间
+        homeExperience: +1, // 主场增加积分
+        awayExperience: -1, // 客场增加积分
+    }
+}

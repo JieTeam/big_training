@@ -37,8 +37,8 @@
         </view>
     </view>
     <view class="btn-box df justBet">
-        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" bindtap="reGame">再来一局</button>
-        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" bindtap="share">分享荣耀</button>
+        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" data-type="regame" bindtap="go">再来一局</button>
+        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" data-type="share" bindtap="go">分享荣耀</button>
     </view>
     <view class="rule">
         规则：执法学徒、执法新兵，失败-0积分，获胜+1积分，平局不加不扣；执法骨干、执法先锋、执法专家，失败-1积分，获胜+1积分，平局不加不扣；

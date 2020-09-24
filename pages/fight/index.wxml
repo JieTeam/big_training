@@ -68,7 +68,7 @@
                 </view>
             </view>
             <view class="topic-footer">
-                <button hidden="{{currentQuestion.questionType!='3'}}" type="primary" class="sub" bindtap="doubleSub">提交</button>
+                <button hidden="{{currentQuestion.questionType!='3'||isSubDouble}}" type="primary" class="sub" bindtap="doubleSub">提交</button>
             </view>
         </view>
     </view>

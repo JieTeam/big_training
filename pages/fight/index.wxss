@@ -209,7 +209,7 @@
 .fight-box .fight .topic-box .topic .answer-list .answer-box .answer {
   flex: 1;
   padding: 20rpx 30rpx;
-  height: 86rpx;
+  min-height: 86rpx;
   line-height: 46rpx;
   border-radius: 16rpx;
   background: #f5f3f6;
@@ -221,16 +221,19 @@
   font-size: 46rpx;
 }
 .fight-box .fight .topic-box .topic .answer-list .answer-box .answer.active,
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer.right,
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer.error {
+  color: #ffffff;
+  box-shadow: 0 0 28rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+.fight-box .fight .topic-box .topic .answer-list .answer-box .answer.active {
+  background: #f5b613;
+}
 .fight-box .fight .topic-box .topic .answer-list .answer-box .answer.right {
   background: #46d7b6;
-  color: #ffffff;
 }
 .fight-box .fight .topic-box .topic .answer-list .answer-box .answer.error {
   background: #de5a68;
-  color: #ffffff;
-}
-.fight-box .fight .topic-box .topic .answer-list.active {
-  color: #ffffff;
 }
 .fight-box .fight .topic-box .topic-footer {
   height: 120rpx;

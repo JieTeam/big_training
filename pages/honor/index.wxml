@@ -4,7 +4,7 @@
     </view>
     <view class="medal-box">
         <view class="medal-item" wx:for="{{medalList}}" wx:key="index">
-            <image src="/assets/images/honor/group-1.png"></image>
+            <image src="http://file.zmdup.com/big_training/group-1.png"></image>
         </view>
     </view>
 </view>

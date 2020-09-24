@@ -186,7 +186,7 @@
                         .answer {
                             flex: 1;
                             padding: 20rpx 30rpx;
-                            height: 86rpx;
+                            min-height: 86rpx;
                             line-height: 46rpx;
                             border-radius: 16rpx;
                             background: #f5f3f6;
@@ -198,18 +198,20 @@
                                     font-size: 46rpx;
                                 }
                             }
-                            &.active,&.right {
-                                background: #46d7b6;
+                            &.active,&.right,&.error {
                                 color: #ffffff;
+                                box-shadow: 0 0 28rpx 6rpx rgba(0,0,0,0.1);
+                            }
+                            &.active {
+                                background: #f5b613;
+                            }
+                            &.right {
+                                background: #46d7b6;
                             }
                             &.error {
                                 background: #de5a68;
-                                color: #ffffff;
                             }
                         }
-                    }
-                    &.active {
-                        color: #ffffff;
                     }
                 }
             }
