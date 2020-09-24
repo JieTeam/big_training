@@ -30,35 +30,45 @@
             </view>
         </view>
         <view class="topic-box pt15 b-sizing df flexCol">
-            <view class="type pr">
-                <view class="text ac b-sizing">{{questionType=='0'?"单选":"多选"}}</view>
-                <image wx:if="{{questionType=='1'}}" class="double pa" src="../../assets/images/fight/double.png" />
+            <view class="type pr df">
+                <view class="text ac b-sizing">{{currentQuestion.questionTypeName}}</view>
+                <image wx:if="{{currentQuestion.questionType=='3'}}" class="double pa" src="../../assets/images/fight/double.png" />
+                <view class="type">{{currentQuestion.questionCategoryName}}</view>
             </view>
             <view class="topic b-sizing">
-                <view class="subject">{{questionIndex+1}}.{{subject}}</view>
+                <view class="subject">{{currentQuestion.num}}.{{currentQuestion.questionDesc}}</view>
                 <view class="answer-list">
-                    <view class="answer-box animation al-center justBet" 
+                    <view class="answer-box animation" 
                         style="animation-delay:.{{index * 2}}s" 
-                        wx:for="{{answerList}}" 
+                        wx:for="{{currentQuestion.options}}" 
                         wx:key="index"
                     >
-                        <view class="me player">
-                            <image src="{{meInfo.header}}"></image>
-                        </view>
-                        <view class="answer b-sizing al-center justBet" bindtap="submitAnswer" data-id="{{index}}">
-                            <view class="text">{{item.answer}}</view>
-                            <view class="status">
-                                <text class="iconfont icon-zhengque"></text>
+                        <view 
+                            wx:if="{{(isShowRightAnswer&&(item.meActive||item.isRight||item.rivalActive)||!isShowRightAnswer)}}" 
+                            class="answer-item al-center justBet"
+                        >
+                            <view class="me player">
+                                <image wx:if="{{item.meActive}}" src="{{meInfo.avatarUrl}}" alt="{{item.key}}"></image>
                             </view>
-                        </view>
-                        <view class="rival player">
-                            <image src="{{rivalInfo.header}}"></image>
+                            <view
+                                class="{{(isShowRightAnswer?item.className:item.meActive?'active':'')+' answer b-sizing al-center justBet'}}" 
+                                bindtap="submitAnswer" data-id="{{index}}"
+                            >
+                                <view class="text">{{item.value}}</view>
+                                <view wx:if="{{isShowRightAnswer&&(item.meActive||item.isRight)}}" class="status">
+                                    <text wx:if="{{item.isRight}}" class="iconfont icon-zhengque"></text>
+                                    <text wx:else class="iconfont icon-cuohao"></text>
+                                </view>
+                            </view>
+                            <view class="rival player">
+                                <image wx:if="{{item.rivalActive}}" src="{{rivalInfo.header}}"></image> 
+                            </view>
                         </view>
                     </view>
                 </view>
             </view>
             <view class="topic-footer">
-                <button hidden="{{questionType=='0'}}" type="primary" class="sub" bindtap="doubleSub">提交</button>
+                <button hidden="{{currentQuestion.questionType!='3'}}" type="primary" class="sub" bindtap="doubleSub">提交</button>
             </view>
         </view>
     </view>
