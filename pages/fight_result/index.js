@@ -24,13 +24,13 @@ Page({
         wx.getStorage({
             key: 'roomId',
             success: (result) => {
-                console.log("result==>",result)
                 const data = result.data;
-                that.setData({
-                    fightResut: data,
-                    plate: data.homeScore>data.awayScore? "../../assets/images/fight_result/done.png":
-                    data.homeScore==data.awayScore ? "../../assets/images/fight_result/draw.png":
-                           "../../assets/images/fight_result/filed.png"
+                let resImg = data.homeScore>data.awayScore?'done':data.homeScore<data.awayScore?'filed':'draw';
+                wx.nextTick(()=>{
+                    that.setData({
+                        fightResut: data,
+                        plate: `../../assets/images/fight_result/${resImg}.png`
+                    });
                 })
             }
         });
@@ -87,24 +87,10 @@ Page({
     resetPage() {
         this.setData({
             meInfo: {
-                ...app.globalData.userInfo,
-                score: 60
+                ...app.globalData.userInfo
             },
-            rivalInfo: {
-                header: "../../assets/images/test/me_logo.png",
-                name: "小白",
-                score: 80
-            },
+            rivalInfo: null
         })
-        setTimeout(() => {
-            const meScore = this.data.meInfo.score, 
-            rivalScore = this.data.rivalInfo.score;
-            this.setData({
-                plate: meScore>rivalScore? "../../assets/images/fight_result/done.png":
-                       meScore==rivalScore ? "../../assets/images/fight_result/draw.png":
-                       "../../assets/images/fight_result/filed.png"
-            })
-        }, 500);
     },
     go(e) {
         const type = e.currentTarget.dataset.type || e.target.dataset.type;

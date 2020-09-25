@@ -4,6 +4,7 @@ const Utils = require('../../utils/util.js');
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
 let uid = null;
+let activeResult=[]; // 用户选择结果
 Page({
 
     /**
@@ -26,6 +27,7 @@ Page({
         isAnswerLoaded: false, // 答案是否加载完成（动画完成）
         isShowRightAnswer: false, // 是否显示正确答案
         currentQuestion: {}, // 当前答题信息
+        questionIndex: 0,  // 当前题目下标
         isSubDouble: false,  // 多选是否提交
 
         isGameOver: false, // 游戏是否正常结束
@@ -53,7 +55,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        
+        this.connectWebSocket(); // 连接socket
     },
 
     /**
@@ -74,8 +76,17 @@ Page({
         } else {
             Utils.showModal('提示', '您放弃了挑战!');
         }
+        that.accordCloseSocket();
+    },
+    accordCloseSocket() {
+        const that = this;
         count = 0;
-        wx.closeSocket();
+        wx.sendSocketMessage({
+            data: JSON.stringify({
+                status: 4,
+                data: null
+            })
+        });
         clearInterval(countdownId);
         that.resetPage();
     },
@@ -103,16 +114,26 @@ Page({
      * 开始匹配
      */
     startMatch() {
-        Utils.showLoading('进入匹配');
-        this.connectWebSocket();  // 建立socket连接，开始匹配
+        // 开始匹配对手
+        wx.sendSocketMessage({
+            data: JSON.stringify({
+                status: 1,
+                data: null
+            })
+        })
+        this.setData({
+            isMatch: true
+        });
     },
     /**连接websocket */
     connectWebSocket() {
-        let that = this;
+        Utils.showLoading();
+        console.log("uid===>",uid);
+        const that = this;
         wx.connectSocket({
             url: Utils.service.wsUrl + '/' + uid + '/2',
             success: res => {
-                that.initWebSocketListener();
+                that.initWebSocketListener(); // 监听socket
             }
         });
     },
@@ -120,23 +141,13 @@ Page({
     initWebSocketListener() {
         const that = this;
         wx.onSocketOpen(res => {
+            console.log("建立连接");
             Utils.hideLoading();
-            that.setData({
-                isMatch: true
-            });
-
-            // 开始匹配对手
-            wx.sendSocketMessage({
-                data: JSON.stringify({
-                    status: 1,
-                    data: null
-                })
-            })
         })
         wx.onSocketError(res => {
             Utils.hideLoading();
             Utils.showModal('提示', '连接到服务器失败', () => {
-                wx.closeSocket();
+                that.connectWebSocket()
             });
         })
         wx.onSocketClose(res => {
@@ -144,7 +155,7 @@ Page({
         })
         wx.onSocketMessage(res => {
             var msg = JSON.parse(res.data);
-            console.log("msg==>",msg);
+            console.log("msg==>",msg)
             switch (msg.status) {
                 case 1||'1':
                     console.log("上线");
@@ -162,7 +173,7 @@ Page({
                         questionList: msg.data.iusse
                     });
                     wx.nextTick(() => {
-                        that.readyAnswer(0);
+                        that.readyAnswer(that.data.questionIndex);
                     })
                     break;
                 case 3||'3': // 对方答题
@@ -172,7 +183,9 @@ Page({
                     if(rivalAnswer.length) {
                         for (let i = 0; i < question.options.length; i++) {
                             const item = question.options[i];
-                            if(rivalAnswer.indexOf(item.key)>=0) item.rivalActive = true;
+                            if(rivalAnswer.indexOf(item.key)>=0) {
+                                item.rivalActive = true;
+                            }
                         }
                         that.setData({
                             currentQuestion: question,
@@ -188,8 +201,15 @@ Page({
                     }
                     break;
                 case 4||'4': // 答题结束
-                case 5||'5': // 对方逃跑
                     that.gameOver(msg.data);
+                case 5||'5': // 对方逃跑
+                    console.log("对方逃跑")
+                    wx.sendSocketMessage({
+                        data: JSON.stringify({
+                            status: 3,
+                            data: null
+                        })
+                    })
                     break;
             }
         });
@@ -198,7 +218,6 @@ Page({
      * 进入答题
      */
     readyAnswer(index) {
-        console.log(`第${index+1}题`);
         const that = this;
         that.setData({
             isAnswerLoaded: false
@@ -225,7 +244,6 @@ Page({
             { key: "option3", value: question.option3, isRight: optFlag3, className: optFlag3? 'right':'error' },
             { key: "option4", value: question.option4, isRight: optFlag4, className: optFlag4? 'right':'error' }
         ]
-        console.log("question==>",question);
         that.setData({
             enterAnswer: true,
             currentQuestion: question
@@ -233,6 +251,9 @@ Page({
         wx.nextTick(()=> {
             if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
             that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
+            let rivalInfo = that.data.rivalInfo,meInfo = that.data.meInfo;
+            rivalInfo.score = 0;meInfo.score = 0;
+            activeResult = [];
             that.setData({
                 isAnswerLoaded: true, // 题目加载完成
                 userAnswerResult: [], // 用户答题结果记录
@@ -240,6 +261,8 @@ Page({
                 rivalisAnswer: false, // 对方是否答题
                 isShowRightAnswer: false, // 是否显示正确答案
                 isSubDouble: false,  // 多选是否提交
+                meInfo: meInfo,  // 切题重置分数
+                rivalInfo: rivalInfo,
             })
             that.startCountdown();  // 开始画圆
         })
@@ -276,7 +299,10 @@ Page({
             clearInterval(timer);
             count = 0;
             // 题目数组下标
-            let questionIndex = that.data.currentQuestion.num;
+            let questionIndex = that.data.questionIndex+1;
+            that.setData({
+                questionIndex: questionIndex
+            })
             // 避免出现多余的题目
             if (questionIndex >= that.data.questionList.length) {
                 console.log("等待服务端发送结果");
@@ -292,7 +318,7 @@ Page({
         this.setData({
             isMatch: false
         })
-        wx.closeSocket();
+        this.accordCloseSocket();
     },
     resetPage() {
         this.setData({
@@ -314,6 +340,7 @@ Page({
             isAnswerLoaded: false, // 答案是否加载完成（动画完成）
             isShowRightAnswer: false, // 是否显示正确答案
             currentQuestion: {}, // 当前答题信息
+            questionIndex: 0,  // 当前答题下标
             isSubDouble: false,  // 多选是否提交
 
             isGameOver: false, // 游戏是否正常结束
@@ -360,16 +387,11 @@ Page({
             awayHeader: that.data.rivalInfo?that.data.rivalInfo.header:"../../assets/images/test/user.png",
             awayName: that.data.rivalInfo?that.data.rivalInfo.name:"佚名"
         }
-        console.log("fightResult===>",fightResult);
         wx.setStorage({
             key: 'roomId',
             data: fightResult,
-            success: (result) => {
-                console.log("保存成功1")
-            }
+            success: (result) => {}
         });
-        // wx.setStorageSync('roomId1', fightResult);
-          
         wx.closeSocket();
         wx.nextTick(() => {
             console.log("游戏结束");
@@ -386,20 +408,23 @@ Page({
             let userAnswerIndex = event.currentTarget.dataset.id;
             let question = that.data.currentQuestion;
             let selOpt = question.options[userAnswerIndex];
-            selOpt.meActive = true;
-            selOpt.className = selOpt.isRight?'right':'error'
-            let result = that.data.userAnswerResult;
-            const findIndex = result.findIndex(v=>v==selOpt.key); // 多选可取消
-            console.log("findIndex==>",findIndex)
-            findIndex>=0 ? result.splice(findIndex,1):result.push(selOpt.key);
+            
+            const findIndex = activeResult.findIndex(v=>v==selOpt.key); // 多选可取消
+            if(findIndex>=0) {
+                selOpt.meActive = false;
+                activeResult.splice(findIndex,1);
+            }else{
+                selOpt.meActive = true;
+                activeResult.push(selOpt.key);
+            }
             that.setData({
-                userAnswerResult: result,
+                userAnswerResult: activeResult,
                 currentQuestion: question
             })
             if(that.data.currentQuestion.questionType!='3') { // 判断或者单选直接提交
                 // 用户选择的答案
-                let isRight = result.length&&(result.join(",") == that.data.currentQuestion.rightAnswer);
-                that.showAnswerResult(result,isRight);
+                let isRight = activeResult.length&&(activeResult.join(",") == that.data.currentQuestion.rightAnswer);
+                that.showAnswerResult(activeResult,isRight);
             }
         }
     },
@@ -409,9 +434,8 @@ Page({
         that.setData({
             isSubDouble: true
         })
-        let result = that.data.userAnswerResult;
-        let isRight = result.length&&(result.join(",") == that.data.currentQuestion.rightAnswer);
-        this.showAnswerResult(result,isRight);
+        let isRight = activeResult.length&&(activeResult.join(",") == that.data.currentQuestion.rightAnswer);
+        this.showAnswerResult(activeResult,isRight);
     },
     showAnswerResult(result,isRight) {
         const that = this;
@@ -463,7 +487,7 @@ Page({
                 yes: isRight,
                 subjectId: that.data.currentQuestion.id
             }
-        })
+        });
         wx.sendSocketMessage({
             data: msg
         })
@@ -472,18 +496,3 @@ Page({
         }
     }
 })
-
-const res = {
-    status: 4,
-    data: {
-        roomId: 12,
-        homeUId: 23, // 主场用户id
-        awayUId: 345, // 客场用户id
-        homeScore: 3465, // 主场得分
-        awayScore: 4545, // 客场得分
-        beginTime: 364,  // 比赛开始时间
-        endTime: 45, // 边塞结束时间
-        homeExperience: +1, // 主场增加积分
-        awayExperience: -1, // 客场增加积分
-    }
-}
