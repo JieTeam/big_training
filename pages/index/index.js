@@ -83,9 +83,10 @@ Page({
     }, 500);
   },
   onShareAppMessage() {
+    const { openId, userId } = app.globalData.userInfo
     return {
       title: "执法大练兵知识竞赛",
-      path:`/pages/index/index?url=${url}` 
+      path:`/pages/shareImg/shareImg?openId=${openId}&userId=${userId}` 
     }
   }
 });

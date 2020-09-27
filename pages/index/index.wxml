@@ -65,12 +65,14 @@
           </text>
           <text>赛制规则</text>
       </view>
-      <view class="bottom-fun_result">
+      <!-- <view class="bottom-fun_result"> -->
+        <button class="bottom-fun_result" open-type="share">
           <text class="bottom-fun_icon">
             <text class="iconfont icon-fenxiang"></text>
           </text>
           <text>分享</text>
-      </view>
+        </button>
+      <!-- </view> -->
   </view>
 </view>
 <view class="modal" hidden="{{!rulesBox}}">
