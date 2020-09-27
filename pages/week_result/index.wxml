@@ -3,25 +3,25 @@
     <view class="result pr ac">
         <view class="test-info">
             <view class="hint">得分</view>
-            <view class="score fw800">{{score}}</view>
+            <view class="score fw800">{{weekTestRes.trainScore}}</view>
             <view class="info df pr">
                 <view class="accuracy item ac">
                     <view class="mark">正确题目</view>
-                    <view class="data fw900">{{accuracy}}</view>
+                    <view class="data fw900">{{weekTestRes.accuracy}}</view>
                 </view>
                 <view class="time item ac">
                     <view class="mark">时间</view>
-                    <view class="data fw900">{{time}}</view>
+                    <view class="data fw900">{{weekTestRes.gameTime}}</view>
                 </view>
                 <view class="line tCenter"></view>
             </view>
         </view>
-        <view wx:if="{{plate}}" class="plate pa animated fadeInDown">
-            <image src="{{plate}}"></image>
+        <view class="plate pa animated fadeInDown">
+            <image src='../../assets/images/fight_result/done.png'></image>
         </view>
     </view>
     <view class="btn-box df justCen">
-        <button hidden="{{!plate}}" type="primary" class="result-btn b-sizing" bindtap="back">返回</button>
+        <button type="primary" class="result-btn b-sizing" bindtap="back">返回</button>
     </view>
     <view class="rule">
         规则：执法学徒、执法新兵，失败-0积分，获胜+1积分，平局不加不扣；执法骨干、执法先锋、执法专家，失败-1积分，获胜+1积分，平局不加不扣；

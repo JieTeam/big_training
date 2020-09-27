@@ -1,24 +1,23 @@
 // pages/week/index.js
 const app = getApp();
-let prigressTime = null;
+const Utils = require('../../utils/util.js');
+let progressTime = null;
 let countdownId = null; // 答题倒计时计时器ID
+let cutTopic = true; // 是否可以切题
+let trainStartTime = "", trainStartTimeNum=0, trainEndTime = "", trainEndTimeNum=0; // 答题开始结束时间
+let gameTime = '';
+import { getWeektoPicApi,subWeekAnswerApi } from "../../utils/server/request";
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        meInfo: null,
         done: false, // 是否加载完成
         progress: 0, // 加载进度
-
-        subject: '', //当前题目名
-        questionType: '', //题目类型 0：单选，1：多选
-        questionTypeId: '', //题目类型ID
-        questionId: '', // 当前题目ID
-        questionImageUrl: '', //题目图片地址
-        answerList: [], //当前题目答案选项
-        questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
+        topicData: {}, // 抽取题目信息
+        currentQuestion: {}, // 当前答题信息
+        questionList: [], //返回的本次挑战题目所有数据的ID
         questionIndex: 0, //当前答题数组下标
         subSuc: false
     },
@@ -27,7 +26,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.resetPage();
+        this.setData({
+            meInfo: app.globalData.userInfo
+        })
+        this.getToPic();
     },
 
     /**
@@ -58,7 +60,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        if(prigressTime) clearInterval(prigressTime);  // 清除加载计时器
+        if(progressTime) clearInterval(progressTime);  // 清除加载计时器
         if(countdownId) clearInterval(countdownId);  // 清除答题计时器
     },
 
@@ -83,42 +85,96 @@ Page({
 
     },
     /**
-     * 获取题目
+     * 抽取题目
      */
-    getToPic() {
+    async getToPic() {
         const that = this;
-        let timer = setTimeout(function(){
-            clearTimeout(timer);
-            timer = null;
-            that.setData({
-                done: true,
-                subject: '人们常说：“无事不登三宝殿”中的“三宝”是指哪三宝？', //当前题目名
-                questionType: '1', //题目类型 0：单选，1：多选
-                questionTypeId: '', //题目类型ID
-                questionId: '', // 当前题目ID
-                questionImageUrl: '', //题目图片地址
-                answerList: [
-                    {
-                        answer: "A、纸、砚、笔",
-                        id: 0
-                    },
-                    {
-                        answer: "B、佛、法、僧",
-                        id: 1
-                    },
-                    {
-                        answer: "C、书、剑、琴",
-                        id: 2
-                    },
-                    {
-                        answer: "D、金、银、玉",
-                        id: 3
-                    }
-                ], //当前题目答案选项
-                questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
-                questionIndex: 0, //当前答题数组下标
+        that.setLoad();
+        try {
+            const result = await getWeektoPicApi({
+                userId: app.globalData.userInfo.userId
+            });
+            if(result.code!==1) {
+                clearInterval(progressTime);
+                let timer = setTimeout(() => {
+                    clearTimeout(timer);
+                    wx.navigateBack();
+                }, 1000);
+            } else {
+                that.setData({
+                    topicData: result.data,
+                    questionList: result.data.questionList
+                })
+                wx.nextTick(() => {
+                    that.readyAnswer(0)
+                });
+            }
+        } catch (error) {
+            wx.showToast({
+                title: "网络错误",
+                icon: 'none',
+                duration: 1000
             })
-        }, 3000);
+            clearInterval(progressTime);
+            let timer = setTimeout(() => {
+                clearTimeout(timer);
+                wx.navigateBack();
+            }, 1000);
+        }
+    },
+    /**
+     * 获取当前题目
+     */
+    readyAnswer(index) {
+        const that = this;
+        const questionList = that.data.questionList;
+        if(!questionList[index]) return;
+        const question = Object.assign({},questionList[index]);
+        if(!question.init) {
+            question.questionCategoryName = question.questionCategory===1 ? "政治理论":
+                                            question.questionCategory===2 ? "政策":
+                                            question.questionCategory===3 ? "法律法规":
+                                            "规章制度";
+            question.questionTypeName = question.questionType===1 ? "判断":
+                                            question.questionType===2 ? "单选":
+                                            "多选";
+            let optFlag1 = question.rightAnswer.indexOf("option1")>=0, 
+                optFlag2 = question.rightAnswer.indexOf("option2")>=0,
+                optFlag3 = question.rightAnswer.indexOf("option3")>=0, 
+                optFlag4 = question.rightAnswer.indexOf("option4")>=0;
+                /**
+                 * 正确选项默认错误类名，用户选中才改为正确类名
+                 */
+            question.options = question.questionType===1?[
+                { key: "option1", value: question.option1, isRight: optFlag1, className: optFlag1? 'right':'error' }, 
+                { key: "option2", value: question.option2, isRight: optFlag2, className: optFlag2? 'right':'error' }
+            ]:[
+                { key: "option1", value: question.option1, isRight: optFlag1, className: optFlag1? 'right':'error' }, 
+                { key: "option2", value: question.option2, isRight: optFlag2, className: optFlag2? 'right':'error' },
+                { key: "option3", value: question.option3, isRight: optFlag3, className: optFlag3? 'right':'error' },
+                { key: "option4", value: question.option4, isRight: optFlag4, className: optFlag4? 'right':'error' }
+            ]
+            question.init = true;
+            questionList[index] = question;
+            that.setData({
+                questionList: questionList
+            })
+        } 
+        that.setData({
+            questionIndex: index,
+            currentQuestion: question
+        })
+        wx.nextTick(() => {
+            console.log("that.data.questionIndex==>",that.data.questionIndex)
+        })
+        if(index===0) {
+            that.setData({
+                done: true
+            })
+            let time = new Date();
+            trainStartTimeNum = time.getTime();
+            trainStartTime = Utils.dateFormat(time);
+        }
     },
     /**
      * 绘制加载进度
@@ -127,9 +183,9 @@ Page({
         const that = this;
         let count = 0,eAngle=0;
         function animation() {
-            if (count <= 300) {
-                count+=30;
-                eAngle = eAngle + Math.PI / 6;
+            if (count <= 320) {
+                count+=20;
+                eAngle = eAngle + Math.PI / 18;
                 that.drawLoadCircle('#loop', 0, eAngle, 7, '#03d6b3');
                 that.setData({
                     progress: Math.floor(count*100/360)
@@ -142,8 +198,8 @@ Page({
                     });
                     
                     if(that.data.done) {
-                        clearInterval(prigressTime);
-                        prigressTime = null;
+                        clearInterval(progressTime);
+                        progressTime = null;
                         setTimeout(() => {
                             that.startCountdown();
                         }, 200);
@@ -151,8 +207,8 @@ Page({
                 });
             }
         }
-        clearInterval(prigressTime);
-        prigressTime = setInterval(animation, 200);
+        clearInterval(progressTime);
+        progressTime = setInterval(animation, 200);
     },
     /**绘制加载/倒计时背景圆环 */
     drawLoadCircle(domId, sAngle, eAngle, lineWidth, circleColor, callback) {
@@ -202,14 +258,23 @@ Page({
 
             // 绘制倒计时文本
             context.save();
-            let minute = Math.floor(step/60), second = step%60;
+            let minute = Math.floor(step/6000), second = Math.floor((step%6000)/100), second1 = (step%6000)%100;
             minute = minute < 1 ? '00':minute<10?'0'+minute:minute;
             second = second < 1 ? '00':second<10?'0'+second:second;
-            let time = `${minute}:${second}`;
-            context.font = "bold 60px Arial";       // 设置字体大小
+            second1 = second1 < 1 ? '00':second1<10?'0'+second1:second1;
+            let time = `${minute}:${second}:${second1}`;
+
+            // 用时统计
+            let useTime = 1800-Math.ceil(step/1000);
+            let useMinute = Math.floor(useTime/60), useSecond = Math.floor(useTime%60);
+            useMinute = useMinute < 1 ? '00':useMinute<10?'0'+useMinute:useMinute;
+            useSecond = useSecond < 1 ? '00':useSecond<10?'0'+useSecond:useSecond;
+            gameTime = `${useMinute}:${useSecond}`;
+
+            context.font = "bold 40px Arial";       // 设置字体大小
             context.fillStyle = "#ffffff";           // 设置文字颜色
             // 姓名（距左：间距 + 头像直径 + 间距）（距下：总高 - 间距 - 文字高 - 头像直径 + 下移一点 ）
-            context.fillText(time, 145-(time.length*24), 120);
+            context.fillText(time, 148-(time.length*16), 110);
             context.restore();
             typeof callback == 'function' && callback();
         })
@@ -217,70 +282,144 @@ Page({
     /**开始倒计时 */
     startCountdown(callback) {
         let that = this;
-        let step = 30*60; // 计数动画次数
+        let step = 30*60*100; // 计数动画次数
         that.drawLoadCircle('#countdownBg', 0, 2 * Math.PI, 10, 'rgba(255,255,255,0.4)');
         // 动画函数
         function animation() {
             if (step > 1) { // 30分钟
                 step-=1;
-                let eAngle = (step*Math.PI/900)-(0.5*Math.PI);
+                let eAngle = (step*Math.PI/90000)-(0.5*Math.PI);
                 that.drawCountdownCircle(-0.5*Math.PI, eAngle, step);
             } else {
-                console.log("答题结束");
+                that.submitAnswer();
                 clearInterval(countdownId);
             }
         };
 
         clearInterval(countdownId);
-        countdownId = setInterval(animation, 1000);
+        countdownId = setInterval(animation, 10);
         typeof callback == 'function' && callback();
-    },
-    resetPage() {
-        const that = this;
-        this.setData({
-            meInfo: app.globalData.userInfo,
-            done: false, // 是否加载完成
-            progress: 0, // 加载进度
-
-            subject: '', //当前题目名
-            questionType: '', //题目类型 0：单选，1：多选
-            questionTypeId: '', //题目类型ID
-            questionId: '', // 当前题目ID
-            questionImageUrl: '', //题目图片地址
-            answerList: [], //当前题目答案选项
-            questionIdList: [1,2,3,4,5,6,7,8,9,10], //返回的本次挑战题目所有数据的ID
-            questionIndex: 0, //当前答题数组下标
-        })
-        setTimeout(function(){
-            that.getToPic();
-            that.setLoad();
-        }, 500);
     },
     /**
      * 选择答案
      */
-    selAnswer() {
+    selAnswer(event) {
+        let that = this;
+        if(that.data.currentQuestion.isAnswer) return;
+        const questionList = that.data.questionList;
+        let userAnswerIndex = event.currentTarget.dataset.id;
+        let question = Object.assign({},that.data.currentQuestion);
+
+        question.activeResult = question.activeResult || [];
+        let selOpt = question.options[userAnswerIndex];
         
+        const findIndex = question.activeResult.findIndex(v=>v==selOpt.key); // 多选可取消
+        if(findIndex>=0) {
+            selOpt.active = false;
+            question.activeResult.splice(findIndex,1);
+        }else{
+            selOpt.active = true;
+            question.activeResult.push(selOpt.key);
+        }
+
+        question.userOption = question.activeResult.length?question.activeResult.join(","):'';
+        question.answerRight = question.userOption == that.data.currentQuestion.rightAnswer;
+        if(question.questionType!=3) {
+            question.isAnswer = true;
+            question.score = question.answerRight? 3:0;
+        } else {
+            question.score = question.answerRight? 5:0;
+        }
+        questionList[that.data.questionIndex] = question;
+        that.setData({
+            currentQuestion: question,
+            questionList: questionList
+        })
     },
     /**
      * 下一题
      */
     nextTopic() {
-        console.log("下一题")
+        if(!cutTopic) return;
+        if(!this.data.currentQuestion.rightAnswer) {
+            Utils.showModal('提示', '请确保当前题目已答题完毕！');
+            return;
+        }
+        cutTopic = false;
+        let tiemr = setTimeout(() => {
+            cutTopic = true;
+        }, 600);
+
+        let index = this.data.questionIndex+1;
+        if(index<this.data.questionList.length-1) {
+            this.readyAnswer(index)
+        } else {
+            let time = new Date();
+            trainEndTimeNum = time.getTime();
+            trainEndTime = Utils.dateFormat(time);
+            this.submitAnswer()
+        }
     },
     /**
      * 上一题
      */
     prevTopic() {
-        console.log("上一题")
+        if(!cutTopic) return;
+        cutTopic = false;
+        let tiemr = setTimeout(() => {
+            cutTopic = true;
+        }, 600);
+
+        let index = this.data.questionIndex-1;
+        if(index>=0)this.readyAnswer(index)
+    },
+    /**
+     * 多选题确认答案
+     */
+    sureAnswer() {
+        const that = this;
+        let question = Object.assign({},that.data.currentQuestion);
+        const questionList = that.data.questionList;
+        question.isAnswer = true;
+        questionList[index] = question;
+        that.setData({
+            currentQuestion: question,
+            questionList: questionList
+        })
     },
     /**
      * 提交答案
      */
-    submitAnswer() {
+    async submitAnswer() {
+        const that = this;
         this.setData({
             subSuc: true
         })
+        const topicData = Object.assign({},that.data.topicData);
+        topicData.trainStartTime = trainStartTime;
+        topicData.trainEndTime = trainEndTime;
+        topicData.trainCostTime = Math.floor((trainEndTimeNum-trainEndTimeNum)/1000);
+        const questionList = Object.assign([],that.data.questionList);
+        topicData.questionList = questionList;
+        let scoreTotal = 0, rightNum = 0;
+        for (let i = 0; i < questionList.length; i++) {
+            const element = questionList[i];
+            scoreTotal += (element.score?element.score:0);
+            rightNum += (element.answerRight?1:0);
+        }
+        topicData.trainScore = scoreTotal;
+
+        wx.setStorage({
+            key: 'weekTestRes',
+            data: {
+                trainScore: scoreTotal,
+                gameTime: gameTime,
+                accuracy: `${rightNum}/${questionList.length}`
+            },
+            success: (result) => {}
+        });
+        const result = await subWeekAnswerApi(topicData);
+        if(result.code!==1) return;
         this.myModal.showModal("提交成功");
         clearInterval(countdownId);
         setTimeout(() => {

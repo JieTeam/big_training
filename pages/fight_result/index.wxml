@@ -11,7 +11,7 @@
                     <image src="../../assets/images/fight_result/crown.png"></image>
                 </view>
             </view>
-            <view class="name">{{meInfo.nickName||'我'}}</view>
+            <view class="name overeli">{{meInfo.nickName||'我'}}</view>
             <view class="score fw600">{{fightResut.homeScore}}分</view>
             <view class="{{(fightResut.homeScore>=rivalInfo.awayScore?'':'error')+' integral fw600'}}">{{fightResut.homeResult}}</view>
         </view>
@@ -28,7 +28,7 @@
                     <image src="../../assets/images/fight_result/crown.png"></image>
                 </view>
             </view>
-            <view class="name">{{fightResut.awayName||"--"}}</view>
+            <view class="name overeli">{{fightResut.awayName||"--"}}</view>
             <view class="score fw600">{{fightResut.awayScore}}分</view>
             <view class="{{(meInfo.homeScore<=fightResut.awayScore?'':'error')+' integral fw600'}}">{{fightResut.awayResult}}</view>
         </view>

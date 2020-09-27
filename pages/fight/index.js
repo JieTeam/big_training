@@ -3,7 +3,6 @@ const app = getApp();
 const Utils = require('../../utils/util.js');
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
-let uid = null;
 let activeResult=[]; // 用户选择结果
 Page({
 
@@ -39,8 +38,15 @@ Page({
      */
     onLoad: function (options) {
         count = 0;
-        this.resetPage();
-        uid = new Date().getTime().toString().slice(-5);
+        this.setData({
+            meInfo: {
+                ...app.globalData.userInfo,
+                score: 0
+            }
+        })
+        wx.nextTick(() => {
+            this.connectWebSocket(); // 连接socket
+        })
     },
 
     /**
@@ -56,7 +62,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.connectWebSocket(); // 连接socket
+        
     },
 
     /**
@@ -77,19 +83,16 @@ Page({
         } else {
             Utils.showModal('提示', '您放弃了挑战!');
         }
-        that.accordCloseSocket();
+        wx.closeSocket();
     },
     accordCloseSocket() {
-        const that = this;
-        count = 0;
         wx.sendSocketMessage({
             data: JSON.stringify({
                 status: 4,
-                data: null
+                data: 'close'
             })
         });
         clearInterval(countdownId);
-        that.resetPage();
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
@@ -129,10 +132,9 @@ Page({
     /**连接websocket */
     connectWebSocket() {
         Utils.showLoading();
-        console.log("uid===>",uid);
         const that = this;
         wx.connectSocket({
-            url: Utils.service.wsUrl + '/' + uid + '/2',
+            url: Utils.service.wsUrl + '/' + this.data.meInfo.userId + '/2',
             success: res => {
                 that.initWebSocketListener(); // 监听socket
             }
@@ -483,7 +485,7 @@ Page({
         const msg = JSON.stringify({
             status: 2,
             data: {
-                uid: uid,
+                uid: that.data.meInfo.userId,
                 num: that.data.currentQuestion.num,
                 answer: result&&result.length?result.join(","):"",
                 ansTime: count,

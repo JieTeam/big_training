@@ -146,16 +146,17 @@
           "scene": null
         },
         {
-          "id": -1,
+          "id": 11,
           "name": "分享中间页",
           "pathName": "pages/shareGood/shareGood",
-          "query": "",
+          "query": "userId=123",
           "scene": null
         },
         {
           "id": -1,
           "name": "首页",
           "pathName": "pages/index/index",
+          "query": "",
           "scene": null
         }
       ]

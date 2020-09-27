@@ -91,7 +91,7 @@ Page({
   },
   checkUser() {
     return new Promise((resolve, reject) => {
-      const { type, params } = this.data
+    const { type, params } = this.data
     const { region, name, phone, msgCode } = this.data.params
         ApiCheckUser({
           region: [...new Set(region)].join('-'),
@@ -202,7 +202,8 @@ Page({
         wx.setStorageSync('userInfo', userInfo)
         const strongShareData = wx.getStorageSync('shareData');
         if (strongShareData && strongShareData.isShare === '1') {
-          this.likeVAlid
+         
+          this.likeVAlid(strongShareData)
         } else {
           this.setData({
             tipsDialogVisible: true,
@@ -212,6 +213,60 @@ Page({
         console.error('>>> dologin', res)
       }
     }).catch(err => wx.hideLoading())
+  },
+  likeVAlid(strongShareData) {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    const userInfo = App.globalData.userInfo
+    if(strongShareData && strongShareData.userId) {
+      ApiLikeVAlid(
+        userInfo.openId,
+        strongShareData.userId
+      ).then((res) => {
+        wx.hideLoading()
+        let showTips = (msg) => {
+          wx.showModal({
+            showCancel: false,
+            content: msg,
+            title: '提示',
+            success() {
+              if (userInfo.roleType === '1') {
+                wx.redirectTo({
+                  url: '/pages/adminIndex/adminIndex',
+                })
+              } else {
+                wx.redirectTo({
+                  url: '/pages/index/index',
+                })
+              }
+            }
+          })
+        }
+        switch(res.code) {
+          case 1:
+            this.setData({
+              goodDialogVisible: true,
+              reslut: {
+                nickName: res.data ? res.data.nickName : '' ,
+                avatarUrl: res.data ? res.data.headUrl : '' ,
+              }
+            })
+            break;
+          case 0:
+            showTips('参赛人员不能为自己或他人点赞,点击确定将回到首页')
+            break;
+          case 3:
+            showTips('当前用户已为该参赛人员点过赞,点击确定将回到首页')
+            break;
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '数据格式无效！',
+        icon: 'none',
+      })
+    }
   },
   bindRegionChange(e) {
     this.setData({
@@ -247,6 +302,26 @@ Page({
       }
     })
   },
+  // 点赞
+  handleGoods() {
+    ApiDoLike(
+      App.globalData.userInfo.openId,
+      this.data.userId
+    ).then(res => {
+      if(res.code === 1) {
+        let reslut = this.data.reslut
+        wx.showToast({
+          title: '点赞成功！',
+          icon: 'none'
+        })
+        reslut.success = true;
+        this.setData({
+          reslut: reslut,
+        })
+      }
+    })
+  },
+  // 登陆提示确定 点赞 确定
   handleFix() {
     const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {

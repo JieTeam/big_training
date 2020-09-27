@@ -1,50 +1,57 @@
 // pages/ranking/ranking.js
+const app = getApp();
+const Utils = require('../../utils/util.js');
+import { getRankListApi } from "../../utils/server/request";
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    checkedType: 'person',
+    checkedType: '1',
     rankingTabData: [
       {
         title: '个人排行榜',
         type: 'person',
+        key: '1',
         checked: true,
       },
       {
         title: '省级排行榜',
         type: 'province',
+        key: '2',
       },
       {
         title: '市级排行榜',
         type: 'city',
+        key: '3',
       },
       {
         title: '县级排行榜',
         type: 'county',
+        key: '4',
       }
     ],
     personClomn: [
       {
         title: '排名',
-        key: 'ranking',
+        key: 'id',
       },
       {
         title: '省份',
-        key: 'key2',
+        key: 'field1',
       },
       {
         title: '平均积分',
-        key: 'key3',
+        key: 'field2',
       },
       {
         title: '参与人数',
-        key: 'key3',
+        key: 'field3',
       },
       {
         title: '答题次数',
-        key: 'key4',
+        key: 'field4',
       }
     ],
     personData: [
@@ -67,11 +74,11 @@ Page({
     const currentItem = e.target.dataset.item;
     console.log('>>>>currentItem', currentItem)
     this.setData({
-      checkedType: currentItem.type
+      checkedType: currentItem.key
     })
     const newTabData = this.data.rankingTabData.map((item) => {
       item.checked = false
-      if (item.type === currentItem.type) {
+      if (item.key === currentItem.key) {
         item.checked = true
       }
       return item;
@@ -79,12 +86,13 @@ Page({
     this.setData({
       rankingTabData: newTabData
     })
+    this.getRankList()
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getRankList()
   },
 
   /**
@@ -134,5 +142,23 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  // 获取排行榜列表
+  async getRankList() {
+    const that = this;
+    try {
+        Utils.showLoading();
+        const result = await getRankListApi({
+            type: that.data.checkedType
+        })
+        Utils.hideLoading();
+        if(result.code!==1) return;
+        that.setData({
+            personData: result.data
+        })
+        console.log(that.data.personData);
+    } catch (err) {
+        Utils.hideLoading();
+    }
   }
 })

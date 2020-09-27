@@ -1,19 +1,21 @@
 //app.js
 App({
     onLaunch: function () {
+        const number = Math.floor(Math.random()*50+1);
         // 展示本地存储能力
         const initUserInfo = {
             // login: false,
             // roleType: 3, // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
             "login":true,
-            "nickName":"水木青蓝"+Math.floor(Math.random()*20+6),
+            "nickName":"水木青蓝"+number,
             "gender":1,
             "language":"zh_CN",
             "city":"",
+            "userId": number,
             "province":"",
             "country":"South Georgia and the South Sandwich Islands",
             "avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJLvDauOxz0icdCArvo8g2XQibj9uaOj3jZNpKGjYsA28gOFPjvfpFMR0CiacM9nFwedXBG9uYx33l0g/132",
-            "roleType": "2"
+            "roleType": "3"
         }
         const userInfo = wx.getStorageSync('userInfo') || initUserInfo;
         this.globalData.userInfo = userInfo
