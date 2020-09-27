@@ -8,12 +8,16 @@ Page({
    */
   data: {
     rulesBox: false,
+    showHonor: false,
     userInfo: {},
   },
   go(e) {
     const type = e.currentTarget.dataset.type || e.target.dataset.type;
     let url = null;
     switch (type) {
+      case "honor":
+        url = "/pages/honor/index";
+        break;
       case "fight":
         url = "/pages/fight/index";
         break;
@@ -56,8 +60,15 @@ Page({
       })
     }
     if (app.globalData.userInfo.login) {
+      let showHonor = false
+      if (app.globalData.userInfo.roleType === '2') {
+        showHonor = false
+      } else {
+        showHonor = true
+      }
       this.setData({
         userInfo: app.globalData.userInfo,
+        showHonor,
       })
     }
     

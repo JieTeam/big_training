@@ -1,0 +1,41 @@
+<view class="bj-page">
+  <image class="bj__top" src="/assets/images/flower.png"></image>
+  <view class="footer__wrap">
+   
+    <view class="footer">
+      <view class="footer__left">
+        <image class="avatar" src="/assets/images/test/logo.jpg"></image>
+        <view class="des">
+          <view class="des__item">张三</view>
+          <view class="des__item">执法专家5级</view>
+          <view class="des__item">51胜10负｜100分</view>
+        </view>
+      </view>
+      <view class="save">
+        <button wx:if="{{openSetting}}" class='saveBtn' open-type="openSetting" bindopensetting='openSetting' >
+         <text class="iconfont icon-xiazai"></text>
+          保存图片
+        </button>
+        <button wx:else class='saveBtn' bindtap='saveImg' >
+         <text class="iconfont icon-xiazai"></text>
+          保存图片
+        </button>
+      </view>
+    </view>
+  </view>
+  <!-- <image class="bj__left" src="/assets/images/share/bg.png"></image>
+  <image class="code" src="/assets/images/share/code.png"></image>
+  <image class="avatar" src="/assets/images/test/logo.jpg"></image>
+  <view class="text1">张三</view>
+  <view class="text2">执法专家5级</view>
+  <view class="text3">51胜10负｜100分</view> -->
+
+
+  <!-- <button class='openSetting' open-type="openSetting" bindopensetting='saveImg' >保存图片</button> -->
+</view>
+<painter 
+  style="position: absolute; top: -9999rpx;" 
+  palette="{{imgDraw}}" 
+  bind:imgOK="onImgOK"
+  bind:imgErr="onImgErr"
+/>

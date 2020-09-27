@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showVisible: false,
     medalList: [
         {
             name: "黄金",
@@ -23,7 +24,16 @@ Page({
       },
     ]
   },
-
+  close() {
+    this.setData({
+      showVisible: false,
+    })
+  },
+  open() {
+    this.setData({
+      showVisible: true,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

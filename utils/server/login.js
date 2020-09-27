@@ -16,5 +16,26 @@ export const ApiGetLogin = (params) => {
   return Api.request('POST', `${baseUrl}/bt/login/doLogin`, params).then(res => res);
 }
 
+// 根据openId 获取用户信息
+export const ApiGetUserMsgByOpenId = (openId) => {
+  return Api.request('POST', `${baseUrl}/login/getByOpenId?openId=${openId}`, {}).then(res => res);
+}
+
+// 点赞校验
+export const ApiLikeVAlid = (curOpenId, userId) => {
+  return Api.request('POST', `${baseUrl}/bt/like/valid?curOpenId=${curOpenId}&userId=${userId}`, {
+    notShowError: true,
+  }).then(res => res);
+}
+
+// 点赞
+export const ApiDoLike = (curOpenId, userId) => {
+  return Api.request('POST', `${baseUrl}/bt/like/doLike?curOpenId=${curOpenId}&userId=${userId}`, {
+    notShowError: true,
+  }).then(res => res);
+}
+
+
+
 
 

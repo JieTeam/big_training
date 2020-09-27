@@ -10,6 +10,7 @@ Page({
     getCodeMsg: '获取验证码',
     codeTime: 60,
     isGetMsgCode: false,
+    isShare: '0',
     type: 'law',
     params: {
       region: [],
@@ -49,13 +50,15 @@ Page({
   },
   checkUser() {
     return new Promise((resolve, reject) => {
+      const { type, params } = this.data
     const { region, name, phone, msgCode } = this.data.params
-      if (this.data.type === 'law') {
         ApiCheckUser({
           region: [...new Set(region)].join('-'),
           name,
           phoneNo: phone,
+          roleType: type === 'law' ? '2' : params.roleType
         }).then((res) => {
+          console.log('>>> res', res)
           if (res.code === 1) {
             // 调用发送验证码接口
             wx.showToast({
@@ -67,18 +70,16 @@ Page({
           } else {
             resolve(false)
           }
-        }).catch(err => {
+        }).catch( err => {
           resolve(false)
         })
-      } else {
-        resolve(true)
-      }
     })
   },
   async getMsgCode() {
     if (!this.checkUserBasic('msgCode')) return
     if (this.data.isGetMsgCode) return;
     this.checkUser().then((res) => {
+      console.log('>>> res', res)
       if (res) {
         this.setData({
           isGetMsgCode: true,
@@ -96,7 +97,7 @@ Page({
               isGetMsgCode: false,
             })
           }
-        },  1000);
+        }, 1000);
       }
     })
   },
@@ -152,12 +153,23 @@ Page({
       roleType,
     }).then(res => {
       wx.hideLoading()
-      if(res.code === 1) {
+      if(res.code === 1 && res.data) {
         userInfo.login = true;
+        userInfo.userId = res.data.id;
+        // 后台返回的是数字 转字符串
+        userInfo.roleType = res.data.roleType + '';
         wx.setStorageSync('userInfo', userInfo)
-        this.setData({
-          tipsDialogVisible: true,
-        })
+        if (this.data.isShare === '1') {
+          this.setData({
+            tipsDialogVisible: true,
+          })
+        } else {
+          this.setData({
+            tipsDialogVisible: true,
+          })
+        }
+      } else {
+        console.error('>>> dologin', res)
       }
     }).catch(err => wx.hideLoading())
   },
@@ -178,6 +190,7 @@ Page({
     })
   },
   handleFix() {
+    const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {
       wx.navigateTo({
         url: '/pages/adminIndex/adminIndex',
@@ -193,9 +206,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('>>> options', options)
+    // console.log('>>> options', options)
+    const { isShare ,type } = options
     this.setData({
-      type: options.type,
+      type,
+      isShare
     })
   },
 

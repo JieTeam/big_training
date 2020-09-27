@@ -1,0 +1,25 @@
+<!--components/dialog-tips/dialog-tips.wxml-->
+<view class="dialog-tips">
+  <view class="dialog-tips__content">
+    <view class="dialog-tips__content__avatar">
+      <image :src="{{reslut.avatarUrl}}"></image>
+    </view>
+    <view class="dialog-tips__content__name">
+      {{reslut.nickName}}
+    </view>
+    <view class="dialog-tips__content__good">
+      <image wx:if="{{!reslut.success}}" src="/assets/images/share/btn-dz.png" bindtap="handleGoods"></image>
+      <image wx:else src="/assets/images/share/btn-wdz.png"></image>
+    </view>
+    <view class="dialog-tips__content__tips">
+      <text wx:if="{{!reslut.success}}">邀请你为他点赞助力！</text> 
+      <text wx:else>点赞成功！</text> 
+      <!-- {{tips}} -->
+    </view>
+    <view class="dialog-tips__content__dt" bindtap="go">
+      <!-- <image src="/assets/images/share/btn-dt.png"></image> -->
+      参与答题
+    </view>
+    <!-- <image bindtap="close" class="close" src="/assets/images/icon/close.png"></image> -->
+  </view>
+</view>

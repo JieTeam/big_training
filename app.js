@@ -3,26 +3,31 @@ App({
     onLaunch: function () {
         // 展示本地存储能力
         const initUserInfo = {
-            login: true,
-            roleType: 3, // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
+            login: false,
+            // roleType: 3, // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
         }
         const userInfo = wx.getStorageSync('userInfo') || initUserInfo;
-        // var logs = wx.getStorageSync('logs') || []
-        // logs.unshift(Date.now())
-        // wx.setStorageSync('logs', logs)
-        
-        if (userInfo) {
-            this.globalData.userInfo = userInfo
-            if (userInfo.roleType === '1') {
-                wx.redirectTo({
-                  url: '/pages/adminIndex/adminIndex',
-                })
-            }
-        } else {
-            wx.redirectTo({
-              url: '/pages/loginType/loginType',
-            })
-        }
+        this.globalData.userInfo = userInfo
+        // 
+        // wx.login({
+        //     success: res => {
+        //         console.log('>>> res', res)
+        //         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        //     }
+        // })
+
+        // if (userInfo) {
+        //     this.globalData.userInfo = userInfo
+        //     if (userInfo.roleType === '1') {
+        //         wx.redirectTo({
+        //           url: '/pages/adminIndex/adminIndex',
+        //         })
+        //     }
+        // } else {
+        //     wx.redirectTo({
+        //       url: '/pages/loginType/loginType',
+        //     })
+        // }
 
         // 登录
         // wx.login({

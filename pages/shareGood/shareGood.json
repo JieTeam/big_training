@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "dialog-share": "/components/dialog-share/dialog-share"
+  },
+  "navigationBarTitleText": "分享"
+}

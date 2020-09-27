@@ -49,7 +49,7 @@ const Api = {
                         errMsg
                     } = res;
                     if (res.statusCode === 200) {
-                        if (data.code !== 1) {
+                        if (data.code !== 1 && !params.notShowError) {
                             wx.showToast({
                                 title: data.msg,
                                 icon: 'none',

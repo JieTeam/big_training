@@ -8,6 +8,7 @@ Page({
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isAuthSetting: false,
+    isShare: '0',
   },
   getUserInfo: function(e) {
     console.log('执法人员', e)
@@ -29,8 +30,9 @@ Page({
     this.goLoginPage(type)
   },
   goLoginPage(type) {
+    const { isShare } = this.data
     wx.navigateTo({
-      url: `/pages/login/login?type=${type}`,
+      url: `/pages/login/login?type=${type}&isShare=${isShare}`,
     })    
   },
   handleGo(e) {
@@ -40,7 +42,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log('>>> options', options)
+    const { isShare } = options
+    this.setData({
+      isShare
+    })
   },
 
   /**
