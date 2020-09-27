@@ -83,10 +83,10 @@
           "scene": null
         },
         {
-          "id": -1,
-          "name": "pages/fight_result/index",
+          "id": 2,
+          "name": "匹配对战结果",
           "pathName": "pages/fight_result/index",
-          "query": "",
+          "query": "roomId=1020537529",
           "scene": null
         },
         {
