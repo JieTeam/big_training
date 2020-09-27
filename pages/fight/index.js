@@ -14,6 +14,7 @@ Page({
         hint: "匹配中...",
         meInfo: null,
         rivalInfo: null,
+        connectSocket: false,
         matchSuc: false, // 是否匹配成功
         isMatch: false, // 匹配
         enterAnswer: false, // 是否进入答题
@@ -141,13 +142,16 @@ Page({
     initWebSocketListener() {
         const that = this;
         wx.onSocketOpen(res => {
+            that.setData({
+                connectSocket: true
+            })
             console.log("建立连接");
             Utils.hideLoading();
         })
         wx.onSocketError(res => {
             Utils.hideLoading();
             Utils.showModal('提示', '连接到服务器失败', () => {
-                that.connectWebSocket()
+                // that.connectWebSocket()
             });
         })
         wx.onSocketClose(res => {

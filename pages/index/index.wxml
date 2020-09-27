@@ -31,23 +31,23 @@
   <view class="bottom-entry">
     <view class="entry_list">
       <view class="pk-entry" wx:if="{{showHonor}}" data-type="honor" bindtap="go">
-          <image class="pk-entry_img" src="/assets/images/honor/honor.jpg"></image>
+          <image class="pk-entry_img" src="/assets/images/honor/honor.png"></image>
           <view class="pk-entry_text">荣耀墙</view>
       </view>
       <view class="pk-entry" wx:else data-type="fight" bindtap="go">
-          <image class="pk-entry_img" src="/assets/images/dz.jpg"></image>
+          <image class="pk-entry_img" src="/assets/images/dz.png"></image>
           <view class="pk-entry_text">匹配对战</view>
       </view>
       <view class="pk-entry test" data-type="week" bindtap="go">
-          <image class="pk-entry_img" src="/assets/images/weektest.jpg"></image>
+          <image class="pk-entry_img" src="/assets/images/weektest.png"></image>
           <view class="pk-entry_text">每周一测</view>
       </view>
       <view class="pk-entry knowledge" data-type="knowledgeBase" bindtap="go" >
-          <image class="pk-entry_img" src="/assets/images/topics.jpg"></image>
+          <image class="pk-entry_img" src="/assets/images/topics.png"></image>
           <view class="pk-entry_text">知识库</view>
       </view>
       <view class="pk-entry wrongTopic" data-type="wrongQuestion" bindtap="go">
-          <image class="pk-entry_img" src="/assets/images/errors.jpg"></image>
+          <image class="pk-entry_img" src="/assets/images/errors.png"></image>
           <view class="pk-entry_text">错题库</view>
       </view>
     </view>
