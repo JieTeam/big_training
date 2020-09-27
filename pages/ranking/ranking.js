@@ -55,24 +55,11 @@ Page({
       }
     ],
     personData: [
-      {
-        ranking: '1',
-        key2: '2',
-        key3: '3',
-        key4: '1',
-      },
-      {
-        ranking: '2',
-        key2: '2',
-        key3: '3',
-        key4: '1',
-      }
     ]
     
   },
   handleTab(e) {
     const currentItem = e.target.dataset.item;
-    console.log('>>>>currentItem', currentItem)
     this.setData({
       checkedType: currentItem.key
     })
@@ -156,7 +143,6 @@ Page({
         that.setData({
             personData: result.data
         })
-        console.log(that.data.personData);
     } catch (err) {
         Utils.hideLoading();
     }
