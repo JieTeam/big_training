@@ -4,7 +4,7 @@ App({
         // 展示本地存储能力
         const initUserInfo = {
             login: true,
-            roleType: 2, // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
+            roleType: '2', // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
         }
         const userInfo = wx.getStorageSync('userInfo') || initUserInfo;
         this.globalData.userInfo = userInfo
