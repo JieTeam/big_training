@@ -43,10 +43,14 @@ Page({
    */
   onLoad: function (options) {
     console.log('>>> options', options)
-    const { isShare } = options
-    this.setData({
-      isShare
-    })
+    const strongShareData = wx.getStorageSync('shareData');
+    if (strongShareData) {
+      this.setData({
+        isShare: strongShareData.isShare,
+        userId: strongShareData.userId,
+      })
+    }
+    
   },
 
   /**

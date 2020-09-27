@@ -1,5 +1,6 @@
 import { ApiCheckUser, ApiGetOpenId, ApiGetLogin } from '../../utils/server/login'
 import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city'
+import { ApiLikeVAlid, ApiDoLike } from '../../utils/server/login';
 
 import cities from '../../utils/cities'
 
@@ -12,6 +13,10 @@ Page({
    */
   data: {
     tipsDialogVisible: false,
+    // 点赞
+    goodDialogVisible: false,
+    reslut: {},
+
     getCodeMsg: '获取验证码',
     codeTime: 60,
     isGetMsgCode: false,
@@ -55,7 +60,6 @@ Page({
         cityArray: changeCloumt( this.data.cities,this.data.cityArray,index,column,this.data.province_index,)
       })
     }
-
   },
   showRrrorMsg(msg) {
     wx.showToast({
@@ -196,10 +200,9 @@ Page({
         // 后台返回的是数字 转字符串
         userInfo.roleType = res.data.roleType + '';
         wx.setStorageSync('userInfo', userInfo)
-        if (this.data.isShare === '1') {
-          this.setData({
-            tipsDialogVisible: true,
-          })
+        const strongShareData = wx.getStorageSync('shareData');
+        if (strongShareData && strongShareData.isShare === '1') {
+          this.likeVAlid
         } else {
           this.setData({
             tipsDialogVisible: true,
@@ -226,6 +229,24 @@ Page({
       ['params.roleType']: e.detail.value
     })
   },
+  handleGoods() {
+    ApiDoLike(
+      App.globalData.userInfo.openId,
+      this.data.userId
+    ).then(res => {
+      if(res.code === 1) {
+        wx.showToast({
+          icon: 'none',
+          title: '点赞成功！'
+        })
+        let reslut = this.data.reslut
+        reslut.success = true;
+        this.setData({
+          reslut: reslut,
+        })
+      }
+    })
+  },
   handleFix() {
     const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {
@@ -243,14 +264,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('>> ', this.data.cities)
-    const { isShare ,type } = options
-    this.setData({
-      
-    })
+    console.log('>> ', options)
+    const { type } = options
     this.setData({
       type,
-      isShare,
       cityArray: init(this.data.cities),
     })
   },

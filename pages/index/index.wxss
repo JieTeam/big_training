@@ -149,9 +149,9 @@ page {
   justify-content: space-between;
 }
 .pk-entry {
-  width: 265rpx;
-  height: 265rpx;
-  background: #7ad8fe;
+  position: relative;
+  width: 262rpx;
+  height: 262rpx;
   margin-top: 60rpx;
   border-radius: 26rpx;
   text-align: center;
@@ -159,19 +159,19 @@ page {
   color: #eeffff;
 }
 .pk-entry_img {
-  width: 150rpx;
-  height: 120rpx;
-  margin-top: 34rpx;
+  display: block;
+  width: 262rpx;
+  height: 262rpx;
 }
-.pk-entry.test {
-  background: linear-gradient(to top right, #9999f9, 50%, #6c88d2)
+
+.pk-entry_text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    bottom: 50rpx;
 }
-.pk-entry.knowledge {
-  background: #f9ca7a;
-}
-.pk-entry.wrongTopic {
-  background: #92ced6;
-}
+
 .bottom-fun {
   width: 100%;
   height: 35rpx;

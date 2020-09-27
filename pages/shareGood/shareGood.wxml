@@ -1,2 +1,2 @@
-<dialog-share  reslut="{{reslut}}" catch:handleGoods='handleGoods'  catch:handleFix='handleFix'></dialog-share>
+<dialog-share wx:if="{{goodDialogVisible}}"  reslut="{{reslut}}" catch:handleGoods='handleGoods'  catch:handleFix='handleFix'></dialog-share>
 

@@ -71,8 +71,19 @@ Page({
         }
       }).catch(err => wx.hideLoading())
     } else {
-      wx.redirectTo({
-        url: '/pages/loginType/loginType?isShare=1',
+      wx.showModal({
+        showCancel: false,
+        content: '登陆成功后才能点赞, 点击确定将跳到登陆页!',
+        title: '提示',
+        success: () => {
+          wx.setStorageSync('shareData', {
+            isShare: '1',
+            userId: this.data.userId
+          })
+          wx.redirectTo({
+            url: '/pages/loginType/loginType?isShare=1',
+          })
+        }
       })
     }
   },
@@ -84,6 +95,10 @@ Page({
     ).then(res => {
       if(res.code === 1) {
         let reslut = this.data.reslut
+        wx.showToast({
+          title: '点赞成功！',
+          icon: 'none'
+        })
         reslut.success = true;
         this.setData({
           reslut: reslut,
