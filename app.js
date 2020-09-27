@@ -65,9 +65,6 @@ App({
         // })
     },
     globalData: {
-        userInfo: {
-            avatarUrl: "../../assets/images/test/logo.jpg",
-            nickName: "水木青蓝"
-        }
+        userInfo: {}
     }
 })

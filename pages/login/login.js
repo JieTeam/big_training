@@ -1,5 +1,10 @@
-const App = getApp()
 import { ApiCheckUser, ApiGetOpenId, ApiGetLogin } from '../../utils/server/login'
+import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city'
+
+import cities from '../../utils/cities'
+
+const App = getApp()
+
 Page({
 
   /**
@@ -12,6 +17,12 @@ Page({
     isGetMsgCode: false,
     isShare: '0',
     type: 'law',
+    cities: cities,
+    cityArray: [[],[],[]],
+    region: [],
+    region_code: [],
+    regionValue: [0, 0, 0],
+    province_index: 0,
     params: {
       region: [],
       name: '',
@@ -19,6 +30,32 @@ Page({
       msgCode: '',
       roleType: '3',
     }
+  },
+  bindMultiPickerChange(e) {
+    let array = getCityIndex(this.data.cityArray,e.detail.value, this.data.cities);
+    console.log(array)
+    this.setData({
+      region: array.map(item => item.name),
+      region_code: array.map(item => item.id),
+      ['params.region']: array.map(item => item.id),
+      citysIndex:e.detail.value
+    })
+  },
+  bindMultiPickerColumnChange(e) {
+    let column = e.detail.column;
+    let index = e.detail.value;
+    if(column == 0 ){
+      this.setData({
+        province_index:index,
+        cityArray: changeCloumt(this.data.cities,this.data.cityArray,index,column, )
+      })
+    }
+    if(column == 1){
+      this.setData({
+        cityArray: changeCloumt( this.data.cities,this.data.cityArray,index,column,this.data.province_index,)
+      })
+    }
+
   },
   showRrrorMsg(msg) {
     wx.showToast({
@@ -33,7 +70,7 @@ Page({
       this.showRrrorMsg('请选择所属省份')
       return false;
     } else if (!name) {
-      this.showRrrorMsg('请填写真是名称')
+      this.showRrrorMsg('请填写真实名称')
       return false;
     } else if (!(/^1[3456789]\d{9}$/.test(phone))) {
       this.showRrrorMsg('请填写正确的手机号')
@@ -206,11 +243,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log('>>> options', options)
+    console.log('>> ', this.data.cities)
     const { isShare ,type } = options
     this.setData({
+      
+    })
+    this.setData({
       type,
-      isShare
+      isShare,
+      cityArray: init(this.data.cities),
     })
   },
 

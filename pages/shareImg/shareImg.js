@@ -6,7 +6,8 @@ Page({
    */
   data: {
     imgDraw: {},
-    openSetting: true,
+    openSetting: false,
+    isAuthPhoto: false,
   },
 
   /**
@@ -14,16 +15,30 @@ Page({
    */
   onLoad: function (options) {
     // this.saveImg()
+    
     wx.getSetting({
       success: res => {
         let authSetting = res.authSetting
         if (!authSetting['scope.writePhotosAlbum']) {
-          this.setData({
-            openSetting: true
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success: ()=> {
+              this.setData({
+                isAuthPhoto: true,
+                openSetting: false,
+              })
+            },fail: ()=> {
+              console.log('>>> test',)
+              this.setData({
+                isAuthPhoto: false,
+                openSetting: true,
+              })
+            }
           })
         } else {
           this.setData({
-            openSetting: false
+            isAuthPhoto: true,
+            openSetting: false,
           })
         }
       }
