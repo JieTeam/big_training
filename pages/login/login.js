@@ -202,7 +202,6 @@ Page({
         wx.setStorageSync('userInfo', userInfo)
         const strongShareData = wx.getStorageSync('shareData');
         if (strongShareData && strongShareData.isShare === '1') {
-         
           this.likeVAlid(strongShareData)
         } else {
           this.setData({
@@ -225,6 +224,7 @@ Page({
         strongShareData.userId
       ).then((res) => {
         wx.hideLoading()
+        wx.removeStorageSync('shareData')
         let showTips = (msg) => {
           wx.showModal({
             showCancel: false,
