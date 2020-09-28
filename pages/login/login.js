@@ -1,8 +1,9 @@
-import { ApiCheckUser, ApiGetOpenId, ApiGetLogin, ApiGetRegion } from '../../utils/server/login'
-import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city'
+import { ApiCheckUser, ApiGetOpenId, ApiGetLogin, ApiGetRegion } from '../../utils/server/login';
+import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city';
 import { ApiLikeVAlid, ApiDoLike } from '../../utils/server/login';
 
-import cities from '../../utils/cities'
+import cities from '../../utils/cities';
+const Utils = require('../../utils/util.js');
 
 const App = getApp()
 
@@ -342,14 +343,18 @@ Page({
     console.log('>> ', options)
     // init(this.data.cities)
     const { type } = options
+    Utils.showLoading();
     ApiGetRegion().then(res => {
-      console.log('>> res', res)
+      console.log('>> res', res);
+      Utils.hideLoading();
       if (res.code === 1) {
         this.setData({
           type,
           cityArray: init(this.data.cities),
         })
       }
+    }).catch(()=> {
+        Utils.hideLoading();
     })
   },
 
