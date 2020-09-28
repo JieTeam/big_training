@@ -1,4 +1,4 @@
-import { ApiCheckUser, ApiGetOpenId, ApiGetLogin } from '../../utils/server/login'
+import { ApiCheckUser, ApiGetOpenId, ApiGetLogin, ApiGetRegion } from '../../utils/server/login'
 import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city'
 import { ApiLikeVAlid, ApiDoLike } from '../../utils/server/login';
 
@@ -42,7 +42,7 @@ Page({
     this.setData({
       region: array.map(item => item.name),
       region_code: array.map(item => item.id),
-      ['params.region']: array.map(item => item.id),
+      ['params.region']: array.map(item => item.name),
       citysIndex:e.detail.value
     })
   },
@@ -340,10 +340,16 @@ Page({
    */
   onLoad: function (options) {
     console.log('>> ', options)
+    // init(this.data.cities)
     const { type } = options
-    this.setData({
-      type,
-      cityArray: init(this.data.cities),
+    ApiGetRegion().then(res => {
+      console.log('>> res', res)
+      if (res.code === 1) {
+        this.setData({
+          type,
+          cityArray: init(this.data.cities),
+        })
+      }
     })
   },
 

@@ -21,12 +21,18 @@ export const ApiGetUserMsgByOpenId = (openId) => {
   return Api.request('POST', `${baseUrl}/login/getByOpenId?openId=${openId}`, {}).then(res => res);
 }
 
+// 城区
+export const ApiGetRegion = () => {
+  return Api.request('POST', `${baseUrl}/bt/region/query`, {}).then(res => res);
+}
+
 // 点赞校验
 export const ApiLikeVAlid = (curOpenId, userId) => {
   return Api.request('POST', `${baseUrl}/bt/like/valid?curOpenId=${curOpenId}&userId=${userId}`, {
     notShowError: true,
   }).then(res => res);
 }
+
 
 // 点赞
 export const ApiDoLike = (curOpenId, userId) => {
