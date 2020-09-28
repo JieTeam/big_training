@@ -34,8 +34,8 @@ Page({
         }
         this.setData({
           wrongList: res.data.map((item) => {
-            item.userOption === item.userOption.split(',')
-            item.rightAnswer === item.rightAnswer.split(',')
+            item.userOption = item.userOption.split(',')
+            item.rightAnswer = item.rightAnswer.split(',')
             item.isRight = isRight(item.userOption, item.rightAnswer)
             return item;
           })
