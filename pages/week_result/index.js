@@ -6,18 +6,14 @@ Page({
      * 页面的初始数据
      */
     data: {
-        meInfo: null,
-        score: 520,
-        plate: null,
-        accuracy: "26/30",
-        time: "05:20"
+        weekTestRes: {},
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.getWeekTestRes();
     },
 
     /**
@@ -31,7 +27,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.resetPage();
+        
     },
 
     /**
@@ -68,23 +64,22 @@ Page({
     onShareAppMessage: function () {
 
     },
-    resetPage() {
-        this.setData({
-            meInfo: {
-                ...app.globalData.userInfo,
-                score: 60
-            },
-            rivalInfo: {
-                header: "../../assets/images/test/me_logo.png",
-                name: "小白",
-                score: 80
-            },
-        })
-        setTimeout(() => {
-            this.setData({
-                plate: "../../assets/images/fight_result/done.png"
-            })
-        }, 500);
+    getWeekTestRes () {
+        wx.getStorage({
+            key: 'weekTestRes',
+            success: (result) => {
+                const data = result.data;
+                wx.nextTick(()=>{
+                    that.setData({
+                        weekTestRes: data
+                    });
+                })
+            }
+        });
+    },
+    back() {
+        wx.navigateTo({
+            url: '/pages/index/index',
+        });
     }
-
 })

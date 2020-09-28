@@ -1,10 +1,12 @@
 import Api from "./api";
-const state = false;  // 环境状态， true正式， false测试
-const formal = 'https://www.xxx.com'; // 正式
-const test = 'https://test.xxx.com'; // 测试
-const http = state ? formal : test; // 最终使用
+import { baseUrl } from './config'
 
-// 登录
-export function getLogin(params) {
-  return Api.request('GET', 'https://api.weixin.qq.com/sns/jscode2session', params).then(res => res);
+// 抽取每周一测题目
+export const getWeektoPicApi = (params) => {
+    return Api.request('POST', `${baseUrl}/bt/training/week/extractQuestion?userId=${params.userId}`, params);
+}
+
+// 提交每周一测答题
+export const subWeekAnswerApi = (params) => {
+    return Api.request('POST', `${baseUrl}/bt/training/week/submit`, params);
 }

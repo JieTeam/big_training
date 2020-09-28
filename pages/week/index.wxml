@@ -24,35 +24,36 @@
         </view>
         <view class="topic-box pt15 b-sizing df flexCol">
             <view class="type pr">
-                <view class="text ac b-sizing">{{questionType=='0'?"单选":"多选"}}</view>
+                <view class="text ac b-sizing">{{currentQuestion.questionTypeName}}</view>
             </view>
             <view class="topic b-sizing">
-                <view class="subject">{{questionIndex+1}}.{{subject}}</view>
+                <view class="subject">{{questionIndex+1}}.{{currentQuestion.questionDesc}}</view>
                 <view class="answer-list">
                     <view class="answer-box animation al-center justBet" 
                         style="animation-delay:.{{index * 2}}s" 
-                        wx:for="{{answerList}}" 
+                        wx:for="{{currentQuestion.options}}" 
                         wx:key="index"
                     >
-                        <view class="me player">
-                            <image src="{{meInfo.header}}"></image>
-                        </view>
-                        <view class="answer b-sizing al-center justBet" bindtap="selAnswer" data-id="{{index}}">
-                            <view class="text">{{item.answer}}</view>
-                            <view class="status">
-                                <text class="iconfont icon-zhengque"></text>
+                        <view
+                            class="{{(currentQuestion.isAnswer?(item.active?item.className:''):item.active?'active':'')+' answer b-sizing al-center justBet'}}"
+                            bindtap="selAnswer" data-id="{{index}}"
+                        >
+                            <view class="text">{{item.value}}</view>
+                            <view wx:if="{{currentQuestion.isAnswer&&(item.active||item.isRight)}}" class="status">
+                                <text wx:if="{{item.isRight}}" class="iconfont icon-zhengque"></text>
+                                <text wx:else class="iconfont icon-cuohao"></text>
                             </view>
-                        </view>
-                        <view class="rival player">
-                            <image src="{{rivalInfo.header}}"></image>
                         </view>
                     </view>
                 </view>
+                <button wx:if="{{currentQuestion.questionType==3&&!currentQuestion.isAnswer}}" class="sureAnswer mt10" type="primary" bindtap="sureAnswer">
+                    确认答案
+                </button>
+                  
             </view>
             <view class="topic-footer df justAround">
-                <button wx:if="{{questionIndex>0}}" type="primary" class="switch-btn b-sizing" bindtap="prevTopic">下一题</button>
-                <button wx:if="{{questionIndex<questionIdList.length-1}}" type="primary" class="switch-btn b-sizing" bindtap="nextTopic">下一题</button>
-                <button type="primary" class="switch-btn b-sizing" bindtap="submitAnswer">提交</button>
+                <button wx:if="{{questionIndex>0}}" type="primary" class="switch-btn b-sizing" bindtap="prevTopic">上一题</button>
+                <button wx:if="{{questionIndex<questionList.length}}" type="primary" class="switch-btn b-sizing" bindtap="nextTopic">{{questionIndex==questionList.length-1?'提交':'下一题'}}</button>
             </view>
         </view>
     </view>

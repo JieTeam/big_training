@@ -100,7 +100,7 @@ Page({
                 url = "/pages/fight/index";
                 break;
             case "share":
-                url = "/pages/fight/index";
+                url = "pages/shareImg/shareImg";
                 break;
         }
         if (!url) return;

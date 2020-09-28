@@ -130,30 +130,31 @@
                     line-height: 46rpx;
                 }
                 .answer-list {
-                    padding-top: 30rpx;
+                    padding: 30rpx 40rpx 0;
                     .answer-box {
                         padding-top: 20rpx;
-                        .player {
-                            width: 60rpx;
-                            padding: 0 12rpx;
-                            image {
-                                width: 60rpx;
-                                height: 60rpx;
-                                border-radius: 50%;
-                            }
-                        }
                         .answer {
                             flex: 1;
                             padding: 20rpx 30rpx;
                             border-radius: 16rpx;
                             background: #f5f3f6;
-                            .text {
-                                font-size: 24rpx;
-                            }
                             .status {
                                 .iconfont {
                                     font-size: 46rpx;
                                 }
+                            }
+                            &.active,&.right,&.error {
+                                color: #ffffff;
+                                box-shadow: 0 0 28rpx 6rpx rgba(0,0,0,0.1);
+                            }
+                            &.active {
+                                background: #f5b613;
+                            }
+                            &.right {
+                                background: #46d7b6;
+                            }
+                            &.error {
+                                background: #de5a68;
                             }
                         }
                     }
