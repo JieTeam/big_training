@@ -362,7 +362,8 @@ Page({
                 const canvas = res[0].node;
                 canvas.width = 200;
                 canvas.height = 200;
-                const ctx = canvas.getContext('2d')
+                const ctx = canvas.getContext('2d');
+                context.clearRect(0,0,200,200);
                 ctx.lineWidth = 10; // 设置圆环的宽度
                 ctx.strokeStyle = color; // 设置圆环的颜色
                 ctx.lineCap = 'butt'; // 设置圆环端点的形状
