@@ -158,6 +158,12 @@
           "pathName": "pages/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "id": -1,
+          "name": "错题库",
+          "pathName": "pages/wrongQuestion/wrongQuestion",
+          "scene": null
         }
       ]
     }

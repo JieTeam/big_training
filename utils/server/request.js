@@ -27,3 +27,8 @@ export const subWeekAnswerApi = (params) => {
 export const getRankListApi = (params) => {
     return Api.request('POST', `${baseUrl}/bt/rank/getRankList?type=${params.type}`);
 }
+
+// 错题库
+export const getWrongQuestionList = (userId) => {
+    return Api.request('POST', `${baseUrl}/bt/question/wrongList?userId=${userId}`);
+}
