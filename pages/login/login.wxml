@@ -5,26 +5,25 @@
     <view class="login-header__title">执法大练兵知识竞赛</view>
   </view>
   <view class="login-content">
-  <view class="login-content__tips">完善信息</view>
-  <picker 
-    header-text='选择所属省份'
-    mode="multiSelector" 
-    bindchange="bindMultiPickerChange" 
-    bindcolumnchange="bindMultiPickerColumnChange" 
-    range-key="name"
-    value="{{citysIndex}}" 
-    range="{{cityArray}}">
-    <view class="login-content__item">
-      <view class="login-content__icon iconfont icon-icon_dizhi">
+    <view class="login-content__tips">完善信息</view>
+    <picker 
+      header-text='选择所属省份'
+      mode="multiSelector" 
+      bindchange="bindMultiPickerChange" 
+      bindcolumnchange="bindMultiPickerColumnChange" 
+      range-key="name"
+      value="{{citysIndex}}" 
+      range="{{cityArray}}">
+      <view class="login-content__item">
+        <view class="login-content__icon iconfont icon-icon_dizhi">
+        </view>
+        <view class="login-content__input">
+          <text class="login-content__input__placeholder" wx:if="{{params.region.length !== 3}}">所属省份</text>
+          <text wx:else>{{region}}</text> 
+        </view>
+        <view class="login-content__rightIcon">></view>
       </view>
-      <view class="login-content__input">
-        <text class="login-content__input__placeholder" wx:if="{{params.region.length !== 3}}">所属省份</text>
-        <text wx:else>{{region}}</text> 
-      </view>
-      <view class="login-content__rightIcon">></view>
-    </view>
-  </picker>
-
+    </picker>
     <view class="login-content__item">
       <view class="login-content__icon iconfont icon-yonghu">
       </view>
@@ -74,8 +73,12 @@
     <button class="login-save" bindtap="handleSubmit">提交</button>
   </view>
   <dialog-tips wx:if="{{tipsDialogVisible}}" catch:ok='handleFix'></dialog-tips>
-  
-  
+  <dialog-share 
+    wx:if="{{goodDialogVisible}}"  
+    reslut="{{reslut}}" 
+    catch:handleGoods='handleGoods'  
+    catch:handleFix='handleFix'>
+  </dialog-share>
 </view>
 
 

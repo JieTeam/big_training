@@ -1,5 +1,6 @@
 import { ApiCheckUser, ApiGetOpenId, ApiGetLogin } from '../../utils/server/login'
 import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city'
+import { ApiLikeVAlid, ApiDoLike } from '../../utils/server/login';
 
 import cities from '../../utils/cities'
 
@@ -12,6 +13,10 @@ Page({
    */
   data: {
     tipsDialogVisible: false,
+    // 点赞
+    goodDialogVisible: false,
+    reslut: {},
+
     getCodeMsg: '获取验证码',
     codeTime: 60,
     isGetMsgCode: false,
@@ -55,7 +60,6 @@ Page({
         cityArray: changeCloumt( this.data.cities,this.data.cityArray,index,column,this.data.province_index,)
       })
     }
-
   },
   showRrrorMsg(msg) {
     wx.showToast({
@@ -87,7 +91,7 @@ Page({
   },
   checkUser() {
     return new Promise((resolve, reject) => {
-      const { type, params } = this.data
+    const { type, params } = this.data
     const { region, name, phone, msgCode } = this.data.params
         ApiCheckUser({
           region: [...new Set(region)].join('-'),
@@ -196,10 +200,9 @@ Page({
         // 后台返回的是数字 转字符串
         userInfo.roleType = res.data.roleType + '';
         wx.setStorageSync('userInfo', userInfo)
-        if (this.data.isShare === '1') {
-          this.setData({
-            tipsDialogVisible: true,
-          })
+        const strongShareData = wx.getStorageSync('shareData');
+        if (strongShareData && strongShareData.isShare === '1') {
+          this.likeVAlid(strongShareData)
         } else {
           this.setData({
             tipsDialogVisible: true,
@@ -209,6 +212,61 @@ Page({
         console.error('>>> dologin', res)
       }
     }).catch(err => wx.hideLoading())
+  },
+  likeVAlid(strongShareData) {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    const userInfo = App.globalData.userInfo
+    if(strongShareData && strongShareData.userId) {
+      ApiLikeVAlid(
+        userInfo.openId,
+        strongShareData.userId
+      ).then((res) => {
+        wx.hideLoading()
+        wx.removeStorageSync('shareData')
+        let showTips = (msg) => {
+          wx.showModal({
+            showCancel: false,
+            content: msg,
+            title: '提示',
+            success() {
+              if (userInfo.roleType === '1') {
+                wx.redirectTo({
+                  url: '/pages/adminIndex/adminIndex',
+                })
+              } else {
+                wx.redirectTo({
+                  url: '/pages/index/index',
+                })
+              }
+            }
+          })
+        }
+        switch(res.code) {
+          case 1:
+            this.setData({
+              goodDialogVisible: true,
+              reslut: {
+                nickName: res.data ? res.data.nickName : '' ,
+                avatarUrl: res.data ? res.data.headUrl : '' ,
+              }
+            })
+            break;
+          case 0:
+            showTips('参赛人员不能为自己或他人点赞,点击确定将回到首页')
+            break;
+          case 3:
+            showTips('当前用户已为该参赛人员点过赞,点击确定将回到首页')
+            break;
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '数据格式无效！',
+        icon: 'none',
+      })
+    }
   },
   bindRegionChange(e) {
     this.setData({
@@ -226,6 +284,44 @@ Page({
       ['params.roleType']: e.detail.value
     })
   },
+  handleGoods() {
+    ApiDoLike(
+      App.globalData.userInfo.openId,
+      this.data.userId
+    ).then(res => {
+      if(res.code === 1) {
+        wx.showToast({
+          icon: 'none',
+          title: '点赞成功！'
+        })
+        let reslut = this.data.reslut
+        reslut.success = true;
+        this.setData({
+          reslut: reslut,
+        })
+      }
+    })
+  },
+  // 点赞
+  handleGoods() {
+    ApiDoLike(
+      App.globalData.userInfo.openId,
+      this.data.userId
+    ).then(res => {
+      if(res.code === 1) {
+        let reslut = this.data.reslut
+        wx.showToast({
+          title: '点赞成功！',
+          icon: 'none'
+        })
+        reslut.success = true;
+        this.setData({
+          reslut: reslut,
+        })
+      }
+    })
+  },
+  // 登陆提示确定 点赞 确定
   handleFix() {
     const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {
@@ -243,14 +339,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('>> ', this.data.cities)
-    const { isShare ,type } = options
-    this.setData({
-      
-    })
+    console.log('>> ', options)
+    const { type } = options
     this.setData({
       type,
-      isShare,
       cityArray: init(this.data.cities),
     })
   },
