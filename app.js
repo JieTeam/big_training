@@ -11,11 +11,11 @@ App({
             "gender":1,
             "language":"zh_CN",
             "city":"",
-            "userId": number,
+            "userId": 1,
             "province":"",
             "country":"South Georgia and the South Sandwich Islands",
             "avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJLvDauOxz0icdCArvo8g2XQibj9uaOj3jZNpKGjYsA28gOFPjvfpFMR0CiacM9nFwedXBG9uYx33l0g/132",
-            "roleType": "3"
+            "roleType": "2"
         }
         const userInfo = wx.getStorageSync('userInfo') || initUserInfo;
         this.globalData.userInfo = userInfo

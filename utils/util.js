@@ -52,8 +52,8 @@ module.exports = {
     IS_APP: true,
     service: {
         // wsUrl: `ws://10.134.62.106:8090/websocket`,
-        wsUrl: `ws://3435k69g44.zicp.vip/websocket`,
-        // wsUrl: `ws://192.168.1.4:8090/websocket`,
+        // wsUrl: `ws://3435k69g44.zicp.vip/websocket`,
+        wsUrl: `ws://192.168.1.4:8090/websocket`,
     },
     request: request,
     throttle: throttle,

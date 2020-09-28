@@ -66,19 +66,12 @@
       "list": []
     },
     "miniprogram": {
-      "current": 0,
+      "current": -1,
       "list": [
         {
           "id": -1,
           "name": "登陆类型",
           "pathName": "pages/loginType/loginType",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "pages/matching/index",
-          "pathName": "pages/matching/index",
           "query": "",
           "scene": null
         },
@@ -90,22 +83,15 @@
           "scene": null
         },
         {
-          "id": -1,
-          "name": "pages/week/index",
+          "id": 3,
+          "name": "每周一测",
           "pathName": "pages/week/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
-          "name": "pages/honor/index",
-          "pathName": "pages/honor/index",
-          "query": "",
-          "scene": null
-        },
-        {
           "id": 5,
-          "name": "pages/adminIndex/adminIndex",
+          "name": "管理员首页",
           "pathName": "pages/adminIndex/adminIndex",
           "query": "",
           "scene": null
@@ -163,6 +149,14 @@
           "id": -1,
           "name": "错题库",
           "pathName": "pages/wrongQuestion/wrongQuestion",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "每周一测结果页",
+          "pathName": "pages/week_result/index",
+          "query": "roomId=1020537529",
           "scene": null
         }
       ]

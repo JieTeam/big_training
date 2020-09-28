@@ -65,6 +65,7 @@ Page({
 
     },
     getWeekTestRes () {
+        const that = this;
         wx.getStorage({
             key: 'weekTestRes',
             success: (result) => {

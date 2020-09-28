@@ -241,6 +241,7 @@ Page({
         query.select('#countDown')
         .fields({ node: true, size: true })
         .exec((res) => {
+            if(!(res&&res[0]&&res[0].node)) return;
             const canvas = res[0].node;
             canvas.width = 200;
             canvas.height = 200;
@@ -266,7 +267,7 @@ Page({
             let time = `${minute}:${second}:${second1}`;
 
             // 用时统计
-            let useTime = 1800-Math.ceil(step/1000);
+            let useTime = 1800-Math.ceil(step/100);
             let useMinute = Math.floor(useTime/60), useSecond = Math.floor(useTime%60);
             useMinute = useMinute < 1 ? '00':useMinute<10?'0'+useMinute:useMinute;
             useSecond = useSecond < 1 ? '00':useSecond<10?'0'+useSecond:useSecond;
@@ -382,7 +383,7 @@ Page({
         let question = Object.assign({},that.data.currentQuestion);
         const questionList = that.data.questionList;
         question.isAnswer = true;
-        questionList[index] = question;
+        questionList[that.data.questionIndex] = question;
         that.setData({
             currentQuestion: question,
             questionList: questionList
