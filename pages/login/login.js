@@ -23,7 +23,7 @@ Page({
     isGetMsgCode: false,
     isShare: '0',
     type: 'law',
-    cities: cities,
+    cities: [],
     cityArray: [[],[],[]],
     region: [],
     region_code: [],
@@ -95,7 +95,8 @@ Page({
     const { type, params } = this.data
     const { region, name, phone, msgCode } = this.data.params
         ApiCheckUser({
-          region: [...new Set(region)].join('-'),
+            // region: [...new Set(region)].join('-'),
+            region: region[region.length-1],
           name,
           phoneNo: phone,
           roleType: type === 'law' ? '2' : params.roleType
@@ -179,13 +180,14 @@ Page({
         userInfo.roleType = this.data.params.roleType
         break;
     }
-    const { region, name, phone, msgCode } = this.data.params
+    const { region, name, phone, msgCode } = this.data.params;
     const { roleType, openId, nickName, avatarUrl} = userInfo;
     wx.showLoading({
       title: '登陆中...',
     })
     ApiGetLogin({
-      frontRegionName: [...new Set(region)].join('-'),
+        frontRegionName: region[region.length-1],
+        // frontRegionName: [...new Set(region)].join('-'),
       name,
       phoneNo: phone,
       openId, 
@@ -348,9 +350,12 @@ Page({
       console.log('>> res', res);
       Utils.hideLoading();
       if (res.code === 1) {
+          const cities = JSON.parse(res.data);
+          const array = init(cities);
         this.setData({
           type,
-          cityArray: init(this.data.cities),
+          cities: cities,
+          cityArray: array,
         })
       }
     }).catch(()=> {

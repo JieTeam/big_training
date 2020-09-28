@@ -282,7 +282,7 @@ Page({
 
         // 动画函数
         function animation() {
-            count+=1;
+            count = count>=that.data.gameTime?that.data.gameTime:(count+1);
             eAngle = ((that.data.gameTime-count)*2*Math.PI/that.data.gameTime)-0.5*Math.PI;
             that.drawCountdown('#countDown', sAngle, eAngle, '#ffffff', true).then(() => {
                 if(count >= that.data.gameTime) {
@@ -291,12 +291,12 @@ Page({
             })
         };
         clearInterval(countdownId);
+        if(isRunAway) return;
         countdownId = setInterval(animation, 1000);
     },
     /**获取下一道题目 */
     async getNextQuestion() {
         let that = this;
-        if(isRunAway) return;
         if(countdownId)clearInterval(countdownId);
         // 如果倒计时结束，用户还未选择答案，也算答错
         if(!that.data.meisAnswer) {

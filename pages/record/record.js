@@ -1,4 +1,7 @@
 // pages/record/record.js
+const app = getApp();
+const Utils = require('../../utils/util.js');
+import { getTrainListApi } from "../../utils/server/request";
 Page({
 
   /**
@@ -33,12 +36,13 @@ Page({
     this.setData({
       rankingTabData: newTabData
     })
+    this.getRankList()
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getRankList()
   },
 
   /**
@@ -88,5 +92,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  // 获取战绩
+  async getRankList() {
+    const that = this;
+    const userInfo = app.globalData.userInfo
+    const result = await getTrainListApi({
+        userId: userInfo.userId,
+        trainType: that.data.checkedType=='matching'?'1':'2'
+    })
+    if(result.code!=1) return;
+    
   }
 })

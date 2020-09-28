@@ -15,26 +15,45 @@ export function init(cities){
     cityArray[0].push(pObject);
   }
   // 默认北京市 市辖区
-  //市级数据
-  let city = cities[0].children;
-  for (let j = 0; j < city.length; j++) {
-    let cObject = {
-      id: city[j].regionCode,
-      name: city[j].regionName
+  if(cities[0].children[0].children&&cities[0].children[0].length) {
+    //市级数据
+    let city = cities[0].children;
+    for (let j = 0; j < city.length; j++) {
+        let cObject = {
+        id: city[j].regionCode,
+        name: city[j].regionName
+        }
+        //赋值第二个数组 市级数据
+        cityArray[1].push(cObject);
+        //区级数据
+    
     }
-    //赋值第二个数组 市级数据
-    cityArray[1].push(cObject);
-    //区级数据
- 
-  }
-  let region = city[0].children;
-  for (let k = 0; k < region.length; k++) {
-    let rObject = {
-      id: region[k].regionCode,
-      name: region[k].regionName
+    let region = city[0].children;
+    for (let k = 0; k < region.length; k++) {
+        let rObject = {
+        id: region[k].regionCode,
+        name: region[k].regionName
+        }
+        // 赋值区级数据
+        cityArray[2].push(rObject);
     }
-    // 赋值区级数据
-    cityArray[2].push(rObject);
+  } else {
+      // 二级区域市区县相等
+    cityArray[1].push({
+        id: cities[0].regionCode,
+        name: cities[0].regionName
+    });
+
+    let region = cities[0].children;
+    for (let j = 0; j < region.length; j++) {
+        let cObject = {
+            id: region[j].regionCode,
+            name: region[j].regionName
+        }
+        //赋值第二个数组 市级数据
+        cityArray[2].push(cObject);
+        //区级数据
+    }
   }
   return cityArray;
 }
@@ -42,26 +61,47 @@ export function changeCloumt(cities, cityArray,index,column,province_index){
     if (column == 0) {
       cityArray[1] = [];
       cityArray[2] = [];
-      //第一列切换
-      let city = cities[index].children;
-      for (let j = 0; j < city.length; j++) {
-        let cObject = {
-          id: city[j].regionCode,
-          name: city[j].regionName
+      console.log("cities[index]==>",cities[index])
+      if(cities[index].children[0].children&&cities[index].children[0].children.length) {
+        //第一列切换
+        let city = cities[index].children;
+        for (let j = 0; j < city.length; j++) {
+            let cObject = {
+            id: city[j].regionCode,
+            name: city[j].regionName
+            }
+            //赋值第二个数组 市级数据
+            cityArray[1].push(cObject);
+            //区级数据
         }
-        //赋值第二个数组 市级数据
-        cityArray[1].push(cObject);
-        //区级数据
-      }
-      let region = city[0].children;
-      for (let k = 0; k < region.length; k++) {
-        let rObject = {
-          id: region[k].regionCode,
-          name: region[k].regionName
+        let region = city[0].children;
+        for (let k = 0; k < region.length; k++) {
+            let rObject = {
+            id: region[k].regionCode,
+            name: region[k].regionName
+            }
+            // 赋值区级数据
+            cityArray[2].push(rObject);
         }
-        // 赋值区级数据
-        cityArray[2].push(rObject);
+      } else {
+        // 二级区域市区县相等
+        cityArray[1].push({
+            id: cities[index].regionCode,
+            name: cities[index].regionName
+        });
+
+        let region = cities[index].children;
+        for (let j = 0; j < region.length; j++) {
+            let cObject = {
+                id: region[j].regionCode,
+                name: region[j].regionName
+            }
+            //赋值第二个数组 市级数据
+            cityArray[2].push(cObject);
+            //区级数据
+        }
       }
+        
       return cityArray;
     }
     if (column == 1) {

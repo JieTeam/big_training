@@ -32,3 +32,11 @@ export const getRankListApi = (params) => {
 export const getWrongQuestionList = (userId) => {
     return Api.request('POST', `${baseUrl}/bt/question/wrongList?userId=${userId}`);
 }
+
+
+/**
+ * 战绩
+ */
+export const getTrainListApi = (params) => {
+    return Api.request('POST', `${baseUrl}/bt/rank/getTrainList?userId=${params.userId}&trainType=${params.trainType}`);
+}
