@@ -5,6 +5,7 @@
         wx:for="{{rankingTabData}}" 
         wx:key="index"
         data-item="{{item}}"
+        data-item="{{item}}"
         bindtap="handleTab"
         class="tab__item {{item.checked ? 'checked' : '' }}">
         {{item.title}}
@@ -32,6 +33,12 @@
     <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
   <view class="page__content" hidden="{{checkedType !== 'province'}}">
+    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+  </view>
+  <view class="page__content" hidden="{{checkedType !== 'city'}}">
+    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+  </view>
+  <view class="page__content" hidden="{{checkedType !== 'county'}}">
     <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
 </view>
