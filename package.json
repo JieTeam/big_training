@@ -9,7 +9,6 @@
   "author": "mrzhao",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.28.0",
-    "numeral": "^2.0.6"
+    "moment": "^2.28.0"
   }
 }
