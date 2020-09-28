@@ -353,7 +353,7 @@ Page({
         }, 600);
 
         let index = this.data.questionIndex+1;
-        if(index<this.data.questionList.length-1) {
+        if(index<this.data.questionList.length) {
             this.readyAnswer(index)
         } else {
             let time = new Date();

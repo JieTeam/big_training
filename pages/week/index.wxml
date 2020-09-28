@@ -53,7 +53,7 @@
             </view>
             <view class="topic-footer df justAround">
                 <button wx:if="{{questionIndex>0}}" type="primary" class="switch-btn b-sizing" bindtap="prevTopic">上一题</button>
-                <button wx:if="{{questionIndex<questionList.length}}" type="primary" class="switch-btn b-sizing" bindtap="nextTopic">{{questionIndex==questionList.length-1?'提交':'下一题'}}</button>
+                <button type="primary" class="switch-btn b-sizing" bindtap="nextTopic">{{(questionIndex+1)>=questionList.length ?'提交':'下一题'}}</button>
             </view>
         </view>
     </view>
