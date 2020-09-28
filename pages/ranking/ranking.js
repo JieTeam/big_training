@@ -32,27 +32,21 @@ Page({
         key: '4',
       }
     ],
+    tableHead1: [
+        "排名","用户","省份","积分","等级"
+    ],
+    tableHead2: [
+        "排名","省份","平均积分","参与人数","答题次数"
+    ],
+    tableHead3: [
+        "排名","城市","平均积分","参与人数","答题次数"
+    ],
+    tableHead4: [
+        "排名","区县","平均积分","参与人数","答题次数"
+    ],
+    tableHead: [],
     personClomn: [
-      {
-        title: '排名',
-        key: 'id',
-      },
-      {
-        title: '省份',
-        key: 'field1',
-      },
-      {
-        title: '平均积分',
-        key: 'field2',
-      },
-      {
-        title: '参与人数',
-        key: 'field3',
-      },
-      {
-        title: '答题次数',
-        key: 'field4',
-      }
+      'id','field1','field2','field3','field4'
     ],
     personData: [
     ]
@@ -135,6 +129,9 @@ Page({
     const that = this;
     try {
         Utils.showLoading();
+        that.setData({
+            tableHead: that.data['tableHead'+that.data.checkedType]
+        })
         const result = await getRankListApi({
             type: that.data.checkedType
         })

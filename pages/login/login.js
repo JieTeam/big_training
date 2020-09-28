@@ -43,7 +43,7 @@ Page({
     this.setData({
       region: array.map(item => item.name),
       region_code: array.map(item => item.id),
-      ['params.region']: array.map(item => item.name),
+      ['params.region']: array.map(item => item.id),
       citysIndex:e.detail.value
     })
   },

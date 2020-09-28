@@ -2,21 +2,21 @@
   <!-- <image src="/assets/images/table-bj.png"></image> -->
   <view class="ranking-table__header">
     <view class="content__item__block" 
-      wx:for="{{cloumn}}" 
+      wx:for="{{tableHead}}" 
       wx:key='index'>
-      {{item.title}}
+      {{item}}
     </view>
   </view>
   <view class="ranking-table__content">
     <view class="ranking-table__content__item" wx:for="{{data}}" wx:key='index' wx:for-index='_index'>
       <view class="content__item__block" wx:for="{{cloumn}}" wx:for-item="_item"  wx:key='index'>
-        <block wx:if="{{_item.key === 'ranking'}}">
+        <block wx:if="{{_item === 'id'}}">
           <image wx:if="{{_index === 0}}" src="/assets/images/first.jpg"></image>
           <image wx:elif="{{_index === 1}}" src="/assets/images/second.jpg"></image>
           <image wx:elif="{{_index === 2}}" src="/assets/images/third.jpg"></image>
           <text wx:else>{{_index + 1}}</text>
         </block>
-        <text wx:else>{{item[_item.key]}}</text>
+        <text wx:else>{{item[_item]}}</text>
       </view>
     </view>
   </view>

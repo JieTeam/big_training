@@ -20,11 +20,11 @@
             <view class="rival-box pr">
                 <view class="rival pa al df justBet bounceInRight animated">
                     <view class="header">
-                        <image src="{{rivalInfo.header}}"></image>
+                        <image src="{{rivalInfo.headUrl||'../../assets/images/test/me_logo.png'}}"></image>
                     </view>
                     <view class="info pl5">
                         <view class="score fw900">{{rivalInfo.score}}分</view>
-                        <view class="name overeli fw900">{{rivalInfo.name}}</view>
+                        <view class="name overeli fw900">{{rivalInfo.name||rivalInfo.nickName}}</view>
                     </view>
                 </view>
             </view>
@@ -61,7 +61,7 @@
                                 </view>
                             </view>
                             <view class="rival player">
-                                <image wx:if="{{meisAnswer&&item.rivalActive}}" src="{{rivalInfo.header}}"></image> 
+                                <image wx:if="{{meisAnswer&&item.rivalActive}}" src="{{rivalInfo.headUrl}}"></image> 
                             </view>
                         </view>
                     </view>

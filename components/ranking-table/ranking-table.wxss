@@ -37,8 +37,8 @@
   align-items: center;
 }
 .content__item__block image {
-  width: 45rpx;
-  height: 65rpx;
+  width: 46rpx;
+  height: 62rpx;
 }
 .ranking-table__content__item  .content__item__block{
   font-size: 28rpx;

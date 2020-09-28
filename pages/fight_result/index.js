@@ -10,7 +10,7 @@ Page({
         rivalInfo: null,
         plate: null,
         roomId: null,
-        fightResut: null
+        fightResult: null
     },
 
     /**
@@ -26,11 +26,12 @@ Page({
             success: (result) => {
                 const data = result.data;
                 let resImg = data.homeScore>data.awayScore?'done':data.homeScore<data.awayScore?'filed':'draw';
+                that.setData({
+                    fightResult: data,
+                    plate: `../../assets/images/fight_result/${resImg}.png`
+                });
                 wx.nextTick(()=>{
-                    that.setData({
-                        fightResut: data,
-                        plate: `../../assets/images/fight_result/${resImg}.png`
-                    });
+                    console.log(that.data.fightResult);
                 })
             }
         });

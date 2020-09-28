@@ -30,15 +30,15 @@
     </view>
   </view>
   <view class="page__content" style="margin-top: 100rpx" wx:if="{{checkedType == '1'}}">
-    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+    <ranking-table tableHead="{{tableHead}}" cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
   <view class="page__content" wx:if="{{checkedType == '2'}}">
-    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+    <ranking-table tableHead="{{tableHead}}" cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
   <view class="page__content" wx:if="{{checkedType == '3'}}">
-    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+    <ranking-table tableHead="{{tableHead}}" cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
   <view class="page__content" wx:if="{{checkedType == '4'}}">
-    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+    <ranking-table tableHead="{{tableHead}}" cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
 </view>

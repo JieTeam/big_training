@@ -4,6 +4,7 @@ const Utils = require('../../utils/util.js');
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
 let activeResult=[]; // 用户选择结果
+let isRunAway = false; // 逃跑
 Page({
 
     /**
@@ -134,7 +135,7 @@ Page({
         Utils.showLoading();
         const that = this;
         wx.connectSocket({
-            url: Utils.service.wsUrl + '/' + this.data.meInfo.userId + '/2',
+            url: Utils.service.wsUrl + '/' + that.data.meInfo.userId + '/2',
             success: res => {
                 that.initWebSocketListener(); // 监听socket
             }
@@ -169,9 +170,7 @@ Page({
                 case 2||'2':  // 匹配成功
                     that.setData({
                         rivalInfo: {
-                            ...res.data.enemyUser,
-                            header: res.data.head||"../../assets/images/test/me_logo.png",
-                            name: res.data.nickName,
+                            ...msg.data.enemyUser,
                             score: 0
                         },
                         matchSuc: true,
@@ -209,7 +208,9 @@ Page({
                 case 4||'4': // 答题结束
                     that.gameOver(msg.data);
                 case 5||'5': // 对方逃跑
-                    console.log("对方逃跑")
+                    Utils.showToast("对方逃跑");
+                    clearInterval(countdownId);
+                    isRunAway = true;
                     wx.sendSocketMessage({
                         data: JSON.stringify({
                             status: 3,
@@ -257,8 +258,8 @@ Page({
         wx.nextTick(()=> {
             if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
             that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
-            let rivalInfo = that.data.rivalInfo,meInfo = that.data.meInfo;
-            rivalInfo.score = 0;meInfo.score = 0;
+            let rivalInfo = that.data.rivalInfo, meInfo = that.data.meInfo;
+            rivalInfo.score = 0; meInfo.score = 0;
             activeResult = [];
             that.setData({
                 isAnswerLoaded: true, // 题目加载完成
@@ -295,6 +296,7 @@ Page({
     /**获取下一道题目 */
     async getNextQuestion() {
         let that = this;
+        if(isRunAway) return;
         if(countdownId)clearInterval(countdownId);
         // 如果倒计时结束，用户还未选择答案，也算答错
         if(!that.data.meisAnswer) {
@@ -363,7 +365,7 @@ Page({
                 canvas.width = 200;
                 canvas.height = 200;
                 const ctx = canvas.getContext('2d');
-                context.clearRect(0,0,200,200);
+                ctx.clearRect(0,0,200,200);
                 ctx.lineWidth = 10; // 设置圆环的宽度
                 ctx.strokeStyle = color; // 设置圆环的颜色
                 ctx.lineCap = 'butt'; // 设置圆环端点的形状
@@ -389,11 +391,40 @@ Page({
         that.setData({
             isGameOver: true
         })
-        const fightResult = {
-            ...data,
-            awayHeader: that.data.rivalInfo?that.data.rivalInfo.header:"../../assets/images/test/user.png",
-            awayName: that.data.rivalInfo?that.data.rivalInfo.name:"佚名"
+        let fightResult = {};
+        if(that.data.meInfo.userId == data.homeUId) {
+            fightResult = {
+                homeExperience: data.homeExperience,
+                homeScore: data.homeScore,
+                homeResult: data.homeResult,
+                homeUId: data.homeUId,
+                awayExperience: data.awayExperience,
+                awayResult: data.awayResult,
+                awayScore: data.awayScore,
+                awayUId: data.awayUId,
+                beginTime: data.beginTime,
+                endTime: data.endTime
+            }
+        } else {
+            fightResult = {
+                homeExperience: data.awayExperience,
+                homeScore: data.awayScore,
+                homeResult: data.awayResult,
+                homeUId: data.awayUId,
+                awayExperience: data.homeExperience,
+                awayScore: data.homeScore,
+                awayResult: data.homeResult,
+                awayUId: data.homeUId,
+                beginTime: data.beginTime,
+                endTime: data.endTime,
+                roomId: data.roomId
+            }
         }
+        fightResult.homeName = that.data.meInfo.nickName;
+        fightResult.homeHead = that.data.meInfo.avatarUrl;
+        fightResult.awayName = that.data.rivalInfo.name;
+        fightResult.awayHead = that.data.rivalInfo.headUrl;
+        
         wx.setStorage({
             key: 'roomId',
             data: fightResult,

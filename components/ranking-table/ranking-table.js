@@ -11,6 +11,10 @@ Component({
     data: {
       type: Array,
       value: []
+    },
+    tableHead: {
+        type: Array,
+        value: []
     }
   },
 
