@@ -220,7 +220,7 @@ Page({
             canvas.width = 200;
             canvas.height = 200;
             const context = canvas.getContext('2d');
-
+            context.clearRect(0,0,200,200);
             // 绘制圆环
             context.save();
             context.strokeStyle = circleColor;
@@ -245,6 +245,7 @@ Page({
             canvas.width = 200;
             canvas.height = 200;
             const context = canvas.getContext('2d');
+            context.clearRect(0,0,200,200)
 
             // 绘制圆环
             context.save();

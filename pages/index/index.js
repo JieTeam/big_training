@@ -70,6 +70,12 @@ Page({
         userInfo: app.globalData.userInfo,
         showHonor,
       })
+
+      setTimeout(() => {
+          wx.navigateTo({
+              url: `/pages/shareGood/shareGood?userId=${app.globalData.userInfo.userId}`
+          })
+      }, 2000);
     }
     
   },
