@@ -11,7 +11,7 @@
         {{item.title}}
       </view>
     </view>
-    <view class="ranking__person" wx:if="{{checkedType === 'person'}}">
+    <view class="ranking__person" wx:if="{{checkedType === '1'}}">
       <view class="ranking__person__headerpic">
         <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/miaS2lJxGUrbvRvvwdNn0iciaic2LWqFItdXjicicTEfrJMHgElUf4vibGicjlTwXQJt2jfdE7XicSzAyIYaEkmibhuEmibNw/132"></image>
       </view>
@@ -29,16 +29,16 @@
       </view>
     </view>
   </view>
-  <view class="page__content" style="margin-top: 100rpx" hidden="{{checkedType !== 'person'}}">
+  <view class="page__content" style="margin-top: 100rpx" hidden="{{checkedType !== '1'}}">
     <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
-  <view class="page__content" hidden="{{checkedType !== 'province'}}">
+  <view class="page__content" hidden="{{checkedType !== '2'}}">
     <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
-  <view class="page__content" hidden="{{checkedType !== 'city'}}">
+  <view class="page__content" hidden="{{checkedType !== '3'}}">
     <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
-  <view class="page__content" hidden="{{checkedType !== 'county'}}">
+  <view class="page__content" hidden="{{checkedType !== '4'}}">
     <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
 </view>
