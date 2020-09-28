@@ -11,7 +11,7 @@ App({
             "gender":1,
             "language":"zh_CN",
             "city":"",
-            "userId": 1,
+            "userId": number,
             "province":"",
             "country":"South Georgia and the South Sandwich Islands",
             "avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJLvDauOxz0icdCArvo8g2XQibj9uaOj3jZNpKGjYsA28gOFPjvfpFMR0CiacM9nFwedXBG9uYx33l0g/132",
