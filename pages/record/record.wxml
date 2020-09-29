@@ -32,11 +32,14 @@
       </view>
     </view>
     <view class="record__content">
-      <view class="record__item" wx:for="{{30}}">
-        <view class="record__item__block1">1</view>
+      <view class="record__item" 
+        wx:for="{{recordData}}" 
+        wx:key="index"
+      >
+        <view class="record__item__block1">{{index+1}}</view>
         <view wx:if="{{checkedType === 'matching'}}" class="record__item__block2 ">匹配对战</view>
         <view wx:if="{{checkedType !== 'matching'}}" class="record__item__block2 week">每周一测</view>
-        <view class="record__item__block3 less">3</view>
+        <view class="record__item__block3 less">{{item.trainPoint>=0?('+'+item.trainPoint):item.trainPoint}}积分</view>
       </view>
     </view>
   </view>

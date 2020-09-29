@@ -20,6 +20,7 @@ Page({
         type: 'week',
       },
     ],
+    recordData: [],
   },
   handleTab(e) {
     const currentItem = e.target.dataset.item;
@@ -96,12 +97,20 @@ Page({
   // 获取战绩
   async getRankList() {
     const that = this;
-    const userInfo = app.globalData.userInfo
-    const result = await getTrainListApi({
-        userId: userInfo.userId,
-        trainType: that.data.checkedType=='matching'?'1':'2'
-    })
-    if(result.code!=1) return;
-    
+    Utils.showLoading();
+    try {
+        const userInfo = app.globalData.userInfo
+        const result = await getTrainListApi({
+            userId: userInfo.userId,
+            trainType: that.data.checkedType=='matching'?'1':'2'
+        })
+        Utils.hideLoading();
+        if(result.code!=1) return;
+        that.setData({
+            recordData: result.data
+        })
+    } catch (error) {
+        Utils.hideLoading();
+    }
   }
 })
