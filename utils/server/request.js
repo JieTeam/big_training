@@ -45,3 +45,8 @@ export const getTrainListApi = (params) => {
 export const getProvinceData = (userId) => {
     return Api.request('POST', `${baseUrl}/bt/rank/getProvinceBattleResult?userId=${userId}`);
 }
+
+// 省内排行榜
+export const getProvinceCityListApi = (params) => {
+    return Api.request("POST",`${baseUrl}/bt/rank/getProvinceCityList?pvcode=${params.pvcode}&pvtype=${params.pvtype}`)
+}

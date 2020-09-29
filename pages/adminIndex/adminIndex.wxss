@@ -16,17 +16,19 @@ page {
   font-size: 70rpx;
   color: #fff;
 }
-.national-ranking {
+.province-item {
   position: relative;
   width: 617rpx;
   height: 168rpx;
-  background: #77d9fe;
-  margin: 76rpx auto 0;
+  margin: 40rpx auto 0;
   border-radius: 25rpx;
   text-align: center;
   line-height: 168rpx;
   font-size: 36rpx;
   color: #e8ffff;
+}
+.province-item:first-of-type {
+    margin-top: 76rpx;
 }
 .national-ranking_icon {
   width: 123rpx;
@@ -35,10 +37,19 @@ page {
   right: 0;
   bottom: 0;
 }
-.national-ranking.province-ranking {
-  background: #fdcc7f;
-  margin-top: 65rpx;
+.battle {
+    background: #fdcc7f;
 }
+.national-ranking {
+  background: #77d9fe;
+}
+.province-ranking {
+    background: #9997fa;
+}
+.honor {
+    background: #93cdd9;
+}
+
 .province-ranking_icon {
   width: 123rpx;
   height: 120rpx;

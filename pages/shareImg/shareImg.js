@@ -57,6 +57,8 @@ Page({
         })
         
       }
+    }).catch(() =>{
+        wx.hideLoading()
     })
    
   },

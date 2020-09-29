@@ -111,6 +111,8 @@ Page({
         // if (res.code === 1) {
           resovle(res)
         // }
+      }).catch(() => {
+          wx.hideLoading()
       })
     })
   },
