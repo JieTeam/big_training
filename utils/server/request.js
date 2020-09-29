@@ -40,3 +40,8 @@ export const getWrongQuestionList = (userId) => {
 export const getTrainListApi = (params) => {
     return Api.request('POST', `${baseUrl}/bt/rank/getTrainList?userId=${params.userId}&trainType=${params.trainType}`);
 }
+
+// 省份数据统计
+export const getProvinceData = (userId) => {
+    return Api.request('POST', `${baseUrl}/bt/rank/getProvinceBattleResult?userId=${userId}`);
+}

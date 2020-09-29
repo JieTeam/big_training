@@ -400,7 +400,7 @@ Page({
         const topicData = Object.assign({},that.data.topicData);
         topicData.trainStartTime = trainStartTime;
         topicData.trainEndTime = trainEndTime;
-        topicData.trainCostTime = Math.floor((trainEndTimeNum-trainEndTimeNum)/1000);
+        topicData.trainCostTime = Math.floor((trainEndTimeNum-trainStartTimeNum)/10);
         const questionList = Object.assign([],that.data.questionList);
         topicData.questionList = questionList;
         let scoreTotal = 0, rightNum = 0;
