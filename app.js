@@ -5,7 +5,7 @@ App({
         // 展示本地存储能力
         const initUserInfo = {
             login: false,
-            roleType: 2, // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
+            roleType: '2', // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
             // "login":true,
             // "nickName":"水木青蓝"+number,
             // "gender":1,

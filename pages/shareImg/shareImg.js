@@ -1,4 +1,6 @@
 const app = getApp()
+import { ApiGetUserMsgByOpenId } from '../../utils/server/login'
+
 Page({
 
   /**
@@ -8,6 +10,7 @@ Page({
     imgDraw: {},
     openSetting: false,
     isAuthPhoto: false,
+    userInfo: {}
   },
 
   /**
@@ -15,35 +18,49 @@ Page({
    */
   onLoad: function (options) {
     // this.saveImg()
-    
-    wx.getSetting({
-      success: res => {
-        let authSetting = res.authSetting
-        if (!authSetting['scope.writePhotosAlbum']) {
-          wx.authorize({
-            scope: 'scope.writePhotosAlbum',
-            success: ()=> {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    const { openId } = options
+    ApiGetUserMsgByOpenId(openId).then(res => {
+      wx.hideLoading()
+      if(res.code === 1) {
+        this.setData({
+          userInfo: res.data
+        })
+        wx.getSetting({
+          success: res => {
+            let authSetting = res.authSetting
+            if (!authSetting['scope.writePhotosAlbum']) {
+              wx.authorize({
+                scope: 'scope.writePhotosAlbum',
+                success: ()=> {
+                  this.setData({
+                    isAuthPhoto: true,
+                    openSetting: false,
+                  })
+                },fail: ()=> {
+                  console.log('>>> test',)
+                  this.setData({
+                    isAuthPhoto: false,
+                    openSetting: true,
+                  })
+                }
+              })
+            } else {
               this.setData({
                 isAuthPhoto: true,
                 openSetting: false,
               })
-            },fail: ()=> {
-              console.log('>>> test',)
-              this.setData({
-                isAuthPhoto: false,
-                openSetting: true,
-              })
             }
-          })
-        } else {
-          this.setData({
-            isAuthPhoto: true,
-            openSetting: false,
-          })
-        }
+          }
+        })
+        
       }
     })
+   
   },
+
   openSetting(e) {
     const authSetting = e.detail.authSetting
     if (authSetting['scope.writePhotosAlbum']) {
@@ -59,10 +76,10 @@ Page({
     }
   },
   saveImg() {
-    const { avatarUrl } = app.globalData.userInfo
     wx.showLoading({
       title: '生成中'
     })
+    const { headUrl, nickName, userLevel, winCount, loseCount, score } = this.data.userInfo
     const imgDraw = {
       width: '1500rpx',
       height: '2412rpx',
@@ -92,7 +109,8 @@ Page({
         // 头像
         {
           type: 'image',
-          url: '/assets/images/test/logo.jpg',
+          // url: '/assets/images/test/logo.jpg',
+          url: headUrl,
           css: {
             top: '1676rpx',
             left: '120rpx',
@@ -117,7 +135,7 @@ Page({
         },
         {
           type: 'text',
-          text: '青团子',
+          text: nickName,
           css: {
             top: '1676rpx',
             fontSize: '60rpx',
@@ -129,7 +147,7 @@ Page({
         },
         {
           type: 'text',
-          text: '青团子',
+          text: userLevel,
           css: {
             top: '1770rpx',
             fontSize: '60rpx',
@@ -141,7 +159,7 @@ Page({
         },
         {
           type: 'text',
-          text: '51胜10负｜100分',
+          text: `${winCount}胜${loseCount}负｜${score}分`,
           css: {
             top: '1870rpx',
             fontSize: '60rpx',

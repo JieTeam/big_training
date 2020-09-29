@@ -109,11 +109,18 @@ Page({
               icon: 'none',
               duration: 1000,
             })
+           
             resolve(true)
           } else {
+            this.setData({
+              isGetMsgCode: false,
+            })
             resolve(false)
           }
         }).catch( err => {
+          this.setData({
+            isGetMsgCode: false,
+          })
           resolve(false)
         })
     })
@@ -121,12 +128,11 @@ Page({
   async getMsgCode() {
     if (!this.checkUserBasic('msgCode')) return
     if (this.data.isGetMsgCode) return;
+    this.setData({
+      isGetMsgCode: true,
+    })
     this.checkUser().then((res) => {
-      console.log('>>> res', res)
       if (res) {
-        this.setData({
-          isGetMsgCode: true,
-        })
         let codeTime = this.data.codeTime
         const codeInterval = setInterval(() => {
           codeTime -= 1
@@ -167,8 +173,8 @@ Page({
     const userInfo = App.globalData.userInfo
     if(!this.checkUserBasic())  return;
     const res = await this.getOpenId();
-    userInfo.openId = res.data.openId;
-    console.log('>>> userInfo', userInfo)
+    console.log('>>> userInfo', userInfo, res)
+    userInfo.openId = res.data && res.data.openId;
     switch(this.data.type) {
       case 'admin':
         userInfo.roleType = '1'
@@ -186,8 +192,8 @@ Page({
       title: '登陆中...',
     })
     ApiGetLogin({
-        frontRegionName: region[region.length-1],
-        // frontRegionName: [...new Set(region)].join('-'),
+      // frontRegionName: region[region.length-1],
+      region: region[region.length-1],
       name,
       phoneNo: phone,
       openId, 
@@ -198,10 +204,18 @@ Page({
     }).then(res => {
       wx.hideLoading()
       if(res.code === 1 && res.data) {
+        const { id, roleType, userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
         userInfo.login = true;
-        userInfo.userId = res.data.id;
+        userInfo.userId = id;
+        userInfo.userLevel = userLevel; // 等级
+        userInfo.winRate = winRate; // 胜率
+        userInfo.winCount = winCount; // 胜利场次
+        userInfo.tieCount = tieCount; // 平局场次
+        userInfo.loseCount = loseCount; // 平局场次
+        userInfo.count = winCount + tieCount + loseCount;
+        userInfo.score = score;
         // 后台返回的是数字 转字符串
-        userInfo.roleType = res.data.roleType + '';
+        userInfo.roleType = roleType + '';
         wx.setStorageSync('userInfo', userInfo)
         const strongShareData = wx.getStorageSync('shareData');
         if (strongShareData && strongShareData.isShare === '1') {
@@ -260,7 +274,7 @@ Page({
             showTips('参赛人员不能为自己或他人点赞,点击确定将回到首页')
             break;
           case 3:
-            showTips('当前用户已为该参赛人员点过赞,点击确定将回到首页')
+            showTips('您已为该参赛人员点过赞,点击确定将回到首页')
             break;
         }
       })
@@ -347,11 +361,10 @@ Page({
     const { type } = options
     Utils.showLoading();
     ApiGetRegion().then(res => {
-      console.log('>> res', res);
       Utils.hideLoading();
       if (res.code === 1) {
-          const cities = JSON.parse(res.data);
-          const array = init(cities);
+        const cities = JSON.parse(res.data);
+        const array = init(cities);
         this.setData({
           type,
           cities: cities,

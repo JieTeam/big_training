@@ -66,7 +66,7 @@ Page({
             showTips('参赛人员不能为自己或他人点赞,点击确定将回到首页')
             break;
           case 3:
-            showTips('当前用户已为该参赛人员点过赞,点击确定将回到首页')
+            showTips('您已为该参赛人员点过赞,点击确定将回到首页')
             break;
         }
       }).catch(err => wx.hideLoading())
