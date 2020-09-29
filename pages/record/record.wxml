@@ -15,7 +15,7 @@
         </view>
       </view>
       <view class="ranking__person__tips">
-        胜率{{userInfo.winRate * 100}}%
+        胜率{{userInfo.winRate}}%
       </view>
     </view>
   </view>

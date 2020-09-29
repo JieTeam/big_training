@@ -83,7 +83,7 @@ Page({
         if(res.code === 1) {
           const { userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
           userInfo.userLevel = userLevel; // 等级
-          userInfo.winRate = winRate; // 胜率
+          userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
           userInfo.winCount = winCount; // 胜利场次
           userInfo.tieCount = tieCount; // 平局场次
           userInfo.loseCount = loseCount; // 失败场次

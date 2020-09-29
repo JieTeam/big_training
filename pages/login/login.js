@@ -208,7 +208,7 @@ Page({
         userInfo.login = true;
         userInfo.userId = id;
         userInfo.userLevel = userLevel; // 等级
-        userInfo.winRate = winRate; // 胜率
+        userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
         userInfo.winCount = winCount; // 胜利场次
         userInfo.tieCount = tieCount; // 平局场次
         userInfo.loseCount = loseCount; // 平局场次
