@@ -1,7 +1,10 @@
 //index.js
 // import regeneratorRuntime from "../../utils/runtime.js";   // 使用 async/await 引入
+
+import { ApiGetUserMsgByOpenId } from '../../utils/server/login'
 const Utils = require("../../utils/util.js");
 const app = getApp(); // 获取应用实例
+
 Page({
   /**
    * 页面的初始数据
@@ -9,6 +12,7 @@ Page({
   data: {
     rulesBox: false,
     showHonor: false,
+    show: false,
     userInfo: {},
   },
   go(e) {
@@ -61,26 +65,54 @@ Page({
     }
     if (app.globalData.userInfo.login) {
       let showHonor = false
+      const userInfo = app.globalData.userInfo
       if (app.globalData.userInfo.roleType === '2') {
         showHonor = false
       } else {
         showHonor = true
       }
       this.setData({
-        userInfo: app.globalData.userInfo,
         showHonor,
       })
+      wx.showLoading({
+        title: '数据加载中...',
+      })
+      this.getUserInfo(userInfo.userId).then(res => {
+        console.log(res)
+        wx.hideLoading()
+        if(res.code === 1) {
+          const { userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
+          userInfo.userLevel = userLevel; // 等级
+          userInfo.winRate = winRate; // 胜率
+          userInfo.winCount = winCount; // 胜利场次
+          userInfo.tieCount = tieCount; // 平局场次
+          userInfo.loseCount = loseCount; // 失败场次
+          userInfo.count = winCount + tieCount + loseCount;
+          userInfo.score = score;
+          this.setData({
+            userInfo,
+            show: true,
+          })
+        } else {
+          this.setData({
+            show: true,
+          })
+        }
+      }).catch(err => {
+        console.log('>>err', err)
+        wx.hideLoading()
+        this.setData({show: true,})
+      })
     }
-    
   },
-  getUserInfo: function (e) {
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true,
-    });
-    setTimeout(() => {
-      this.getOpenid();
-    }, 500);
+  getUserInfo(openId) {
+    return new Promise((resovle, reject) => {
+      ApiGetUserMsgByOpenId(openId).then(res => {
+        // if (res.code === 1) {
+          resovle(res)
+        // }
+      })
+    })
   },
   onShareAppMessage() {
     const { openId, userId } = app.globalData.userInfo

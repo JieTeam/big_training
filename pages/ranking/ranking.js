@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userInfo: {},
     checkedType: '1',
     rankingTabData: [
       {
@@ -73,6 +74,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
     this.getRankList()
   },
 

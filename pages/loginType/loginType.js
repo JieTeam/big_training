@@ -43,14 +43,18 @@ Page({
    */
   onLoad: function (options) {
     console.log('>>> options', options)
-    const strongShareData = wx.getStorageSync('shareData');
-    if (strongShareData) {
-      this.setData({
-        isShare: strongShareData.isShare,
-        userId: strongShareData.userId,
-      })
+    const { isShare } = options;
+    if (isShare !== '1') {
+      wx.removeStorageSync('shareData')
+    } else {
+      const strongShareData = wx.getStorageSync('shareData');
+      if (strongShareData) {
+        this.setData({
+          isShare: strongShareData.isShare,
+          userId: strongShareData.userId,
+        })
+      }
     }
-    
   },
 
   /**

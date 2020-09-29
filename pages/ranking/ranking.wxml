@@ -13,15 +13,15 @@
     </view>
     <view class="ranking__person" wx:if="{{checkedType === '1'}}">
       <view class="ranking__person__headerpic">
-        <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/miaS2lJxGUrbvRvvwdNn0iciaic2LWqFItdXjicicTEfrJMHgElUf4vibGicjlTwXQJt2jfdE7XicSzAyIYaEkmibhuEmibNw/132"></image>
+        <image src="{{userInfo.avatarUrl}}"></image>
       </view>
       <view class="ranking__person__des">
         <view class="name">
-          张三
+          {{userInfo.nickName}}
         </view>
         <view class="level">
           <image src='/assets/images/grading.png'></image>
-          <view class="level__content">执法专家</view>
+          <view class="level__content">{{userInfo.userLevel}}</view>
         </view>
       </view>
       <view class="ranking__person__tips">

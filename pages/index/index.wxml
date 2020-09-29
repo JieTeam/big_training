@@ -1,22 +1,22 @@
 <!--index.wxml-->
-<view class="home-container">
-  <view class="top"> 
+<view class="home-container" wx:if="{{show}}">
+  <view class="top">
     <view class="top_userinfo">
      <view class="userinfo_left">
-        <image class="headimg" src="https://thirdwx.qlogo.cn/mmopen/vi_32/miaS2lJxGUrbvRvvwdNn0iciaic2LWqFItdXjicicTEfrJMHgElUf4vibGicjlTwXQJt2jfdE7XicSzAyIYaEkmibhuEmibNw/132"></image>
+        <image class="headimg" src="{{userInfo.avatarUrl}}"></image>
      </view>
      <view class="userinfo_right">
-        <view class="userName">张三</view>
+        <view class="userName">{{userInfo.nickName}}</view>
         <view class="other_info">
           <view class="identity">
             <view class="identity_icon">
               <image class="icon_img" src="/assets/images/xc.png"/>
             </view>
-            <view class="identity_name">执法专家五级</view>
+            <view class="identity_name">{{userInfo.userLevel}}</view>
           </view>
           <view class="result">
-            <view class="result_left">9胜1负</view>
-            <view class="result_right">500分</view>
+            <view class="result_left">{{userInfo.winCount}}胜{{userInfo.loseCount}}负</view>
+            <view class="result_right">{{userInfo.score}}分</view>
           </view>
         </view>
      </view>

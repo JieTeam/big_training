@@ -2,8 +2,7 @@
   <view class="page__header">
     <view class="ranking__person">
       <view class="ranking__person__headerpic">
-        <image
-          src="{{userInfo.avatarUrl}}">
+        <image src="{{userInfo.avatarUrl}}">
         </image>
       </view>
       <view class="ranking__person__des">
@@ -12,51 +11,51 @@
         </view>
         <view class="level">
           <image src='/assets/images/grading.png'></image>
-          <view class="level__content">执法专家</view>
+          <view class="level__content">{{userInfo.userLevel}}</view>
         </view>
       </view>
     </view>
-    <view class="page__content" style="margin-top: 100rpx">
-      <view class="question__item" wx:for="{{wrongList}}" wx:key='index'>
-        <view class="question__item__header">
-          {{index+1}}. {{item.questionDesc}}
+  </view>
+  <view class="page__content" style="margin-top: 100rpx">
+    <view class="question__item" wx:for="{{wrongList}}" wx:key='index'>
+      <view class="question__item__header">
+        {{index+1}}. {{item.questionDesc}}
+      </view>
+      <view class="question__content__item">
+        <view class="content__item__text">
+          {{item.option1}} {{item.userOption}} {{item.userOption.includes('option2')}}
         </view>
-        <view class="question__content__item">
-          <view class="content__item__text">
-            {{item.option1}}
-          </view>
-          <view wx:if="{{item.rightAnswer.includes('option1') && item.userOption.includes('option1')}}"
-            class="content__item__icon error iconfont icon-zhengque"></view>
-          <view wx:if="{{!item.rightAnswer.includes('option1') && item.userOption.includes('option1')}}"
-            class="content__item__icon right iconfont icon-cuohao"></view>
-        </view>
+        <view wx:if="{{item.option1Right}}"
+          class="content__item__icon right  iconfont icon-zhengque"></view>
+        <view wx:if="{{item.option1Rrror}}"
+          class="content__item__icon error iconfont icon-cuohao"></view>
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
           {{item.option2}}
         </view>
-        <view wx:if="{{item.rightAnswer.includes('option2') && item.userOption.includes('option2')}}"
-          class="content__item__icon error iconfont icon-zhengque"></view>
-        <view wx:if="{{!item.rightAnswer.includes('option2') && item.userOption.includes('option2')}}"
-          class="content__item__icon right iconfont icon-cuohao"></view>
+        <view wx:if="{{item.option2Right}}"
+          class="content__item__icon right  iconfont icon-zhengque"></view>
+        <view wx:if="{{item.option2Rrror}}"
+          class="content__item__icon error iconfont icon-cuohao"></view>
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
           {{item.option3}}
         </view>
-        <view wx:if="{{item.rightAnswer.includes('option3') && item.userOption.includes('option3')}}"
-          class="content__item__icon error iconfont icon-zhengque"></view>
-        <view wx:if="{{!item.rightAnswer.includes('option3') && item.userOption.includes('option3')}}"
-          class="content__item__icon right iconfont icon-cuohao"></view>
+        <view wx:if="{{item.option3Right}}"
+          class="content__item__icon right  iconfont icon-zhengque"></view>
+        <view wx:if="{{item.option3Rrror}}"
+          class="content__item__icon error iconfont icon-cuohao"></view>
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
           {{item.option4}}
         </view>
-        <view wx:if="{{item.rightAnswer.includes('option4') && item.userOption.includes('option4')}}"
-          class="content__item__icon error iconfont icon-zhengque"></view>
-        <view wx:if="{{!item.rightAnswer.includes('option4') && item.userOption.includes('option4')}}"
-          class="content__item__icon right iconfont icon-cuohao"></view>
+        <view wx:if="{{item.option4Right}}"
+          class="content__item__icon right  iconfont icon-zhengque"></view>
+        <view wx:if="{{item.option4Rrror}}"
+          class="content__item__icon error iconfont icon-cuohao"></view>
       </view>
       <view class="question__analysis">
         {{item.analysis}}

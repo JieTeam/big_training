@@ -42,7 +42,6 @@ const Api = {
                 },
                 dataType: 'json',
                 success: function (res) {
-                    console.log(">>> res", res)
                     const {
                         data,
                         statusCode,
@@ -59,12 +58,12 @@ const Api = {
                         resolve(res.data)
                     } else {
                         wx.showToast({
-                            title: errMsg,
+                            title: `服务器异常 - ${statusCode}`,
                             icon: 'none',
                             duration: 1000
                         })
+                        resolve(res)
                     }
-                    resolve(res);
                 },
                 fail: function (err) {
                     reject(err);
