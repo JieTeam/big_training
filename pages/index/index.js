@@ -117,7 +117,7 @@ Page({
   onShareAppMessage() {
     const { openId, userId } = app.globalData.userInfo
     return {
-      title: "执法大练兵知识竞赛",
+      title: "2020年生态环境保护执法大练兵知识竞赛",
       path:`/pages/shareImg/shareImg?openId=${openId}&userId=${userId}` 
     }
   }
