@@ -23,14 +23,20 @@ Page({
     const type = e.currentTarget.dataset.type;
     let url = null
     switch (type) {
-      case 'provinceWarSituation':
-        url='/pages/provinceWarSituation/provinceWarSituation'
-        break;
-      case 'adminRanking':
-        url='/pages/adminRanking/adminRanking'
-        break;
-      default:
-        break;
+        case 'provinceWarSituation':
+            url='/pages/provinceWarSituation/provinceWarSituation'
+            break;
+        case 'adminRanking':
+            url='/pages/ranking/ranking?checkedType=2'
+            break;
+        case 'provinceRanking':
+            url='/pages/adminRanking/adminRanking'
+            break;
+        case 'honor':
+            url='/pages/honor/index'
+            break;
+        default:
+            break;
     }
     if (!url) return;
     wx.navigateTo({
