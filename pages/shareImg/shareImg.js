@@ -21,8 +21,8 @@ Page({
     wx.showLoading({
       title: '数据加载中...',
     })
-    const { openId } = options
-    ApiGetUserMsgByOpenId(openId).then(res => {
+    const { openId, userId } = options
+    ApiGetUserMsgByOpenId(userId).then(res => {
       wx.hideLoading()
       if(res.code === 1) {
         this.setData({

@@ -17,8 +17,8 @@ export const ApiGetLogin = (params) => {
 }
 
 // 根据openId 获取用户信息
-export const ApiGetUserMsgByOpenId = (openId) => {
-  return Api.request('POST', `${baseUrl}/bt/login/getByOpenId?openId=${openId}`, {}).then(res => res);
+export const ApiGetUserMsgByOpenId = (userId) => {
+  return Api.request('POST', `${baseUrl}/bt/login/getByUserId?userId=${userId}`, {}).then(res => res);
 }
 
 // 城区

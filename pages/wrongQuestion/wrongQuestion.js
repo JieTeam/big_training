@@ -32,14 +32,25 @@ Page({
           arr1.length === arr2.length &&
           arr1.every((item) => arr2.includes(item))
         }
-        this.setData({
-          wrongList: res.data.map((item) => {
-            item.userOption = item.userOption.split(',')
-            item.rightAnswer = item.rightAnswer.split(',')
-            item.isRight = isRight(item.userOption, item.rightAnswer)
-            return item;
-          })
+        const wrongList = res.data.map((item) => {
+          item.userOption = item.userOption.split(',')
+          item.rightAnswer = item.rightAnswer.split(',')
+          item.isRight = isRight(item.userOption, item.rightAnswer)
+          item.option1Right = item.rightAnswer.includes('option1')
+          item.option1Rrror = !item.rightAnswer.includes('option1') && item.userOption.includes('option1')
+          item.option2Right = item.rightAnswer.includes('option2')
+          item.option2Rrror = !item.rightAnswer.includes('option2') && item.userOption.includes('option2')
+          item.option3Right = item.rightAnswer.includes('option3')
+          item.option3Rrror = !item.rightAnswer.includes('option3') && item.userOption.includes('option3')
+          item.option4Right = item.rightAnswer.includes('option4')
+          item.option4Rrror = !item.rightAnswer.includes('option4') && item.userOption.includes('option4')
+          return item;
         })
+        console.log('>>> wrongList', wrongList)
+        this.setData({
+          wrongList
+        })
+
       }
     })
   },

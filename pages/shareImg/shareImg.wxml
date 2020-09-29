@@ -4,11 +4,11 @@
    
     <view class="footer">
       <view class="footer__left">
-        <image class="avatar" src="/assets/images/test/logo.jpg"></image>
+        <image class="avatar" src="{{userInfo.headUrl}}"></image>
         <view class="des">
-          <view class="des__item">张三</view>
-          <view class="des__item">执法专家5级</view>
-          <view class="des__item">51胜10负｜100分</view>
+          <view class="des__item">{{userInfo.nickName}}</view>
+          <view class="des__item">{{userInfo.userLevel}}</view>
+          <view class="des__item">{{userInfo.winCount}}胜{{userInfo.loseCount}}负｜{{userInfo.score}}分</view>
         </view>
       </view>
       <view class="save">

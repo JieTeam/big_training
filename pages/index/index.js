@@ -77,7 +77,7 @@ Page({
       wx.showLoading({
         title: '数据加载中...',
       })
-      this.getUserInfo(userInfo.openId).then(res => {
+      this.getUserInfo(userInfo.userId).then(res => {
         console.log(res)
         wx.hideLoading()
         if(res.code === 1) {
