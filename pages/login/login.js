@@ -161,7 +161,7 @@ Page({
           if (res.code) {
             ApiGetOpenId(res.code).then(res => {
               if (res.code === 1) {
-                resolve(res)
+                resolve(res.data)
               }
             })
           }
@@ -174,7 +174,7 @@ Page({
     if(!this.checkUserBasic())  return;
     const res = await this.getOpenId();
     console.log('>>> userInfo', userInfo, res)
-    userInfo.openId = res.data && res.data.openId;
+    userInfo.openId = res && res.openId;
     switch(this.data.type) {
       case 'admin':
         userInfo.roleType = '1'
@@ -189,7 +189,7 @@ Page({
     const { region, name, phone, msgCode } = this.data.params;
     const { roleType, openId, nickName, avatarUrl} = userInfo;
     wx.showLoading({
-      title: '登陆中...',
+      title: '登录中...',
     })
     ApiGetLogin({
       // frontRegionName: region[region.length-1],
@@ -339,7 +339,7 @@ Page({
       }
     })
   },
-  // 登陆提示确定 点赞 确定
+  // 登录提示确定 点赞 确定
   handleFix() {
     const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {

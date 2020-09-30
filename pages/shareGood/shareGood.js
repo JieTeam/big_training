@@ -73,7 +73,7 @@ Page({
     } else {
       wx.showModal({
         showCancel: false,
-        content: '登陆成功后才能点赞, 点击确定将跳到登陆页!',
+        content: '登录成功后才能点赞, 点击确定将跳到登录页!',
         title: '提示',
         success: () => {
           wx.setStorageSync('shareData', {

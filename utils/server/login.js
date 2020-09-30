@@ -11,7 +11,7 @@ export const ApiGetOpenId = (code) => {
   return Api.request('POST', `${baseUrl}/bt/login/auth?code=${code}`, {}).then(res => res);
 }
 
-// 登陆
+// 登录
 export const ApiGetLogin = (params) => {
   return Api.request('POST', `${baseUrl}/bt/login/doLogin`, params).then(res => res);
 }

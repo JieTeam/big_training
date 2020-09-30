@@ -70,7 +70,7 @@
       "list": [
         {
           "id": -1,
-          "name": "登陆类型",
+          "name": "登录类型",
           "pathName": "pages/loginType/loginType",
           "query": "",
           "scene": null
@@ -112,7 +112,7 @@
         },
         {
           "id": 6,
-          "name": "登陆",
+          "name": "登录",
           "pathName": "pages/login/login",
           "query": "type=admin",
           "scene": null

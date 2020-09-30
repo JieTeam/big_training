@@ -6,7 +6,7 @@
   </view>
   <view class="login-content">
     <view class="login-content__tips">
-      <text wx:if="{{type === 'admin'}}">管理员登陆</text>
+      <text wx:if="{{type === 'admin'}}">管理员登录</text>
       <text wx:else>完善信息</text>
     </view>
     <picker
@@ -104,7 +104,7 @@
   <view class="login-footer">
     <button class="login-save" bindtap="handleSubmit">
       <block wx:if="{{type === 'admin'}}">
-        登陆
+        登录
       </block>
       <block wx:else>提交</block>
     </button>

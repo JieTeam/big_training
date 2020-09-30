@@ -46,7 +46,11 @@
                         </view>
                     </view>
                 </view>
-                <button wx:if="{{currentQuestion.questionType==3&&!currentQuestion.isAnswer}}" class="sureAnswer mt10" type="primary" bindtap="sureAnswer">
+                <button 
+                    wx:if="{{currentQuestion.questionType==3&&!currentQuestion.isAnswer}}" 
+                    class="sureAnswer mt10 fixButton" 
+                    type="primary" 
+                    bindtap="sureAnswer">
                     确认答案
                 </button>
                   

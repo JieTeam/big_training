@@ -52,7 +52,7 @@ const Api = {
                             wx.showToast({
                                 title: data.msg,
                                 icon: 'none',
-                                duration: 1000
+                                duration: 2000,
                             })
                         } 
                         resolve(res.data)
@@ -60,7 +60,7 @@ const Api = {
                         wx.showToast({
                             title: `服务器异常 - ${statusCode}`,
                             icon: 'none',
-                            duration: 1000
+                            duration: 2000
                         })
                         resolve(res)
                     }
