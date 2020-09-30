@@ -87,6 +87,7 @@ Page({
           userInfo.winCount = winCount; // 胜利场次
           userInfo.tieCount = tieCount; // 平局场次
           userInfo.loseCount = loseCount; // 失败场次
+          userInfo.rank = rank; // 排名
           userInfo.count = winCount + tieCount + loseCount;
           userInfo.score = score;
           this.setData({

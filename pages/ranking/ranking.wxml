@@ -25,7 +25,7 @@
         </view>
       </view>
       <view class="ranking__person__tips">
-        第66名
+        第{{userInfo.rank}}名
       </view>
     </view>
   </view>
