@@ -81,7 +81,7 @@ Page({
         console.log(res)
         wx.hideLoading()
         if(res.code === 1) {
-          const { userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
+          const { userLevel, winRate, winCount,tieCount, loseCount, score, rank } = res.data
           userInfo.userLevel = userLevel; // 等级
           userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
           userInfo.winCount = winCount; // 胜利场次
