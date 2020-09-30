@@ -1,13 +1,21 @@
 <!--pages/adminIndex/adminIndex.wxml-->
 <view class="adminIndex">
   <view class="title">排行榜</view>
-  <view class="national-ranking" data-type='adminRanking' bindtap="go">
+  <view class="province-item battle" data-type='provinceWarSituation' bindtap="go">
+    <image class="province-ranking_icon" src="/assets/images/person2.png"></image>
+    <text>本省战况</text>
+  </view>
+  <view class="province-item national-ranking" data-type='adminRanking' bindtap="go">
     <text>全国排行榜</text>
     <image class="national-ranking_icon" src="/assets/images/person1.png"></image>
   </view>
-  <view class="national-ranking province-ranking" data-type='provinceWarSituation' bindtap="go">
-    <image class="province-ranking_icon" src="/assets/images/person2.png"></image>
-    <text>本省战况</text>
+  <view class="province-item province-ranking" data-type='provinceRanking' bindtap="go">
+    <image class="province-ranking_icon" src="/assets/images/organization.png"></image>
+    <text>省内排行榜</text>
+  </view>
+  <view class="province-item honor" data-type='honor' bindtap="go">
+    <image class="national-ranking_icon" src="/assets/images/honor.png"></image>
+    <text>荣誉墙</text>
   </view>
   <view class="bottom-fun">
       <view class="bottom-fun_result" bindtap="rulesBoxShow">

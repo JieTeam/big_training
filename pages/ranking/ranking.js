@@ -75,9 +75,24 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userInfo: app.globalData.userInfo
+        checkedType: options.checkedType || '1',
+        userInfo: app.globalData.userInfo
     })
-    this.getRankList()
+    if(options.checkedType) {
+        const newTabData = this.data.rankingTabData.map((item) => {
+            item.checked = false
+            if (item.key === options.checkedType) {
+              item.checked = true
+            }
+            return item;
+        })
+        this.setData({
+            rankingTabData: newTabData
+        })
+    }
+    wx.nextTick(() => {
+        this.getRankList()
+    });
   },
 
   /**
@@ -139,7 +154,10 @@ Page({
         const result = await getRankListApi({
             type: that.data.checkedType
         })
-        Utils.hideLoading();
+        let timer = setTimeout(() => {
+            clearTimeout(timer);
+            Utils.hideLoading();
+        }, 1000);
         if(result.code!==1) return;
         that.setData({
             personData: result.data

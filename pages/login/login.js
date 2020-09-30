@@ -204,9 +204,10 @@ Page({
     }).then(res => {
       wx.hideLoading()
       if(res.code === 1 && res.data) {
-        const { id, roleType, userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
+        const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
         userInfo.login = true;
         userInfo.userId = id;
+        userInfo.workingDivision = workingDivision; // 所属区域代码
         userInfo.userLevel = userLevel; // 等级
         userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
         userInfo.winCount = winCount; // 胜利场次

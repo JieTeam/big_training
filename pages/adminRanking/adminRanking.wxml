@@ -12,10 +12,7 @@
       </view>
     </view>
   </view>
-  <view class="page__content" hidden="{{checkedType !== 'person'}}">
-    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
-  </view>
-  <view class="page__content" hidden="{{checkedType !== 'province'}}">
-    <ranking-table cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
+  <view class="page__content">
+    <ranking-table tableHead="{{tableHead}}" cloumn="{{personClomn}}" data="{{personData}}"></ranking-table>
   </view>
 </view>
