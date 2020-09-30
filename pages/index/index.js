@@ -124,5 +124,9 @@ Page({
       title: "2020年生态环境保护执法大练兵知识竞赛",
       path:`/pages/shareImg/shareImg?openId=${openId}&userId=${userId}` 
     }
+    // return {
+    //   title: "2020年生态环境保护执法大练兵知识竞赛",
+    //   path:`/pages/shareGood/shareGood?openId=${openId}&userId=${userId}` 
+    // }
   }
 });

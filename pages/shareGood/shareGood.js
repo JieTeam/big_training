@@ -24,7 +24,6 @@ Page({
     this.setData({
       userId,
     })
-    console.log('>>> userInfo', userInfo)
     if (userInfo && userInfo.login && userInfo.openId) {
       wx.showLoading({
         title: '数据加载中...',
@@ -33,6 +32,7 @@ Page({
         userInfo.openId,
         userId
       ).then((res) => {
+        console.log('>>> userInfo res sharegood' ,res, userInfo, userInfo.openId, userId)
         wx.hideLoading()
         let showTips = (msg) => {
           wx.showModal({

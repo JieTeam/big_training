@@ -51,9 +51,9 @@ module.exports = {
     IS_APP: true,
     service: {
         // wsUrl: `ws://10.134.62.106:8090/websocket`, // 焦公司服务
-        wsUrl: `ws://3435k69g44.zicp.vip/websocket`, // 焦家服务
+        // wsUrl: `ws://3435k69g44.zicp.vip/websocket`, // 焦家服务
         // wsUrl: `ws://192.168.1.4:8090/websocket`, // 本机服务
-        // wsUrl: `ws://125.35.101.176:8090/websocket`, // 测试服务
+        wsUrl: `ws://125.35.101.176:8090/websocket`, // 测试服务
     },
     request: request,
     throttle: throttle,

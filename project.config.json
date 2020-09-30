@@ -132,10 +132,10 @@
           "scene": null
         },
         {
-          "id": 11,
+          "id": 9,
           "name": "分享中间页",
           "pathName": "pages/shareGood/shareGood",
-          "query": "userId=123",
+          "query": "userId=1",
           "scene": null
         },
         {

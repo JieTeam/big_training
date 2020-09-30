@@ -83,7 +83,11 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-
+        const { openId, userId } = app.globalData.userInfo
+        return {
+            title: "2020年生态环境保护执法大练兵知识竞赛",
+            path:`/pages/shareGood/shareGood?openId=${openId}&userId=${userId}` 
+        }
     },
     resetPage() {
         this.setData({
