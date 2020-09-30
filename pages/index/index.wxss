@@ -29,7 +29,14 @@ page {
   padding: 5rpx;
   box-sizing: border-box;
   border-radius: 50%;
-  overflow: hidden;
+  position: relative;
+}
+.honor-logo {
+  position: absolute;
+  width: 40rpx;
+  height: 50rpx;
+  top: 88rpx;
+  right: 0;
 }
 .headimg {
   width: 100%;

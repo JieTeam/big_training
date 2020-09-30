@@ -358,23 +358,29 @@ Page({
    */
   onLoad: function (options) {
     console.log('>> ', options)
-    // init(this.data.cities)
     const { type } = options
-    Utils.showLoading();
-    ApiGetRegion().then(res => {
-      Utils.hideLoading();
-      if (res.code === 1) {
-        const cities = JSON.parse(res.data);
-        const array = init(cities);
-        this.setData({
-          type,
-          cities: cities,
-          cityArray: array,
-        })
-      }
-    }).catch(()=> {
+    if (type!== 'admin') {
+      Utils.showLoading();
+      ApiGetRegion().then(res => {
         Utils.hideLoading();
-    })
+        if (res.code === 1) {
+          const cities = JSON.parse(res.data);
+          const array = init(cities);
+          this.setData({
+            type,
+            cities: cities,
+            cityArray: array,
+          })
+        }
+      }).catch(()=> {
+          Utils.hideLoading();
+      })
+    } else {
+      this.setData({
+        type
+      })
+    }
+    
   },
 
   /**

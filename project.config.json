@@ -111,10 +111,10 @@
           "scene": null
         },
         {
-          "id": 8,
+          "id": 6,
           "name": "登陆",
           "pathName": "pages/login/login",
-          "query": "type=law",
+          "query": "type=admin",
           "scene": null
         },
         {

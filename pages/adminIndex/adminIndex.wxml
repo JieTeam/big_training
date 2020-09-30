@@ -2,20 +2,25 @@
 <view class="adminIndex">
   <view class="title">排行榜</view>
   <view class="province-item battle" data-type='provinceWarSituation' bindtap="go">
-    <image class="province-ranking_icon" src="/assets/images/person2.png"></image>
-    <text>本省战况</text>
+    <!-- <image class="province-ranking_icon" src="/assets/images/person2.png"></image> -->
+    <!-- <text>本省战况</text> -->
+    <image src="/assets/images/adminIndex/country.png"></image>
   </view>
   <view class="province-item national-ranking" data-type='adminRanking' bindtap="go">
-    <text>全国排行榜</text>
-    <image class="national-ranking_icon" src="/assets/images/person1.png"></image>
+    <!-- <text>全国排行榜</text>
+    <image class="national-ranking_icon" src="/assets/images/person1.png"></image> -->
+    <image src="/assets/images/adminIndex/province.png"></image>
   </view>
   <view class="province-item province-ranking" data-type='provinceRanking' bindtap="go">
-    <image class="province-ranking_icon" src="/assets/images/organization.png"></image>
-    <text>省内排行榜</text>
+    <!-- <image class="province-ranking_icon" src="/assets/images/organization.png"></image>
+    <text>省内排行榜</text> -->
+    <image src="/assets/images/adminIndex/city.png"></image>
+
   </view>
   <view class="province-item honor" data-type='honor' bindtap="go">
-    <image class="national-ranking_icon" src="/assets/images/honor.png"></image>
-    <text>荣誉墙</text>
+    <!-- <image class="national-ranking_icon" src="/assets/images/honor.png"></image>
+    <text>荣誉墙</text> -->
+    <image src="/assets/images/adminIndex/honor.png"></image>
   </view>
   <view class="bottom-fun">
       <view class="bottom-fun_result" bindtap="rulesBoxShow">

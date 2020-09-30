@@ -30,6 +30,10 @@ page {
 .province-item:first-of-type {
     margin-top: 76rpx;
 }
+.province-item image {
+  width: 100%;
+  height: 168rpx;
+}
 .national-ranking_icon {
   width: 123rpx;
   height: 120rpx;
@@ -37,7 +41,7 @@ page {
   right: 0;
   bottom: 0;
 }
-.battle {
+/* .battle {
     background: #fdcc7f;
 }
 .national-ranking {
@@ -48,7 +52,7 @@ page {
 }
 .honor {
     background: #93cdd9;
-}
+} */
 
 .province-ranking_icon {
   width: 123rpx;

@@ -1,4 +1,8 @@
 // pages/honor/index.js
+import { filePath } from '../../utils/server/config'
+import { getAwardList } from '../../utils/server/request'
+const app = getApp()
+
 Page({
 
   /**
@@ -6,23 +10,32 @@ Page({
    */
   data: {
     showVisible: false,
-    medalList: [
-        {
-            name: "黄金",
-            type: 1
-        },
-        {
-            name: "白银",
-            type: 2
-        },
-        {
-            name: "青铜",
-            type: 3
-        },{
-          name: "青铜",
-          type: 3
-      },
-    ]
+    honorData: [],
+    type: null
+  },
+  getListData() {
+    wx.showLoading({
+      title: '数据加载中...',
+    })
+    const userTypeSwichText = {
+      1: 'group',
+      2: 'personal',
+      1: 'public',
+    }
+    const { userId, workingDivision } = app.globalData.userInfo;
+    const code = this.data.type === 'admin' ? workingDivision : null
+    getAwardList(userId,code).then(res => {
+      wx.hideLoading()
+      if (res.code === 1) {
+        const data = res.data.map((item => {
+          // const { userType, awardsLevel}
+          // item.imagePath = `${filePath}${}-${item.awardsLevel}`
+          return item
+        }))
+      }
+    }).catch(err => {
+      wx.hideLoading()
+    })
   },
   close() {
     this.setData({
@@ -38,7 +51,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const { type } = options
+    this.setData({
+      type
+    })
+    this.getListData()
   },
 
   /**

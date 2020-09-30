@@ -5,8 +5,12 @@
     <view class="login-header__title">执法大练兵知识竞赛</view>
   </view>
   <view class="login-content">
-    <view class="login-content__tips">完善信息</view>
-    <picker 
+    <view class="login-content__tips">
+      <text wx:if="{{type === 'admin'}}">管理员登陆</text>
+      <text wx:else>完善信息</text>
+    </view>
+    <picker
+      wx:if="{{type !== 'admin'}}"
       header-text='选择所属省份'
       mode="multiSelector" 
       bindchange="bindMultiPickerChange" 
@@ -24,16 +28,44 @@
         <view class="login-content__rightIcon">></view>
       </view>
     </picker>
-    <view class="login-content__item">
-      <view class="login-content__icon iconfont icon-yonghu">
-      </view>
-      <input 
-        placeholder-class='login-content__input__placeholder' 
-        class="login-content__input" 
-        data-type="name"
-        bindinput="handleInputChange"
-        placeholder="请输入真实姓名"/>
+    <view 
+      wx:if="{{type !== 'admin'}}"
+      class="login-content__item">
+        <view class="login-content__icon iconfont icon-yonghu">
+        </view>
+        <input 
+          placeholder-class='login-content__input__placeholder' 
+          class="login-content__input" 
+          data-type="name"
+          bindinput="handleInputChange"
+          placeholder="请输入真实姓名"/>
     </view>
+
+    <view 
+      wx:if="{{type === 'admin'}}"
+      class="login-content__item">
+        <view class="login-content__icon iconfont icon-yidongduanicon-">
+        </view>
+        <input 
+          placeholder-class='login-content__input__placeholder' 
+          class="login-content__input" 
+          data-type="account"
+          bindinput="handleInputChange"
+          placeholder="请输入账号"/>
+    </view>
+    <view 
+      wx:if="{{type === 'admin'}}"
+      class="login-content__item">
+        <view class="login-content__icon iconfont icon-mima">
+        </view>
+        <input 
+          placeholder-class='login-content__input__placeholder' 
+          class="login-content__input" 
+          data-type="password"
+          bindinput="handleInputChange"
+          placeholder="请输入密码"/>
+    </view>
+    
     <view class="login-content__item">
       <view class="login-content__icon iconfont icon-icon">
       </view>
@@ -45,7 +77,7 @@
         placeholder="手机号"/>
     </view>
     <view class="login-content__item">
-      <view class="login-content__icon iconfont icon-icon_dizhi">
+      <view class="login-content__icon iconfont icon-yanzhengmamima">
       </view>
       <input 
         placeholder-class='login-content__input__placeholder' 
@@ -70,7 +102,12 @@
     </block>
   </view>
   <view class="login-footer">
-    <button class="login-save" bindtap="handleSubmit">提交</button>
+    <button class="login-save" bindtap="handleSubmit">
+      <block wx:if="{{type === 'admin'}}">
+        登陆
+      </block>
+      <block wx:else>提交</block>
+    </button>
   </view>
   <dialog-tips wx:if="{{tipsDialogVisible}}" catch:ok='handleFix'></dialog-tips>
   <dialog-share 

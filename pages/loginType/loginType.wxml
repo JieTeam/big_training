@@ -5,34 +5,42 @@
     <view class='bj-loginType__title'>执法大练兵知识竞赛</view>
     <button 
       class='bj-loginType__lawEn'
-      wx:if="{{!isAuthSetting && canIUse}}" 
       open-type="getUserInfo"
       bindgetuserinfo="getUserInfo"
     >
       执法人员
     </button>
+    <!-- wx:if="{{!isAuthSetting && canIUse}}" 
     <button wx:else class='bj-loginType__lawEn'>
       执法人员
-    </button>
+    </button> -->
+
     <button 
-      class='bj-loginType__public'
-      wx:if="{{!isAuthSetting && canIUse}}" 
+      style="margin-top: 40rpx"
+      class='bj-loginType__lawEn'
       open-type="getUserInfo"
       bindgetuserinfo="getUserInfoPublic"
     >
       辅助执法人员与公众
     </button>
-    <button wx:else class='bj-loginType__public'>
+    <!-- wx:if="{{!isAuthSetting && canIUse}}"  -->
+    <!-- <button wx:else class='bj-loginType__lawEn'>
       辅助执法人员与公众
-    </button>
-    <!-- <button 
+    </button> -->
+    <button 
+      style="margin-top: 80rpx"
       class='bj-loginType__public'
-      wx:if="{{!isAuthSetting && canIUse}}" 
       open-type="getUserInfo"
       bindgetuserinfo="getUserInfoAdmin"
     >
-     管理员 test
+      管理员
+    </button>
+    <!-- wx:if="{{!isAuthSetting && canIUse}}"  -->
+
+    <!-- <button wx:else class='bj-loginType__public'>
+      管理员
     </button> -->
+  
   </view>
 </view>
 

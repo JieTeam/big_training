@@ -33,7 +33,7 @@ Page({
             url='/pages/adminRanking/adminRanking'
             break;
         case 'honor':
-            url='/pages/honor/index'
+            url="/pages/honor/index?type='admin'"
             break;
         default:
             break;
