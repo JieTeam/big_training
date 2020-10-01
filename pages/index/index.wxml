@@ -3,7 +3,7 @@
   <view class="top">
     <view class="top_userinfo">
      <view class="userinfo_left">
-        <image class="headimg" src="{{userInfo.avatarUrl}}"></image>
+        <image data-type="personal" bindtap="go" class="headimg" src="{{userInfo.avatarUrl}}"></image>
         <image data-type="honor" bindtap="go" class="honor-logo" src='/assets/images/honor/honor-logo.png'></image>
      </view>
      <view class="userinfo_right">

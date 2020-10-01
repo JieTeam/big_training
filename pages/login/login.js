@@ -215,6 +215,8 @@ Page({
         userInfo.loseCount = loseCount; // 平局场次
         userInfo.count = winCount + tieCount + loseCount;
         userInfo.score = score;
+        userInfo.phoneNo = phoneNo;
+
         // 后台返回的是数字 转字符串
         userInfo.roleType = roleType + '';
         wx.setStorageSync('userInfo', userInfo)

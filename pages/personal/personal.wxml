@@ -1,0 +1,34 @@
+<view class="bj-page">
+  <view class="header">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+  </view>
+  <view class="content">
+    <view class="content__item">
+      <view class="content__item__icon iconfont icon-yonghu"></view>
+      <view class="content__item__content iconfont">
+        {{userInfo.nickName}}
+      </view>
+    </view>
+    <view class="content__item">
+      <view class="content__item__icon iconfont icon-icon"></view>
+      <view class="content__item__content">
+        {{userInfo.phoneNo}}
+      </view>
+    </view>
+    <view class="content__item">
+      <view class="content__item__icon iconfont icon-ziyuan"></view>
+      <view class="content__item__content iconfont">
+        {{userInfo.userLevel}}
+      </view>
+    </view>
+    <view class="content__item">
+      <view class="content__item__icon iconfont icon-icon_dizhi"></view>
+      <view class="content__item__content iconfont">
+        地区1-地区2-地区3
+      </view>
+    </view>
+  </view>
+  <view class="footer">
+    <view class="footer__btn" bindtap="loginOut">退出登陆</view>
+  </view> 
+</view>

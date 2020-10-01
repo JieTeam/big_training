@@ -22,6 +22,9 @@ Page({
       case "honor":
         url = "/pages/honor/index";
         break;
+      case "personal":
+        url = "/pages/personal/personal";
+        break;
       case "fight":
         url = "/pages/fight/index";
         break;
@@ -81,7 +84,7 @@ Page({
         console.log(res)
         wx.hideLoading()
         if(res.code === 1) {
-          const { userLevel, winRate, winCount,tieCount, loseCount, score, rank } = res.data
+          const { userLevel, winRate, winCount,tieCount, loseCount, score, rank, phoneNo } = res.data
           userInfo.userLevel = userLevel; // 等级
           // userInfo.workingDivision = workingDivision; // 所属区域代码
           userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
@@ -91,6 +94,7 @@ Page({
           userInfo.rank = rank; // 排名
           userInfo.count = winCount + tieCount + loseCount;
           userInfo.score = score;
+          userInfo.phoneNo = phoneNo;
           this.setData({
             userInfo,
             show: true,
