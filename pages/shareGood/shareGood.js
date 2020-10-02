@@ -24,12 +24,12 @@ Page({
     this.setData({
       userId,
     })
-    if (userInfo && userInfo.login && userInfo.openId) {
+    if (userInfo && userInfo.login && userInfo.userId) {
       wx.showLoading({
         title: '数据加载中...',
       })
       ApiLikeVAlid(
-        userInfo.openId,
+        userInfo.userId,
         userId
       ).then((res) => {
         console.log('>>> userInfo res sharegood' ,res, userInfo, userInfo.openId, userId)
@@ -90,7 +90,7 @@ Page({
 
   handleGoods() {
     ApiDoLike(
-      App.globalData.userInfo.openId,
+      App.globalData.userInfo.userId,
       this.data.userId
     ).then(res => {
       if(res.code === 1) {

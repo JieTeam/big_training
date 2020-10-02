@@ -299,7 +299,7 @@ Page({
     const userInfo = App.globalData.userInfo
     if(strongShareData && strongShareData.userId) {
       ApiLikeVAlid(
-        userInfo.openId,
+        userInfo.userId,
         strongShareData.userId
       ).then((res) => {
         wx.hideLoading()
@@ -363,28 +363,10 @@ Page({
       ['params.roleType']: e.detail.value
     })
   },
-  handleGoods() {
-    ApiDoLike(
-      App.globalData.userInfo.openId,
-      this.data.userId
-    ).then(res => {
-      if(res.code === 1) {
-        wx.showToast({
-          icon: 'none',
-          title: '点赞成功！'
-        })
-        let reslut = this.data.reslut
-        reslut.success = true;
-        this.setData({
-          reslut: reslut,
-        })
-      }
-    })
-  },
   // 点赞
   handleGoods() {
     ApiDoLike(
-      App.globalData.userInfo.openId,
+      App.globalData.userInfo.userId,
       this.data.userId
     ).then(res => {
       if(res.code === 1) {

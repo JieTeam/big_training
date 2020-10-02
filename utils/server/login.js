@@ -26,17 +26,21 @@ export const ApiGetRegion = () => {
   return Api.request('POST', `${baseUrl}/bt/region/query`, {}).then(res => res);
 }
 
-// 点赞校验
-export const ApiLikeVAlid = (curOpenId, userId) => {
-  return Api.request('POST', `${baseUrl}/bt/like/valid?curOpenId=${curOpenId}&userId=${userId}`, {
+/**
+ * 
+ * @param { 点赞用户id } curUserId 
+ * @param { 被点赞用户id } userId 
+ */
+export const ApiLikeVAlid = (curUserId, userId) => {
+  return Api.request('POST', `${baseUrl}/bt/like/valid?curUserId=${curUserId}&userId=${userId}`, {
     notShowError: true,
   }).then(res => res);
 }
 
 
 // 点赞
-export const ApiDoLike = (curOpenId, userId) => {
-  return Api.request('POST', `${baseUrl}/bt/like/doLike?curOpenId=${curOpenId}&userId=${userId}`, {
+export const ApiDoLike = (curUserId, userId) => {
+  return Api.request('POST', `${baseUrl}/bt/like/doLike?curUserId=${curUserId}&userId=${userId}`, {
     notShowError: true,
   }).then(res => res);
 }
