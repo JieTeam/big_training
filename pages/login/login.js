@@ -420,16 +420,18 @@ Page({
   onLoad: async function (options) {
     const { type } = options;
     Utils.showLoading();
-    const result = await this.getOpenId();
-    Utils.hideLoading();
-    const openId = result && result.openId;
+    let openId = '';
+    try {
+        const result = await this.getOpenId();
+        openId = result && result.openId;
+    } catch (error) {
+        Utils.hideLoading();
+    }
     let userInfo = Object.assign({},App.globalData.userInfo);
     userInfo.openId = openId;
     App.globalData.userInfo = Object.assign({}, userInfo);
     if (type!== 'admin') {
-      Utils.showLoading();
       ApiGetRegion().then(res => {
-        Utils.hideLoading();
         if (res.code === 1) {
           const cities = JSON.parse(res.data);
           const array = init(cities);
@@ -438,6 +440,7 @@ Page({
             cities: cities,
             cityArray: array,
           })
+          Utils.hideLoading();
         }
       }).catch(()=> {
           Utils.hideLoading();

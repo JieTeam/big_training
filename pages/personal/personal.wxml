@@ -24,11 +24,11 @@
     <view class="content__item">
       <view class="content__item__icon iconfont icon-icon_dizhi"></view>
       <view class="content__item__content iconfont">
-        地区1-地区2-地区3
+        {{userInfo.fullRegionName}}
       </view>
     </view>
   </view>
   <view class="footer">
-    <view class="footer__btn" bindtap="loginOut">退出登陆</view>
+    <view class="footer__btn" bindtap="loginOut">退出登录</view>
   </view> 
 </view>

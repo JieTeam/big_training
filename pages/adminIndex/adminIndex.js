@@ -106,7 +106,7 @@ Page({
    */
   loginOut() {
     wx.showModal({
-      content: '点击确认将退出登陆!',
+      content: '点击确认将退出登录!',
       success (res) {
         if (res.confirm) {
           wx.removeStorageSync('userInfo')
