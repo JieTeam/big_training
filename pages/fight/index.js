@@ -5,12 +5,14 @@ let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
 let activeResult=[]; // 用户选择结果
 let isRunAway = false; // 逃跑
+import { matchApi } from "../../utils/server/request";
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        isAllow: false,  // 是否可以进行匹配对战
         hint: "匹配中...",
         meInfo: null,
         rivalInfo: null,
@@ -46,10 +48,30 @@ Page({
             }
         })
         wx.nextTick(() => {
-            this.connectWebSocket(); // 连接socket
+            this.getAllowMatch();
         })
     },
-
+    async getAllowMatch() {
+        Utils.showLoading();
+        try {
+            const result = await matchApi(this.data.meInfo.userId);
+            Utils.hideLoading();
+            if(result.code!==1) {
+                let timer = setTimeout(() => {
+                    clearTimeout(timer);
+                    wx.navigateBack();
+                }, 2000);
+                return;
+            }
+            this.setData({
+                isAllow: true
+            })
+            this.connectWebSocket(); // 连接socket
+        } catch (error) {
+            Utils.hideLoading()
+        }
+            
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

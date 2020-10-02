@@ -52,6 +52,16 @@ page {
   color: #fff;
   background: #46d7b6;
 }
+.login-content__getImgcode {
+    padding: 0;
+    width: auto!important;
+    background: #ffffff;
+}
+.login-content__getImgcode image {
+    display: block;
+    width: 180rpx;
+    height: 80rpx;
+}
 .login-content__icon {
   color: #46d7b6;
   font-size: 36rpx;

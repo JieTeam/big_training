@@ -4,7 +4,7 @@
     <view class="login-header__title">2020年生态环境</view>
     <view class="login-header__title">执法大练兵知识竞赛</view>
   </view>
-  <view class="login-content">
+  <view class="login-content" wx:if="{{showLoginForm}}">
     <view class="login-content__tips">
       <text wx:if="{{type === 'admin'}}">管理员登录</text>
       <text wx:else>完善信息</text>
@@ -62,11 +62,15 @@
           placeholder-class='login-content__input__placeholder' 
           class="login-content__input" 
           data-type="password"
+          password="{{true}}"
           bindinput="handleInputChange"
           placeholder="请输入密码"/>
     </view>
     
-    <view class="login-content__item">
+    <view 
+      wx:if="{{type !== 'admin'}}"
+      class="login-content__item"
+    >
       <view class="login-content__icon iconfont icon-icon">
       </view>
       <input 
@@ -76,7 +80,10 @@
         bindinput="handleInputChange" 
         placeholder="手机号"/>
     </view>
-    <view class="login-content__item">
+    <view 
+      wx:if="{{type !== 'admin'}}"
+      class="login-content__item"
+    >
       <view class="login-content__icon iconfont icon-yanzhengmamima">
       </view>
       <input 
@@ -88,6 +95,21 @@
       <view class="login-content__rightIcon">
         <button class="login-content__getcode" bindtap="getMsgCode">{{getCodeMsg}}</button>
       </view>
+    </view>
+    <view class="login-content__item" wx:else>
+        <view class="login-content__icon iconfont icon-yanzhengmamima"></view>
+        <input 
+            placeholder-class='login-content__input__placeholder' 
+            class="login-content__input"
+            data-type="verificationCode"
+            bindinput="handleInputChange" 
+            placeholder="验证码"
+        />
+        <view class="login-content__rightIcon">
+            <button class="login-content__getImgcode" bindtap="getImgCode">
+                <image src="{{imgCodeUrl}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
+            </button>
+        </view>
     </view>
     <block wx:if="{{type === 'public'}}">
       <view class="login-content__item login-content__item1">

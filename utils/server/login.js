@@ -41,7 +41,10 @@ export const ApiDoLike = (curOpenId, userId) => {
   }).then(res => res);
 }
 
-
+// 管理员登录
+export const adminLoginApi = (params) => {
+    return Api.request('POST', `${baseUrl}/bt/login/doLoginAdmin`, params)
+}
 
 
 

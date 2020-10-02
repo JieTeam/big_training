@@ -34,20 +34,20 @@ Page({
       }
     ],
     tableHead1: [
-        "排名","用户","省份","积分","等级"
+        "排名","用户","省份","综合成绩","等级"
     ],
     tableHead2: [
-        "排名","省份","平均积分","参与人数","答题次数"
+        "排名","省份","综合成绩","参与人数","答题次数"
     ],
     tableHead3: [
-        "排名","城市","平均积分","参与人数","答题次数"
+        "排名","城市","综合成绩","参与人数","答题次数"
     ],
     tableHead4: [
-        "排名","区县","平均积分","参与人数","答题次数"
+        "排名","区县","综合成绩","参与人数","答题次数"
     ],
     tableHead: [],
     personClomn: [
-      'id','field1','field2','field3','field4'
+      'id','field1','field2','rankId','field4'
     ],
     personData: [
     ]
@@ -55,8 +55,19 @@ Page({
   },
   handleTab(e) {
     const currentItem = e.target.dataset.item;
+    let personClomn=[];
+    if(currentItem.key=='1'){
+        personClomn = [
+            'id','field1','field2','rankId','field4'
+        ];
+    } else {
+        personClomn = [
+            'id','field1','rankId','field3','field4'
+        ];
+    }
     this.setData({
-      checkedType: currentItem.key
+      checkedType: currentItem.key,
+      personClomn: personClomn
     })
     const newTabData = this.data.rankingTabData.map((item) => {
       item.checked = false

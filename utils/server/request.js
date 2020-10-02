@@ -55,3 +55,13 @@ export const getProvinceCityListApi = (params) => {
 export const getAwardList = (userId, region_code) => {
     return Api.request("POST",`${baseUrl}/bt/rank/getAwardList?userId=${userId}${region_code?'&region_code=' + region_code :''}`)
 }
+
+
+/**
+ * 匹配对战
+ */
+
+// 检测是否满足匹配对战条件
+export const matchApi = (userId) => {
+    return Api.request("POST",`${baseUrl}/bt/training/week/match?userId=${userId}`)
+}

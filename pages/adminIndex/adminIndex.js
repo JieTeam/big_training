@@ -105,14 +105,18 @@ Page({
    * 退出登录
    */
   loginOut() {
-    App.globalData.userInfo = Object.assign({}, {});
-    wx.removeStorage({
-        key: 'userInfo',
-        success (res) {
-            wx.redirectTo({
-                url: '/pages/loginType/loginType',
-            })
+    wx.showModal({
+      content: '点击确认将退出登陆!',
+      success (res) {
+        if (res.confirm) {
+          wx.removeStorageSync('userInfo')
+          wx.redirectTo({
+            url: '/pages/loginType/loginType',
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
         }
+      }
     })
-  }
+  },
 })

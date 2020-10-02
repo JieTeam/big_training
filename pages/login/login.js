@@ -1,8 +1,9 @@
 import { ApiCheckUser, ApiGetOpenId, ApiGetLogin, ApiGetRegion } from '../../utils/server/login';
-import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city';
-import { ApiLikeVAlid, ApiDoLike } from '../../utils/server/login';
+import { init, changeCloumt,getCityIndex } from '../../utils/city';
+import { ApiLikeVAlid, ApiDoLike, adminLoginApi  } from '../../utils/server/login';
 
 const Utils = require('../../utils/util.js');
+import { baseUrl } from '../../utils/server/config';
 
 const App = getApp()
 
@@ -12,11 +13,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showLoginForm: false,
+    userInfo: {},
     tipsDialogVisible: false,
     // 点赞
     goodDialogVisible: false,
     reslut: {},
-
+    imgCodeUrl: "",
     getCodeMsg: '获取验证码',
     codeTime: 60,
     isGetMsgCode: false,
@@ -33,6 +36,9 @@ Page({
       name: '',
       phone: '',
       msgCode: '',
+      password: '',
+      account: '',
+      verificationCode: '',
       roleType: '3',
     }
   },
@@ -84,6 +90,20 @@ Page({
     }
     if (!msgCode) {
       this.showRrrorMsg('请填写验证码')
+      return false
+    }
+    return true
+  },
+  checkAdminUserBasic() {
+    const { password, account, verificationCode } = this.data.params
+    if(account.length === 0) {
+      this.showRrrorMsg('请输入账号')
+      return false;
+    } else if (password.length==0) {
+      this.showRrrorMsg('请输入密码')
+      return false;
+    } else if (verificationCode.length!==4) {
+      this.showRrrorMsg('请输入图片验证码')
       return false
     }
     return true
@@ -147,6 +167,13 @@ Page({
       }
     })
   },
+  async getImgCode() {
+      let num = Math.floor(Math.random()*1000)+1;
+      let imgCodeUrl = `${baseUrl}/bt/login/img?openId=${App.globalData.userInfo.openId}&num=${num}`;
+      this.setData({
+        imgCodeUrl: imgCodeUrl
+      })
+  },
   getOpenId() {
     return new Promise((resolve, reject) => {
       if(App.globalData.userInfo.openId) {
@@ -166,11 +193,8 @@ Page({
       })
     })
   },
-  async handleSubmit(){
-    const userInfo = App.globalData.userInfo
-    if(!this.checkUserBasic())  return;
-    const res = await this.getOpenId();
-    userInfo.openId = res && res.openId;
+  handleSubmit(){
+    const userInfo = App.globalData.userInfo;
     switch(this.data.type) {
       case 'admin':
         userInfo.roleType = '1'
@@ -182,53 +206,87 @@ Page({
         userInfo.roleType = this.data.params.roleType
         break;
     }
-    const { region, name, phone, msgCode } = this.data.params;
-    const { roleType, openId, nickName, avatarUrl} = userInfo;
-    wx.showLoading({
-      title: '登录中...',
-    })
-    ApiGetLogin({
-      // frontRegionName: region[region.length-1],
-      region: region[region.length-1],
-      name,
-      phoneNo: phone,
-      openId, 
-      nickName,
-      verificationCode: msgCode,
-      headUrl: avatarUrl,
-      roleType,
-    }).then(res => {
-      wx.hideLoading()
-      if(res.code === 1 && res.data) {
-        const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo } = res.data
-        userInfo.login = true;
-        userInfo.userId = id;
-        userInfo.name = name;
-        userInfo.workingDivision = workingDivision; // 所属区域代码
-        userInfo.userLevel = userLevel; // 等级
-        userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
-        userInfo.winCount = winCount; // 胜利场次
-        userInfo.tieCount = tieCount; // 平局场次
-        userInfo.loseCount = loseCount; // 平局场次
-        userInfo.count = winCount + tieCount + loseCount;
-        userInfo.score = score;
-        userInfo.phoneNo = phoneNo;
-
-        // 后台返回的是数字 转字符串
-        userInfo.roleType = roleType + '';
-        wx.setStorageSync('userInfo', userInfo)
-        const strongShareData = wx.getStorageSync('shareData');
-        if (strongShareData && strongShareData.isShare === '1') {
-          this.likeVAlid(strongShareData)
-        } else {
-            this.setData({
-                tipsDialogVisible: true,
-            })
-        }
-      } else {
-        console.error('>>> dologin', res)
+    if(this.data.type=='admin') {
+        if(!this.checkAdminUserBasic()) return;
+        this.subAdminLogin(userInfo);
+    } else {
+        if(!this.checkUserBasic()) return;
+        this.subLogin(userInfo)
+    }
+  },
+  async subAdminLogin(userInfo) {
+      Utils.showLoading('登录中...');
+      const { roleType, openId, nickName, avatarUrl} = userInfo;
+      const { password, account, verificationCode } = this.data.params;
+      try {
+          const result = await adminLoginApi({
+            "name": account,
+            "userPassword": password,
+            "verificationCode": verificationCode,
+            "openId": openId,
+            "nickName": nickName,
+            "headUrl": avatarUrl,
+            "roleType": roleType
+          })
+          Utils.hideLoading();
+          if(result.code!==1) {
+              this.getImgCode();
+              return;
+          }
+          
+      } catch (error) {
+        Utils.hideLoading();
       }
-    }).catch(err => wx.hideLoading())
+      
+  },
+  async subLogin(userInfo) {
+      wx.showLoading({
+        title: '登录中...',
+      })
+      const { roleType, openId, nickName, avatarUrl} = userInfo;
+      const { region, name, phone, msgCode } = this.data.params;
+      ApiGetLogin({
+        // frontRegionName: region[region.length-1],
+        region: region[region.length-1],
+        name,
+        phoneNo: phone,
+        openId, 
+        nickName,
+        verificationCode: msgCode,
+        headUrl: avatarUrl,
+        roleType,
+      }).then(res => {
+        wx.hideLoading()
+        if(res.code === 1 && res.data) {
+          const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo } = res.data
+          userInfo.login = true;
+          userInfo.userId = id;
+          userInfo.name = name;
+          userInfo.workingDivision = workingDivision; // 所属区域代码
+          userInfo.userLevel = userLevel; // 等级
+          userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
+          userInfo.winCount = winCount; // 胜利场次
+          userInfo.tieCount = tieCount; // 平局场次
+          userInfo.loseCount = loseCount; // 平局场次
+          userInfo.count = winCount + tieCount + loseCount;
+          userInfo.score = score;
+          userInfo.phoneNo = phoneNo;
+  
+          // 后台返回的是数字 转字符串
+          userInfo.roleType = roleType + '';
+          wx.setStorageSync('userInfo', userInfo)
+          const strongShareData = wx.getStorageSync('shareData');
+          if (strongShareData && strongShareData.isShare === '1') {
+            this.likeVAlid(strongShareData)
+          } else {
+              this.setData({
+                  tipsDialogVisible: true,
+              })
+          }
+        } else {
+          console.error('>>> dologin', res)
+        }
+      }).catch(err => wx.hideLoading())
   },
   likeVAlid(strongShareData) {
     wx.showLoading({
@@ -355,8 +413,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    const { type } = options
+  onLoad: async function (options) {
+    const { type } = options;
+    Utils.showLoading();
+    const result = await this.getOpenId();
+    Utils.hideLoading();
+    const openId = result && result.openId;
+    let userInfo = Object.assign({},App.globalData.userInfo);
+    userInfo.openId = openId;
+    App.globalData.userInfo = Object.assign({}, userInfo);
     if (type!== 'admin') {
       Utils.showLoading();
       ApiGetRegion().then(res => {
@@ -377,8 +442,11 @@ Page({
       this.setData({
         type
       })
+      this.getImgCode();
     }
-    
+    this.setData({
+        showLoginForm: true
+    })
   },
 
   /**
