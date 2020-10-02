@@ -38,7 +38,6 @@ Page({
   },
   bindMultiPickerChange(e) {
     let array = getCityIndex(this.data.cityArray,e.detail.value, this.data.cities);
-    console.log(array)
     this.setData({
       region: array.map(item => item.name),
       region_code: array.map(item => item.id),
@@ -100,7 +99,6 @@ Page({
           phoneNo: phone,
           roleType: type === 'law' ? '2' : params.roleType
         }).then((res) => {
-          console.log('>>> res', res)
           if (res.code === 1) {
             // 调用发送验证码接口
             wx.showToast({
@@ -172,7 +170,6 @@ Page({
     const userInfo = App.globalData.userInfo
     if(!this.checkUserBasic())  return;
     const res = await this.getOpenId();
-    console.log('>>> userInfo', userInfo, res)
     userInfo.openId = res && res.openId;
     switch(this.data.type) {
       case 'admin':
@@ -203,7 +200,7 @@ Page({
     }).then(res => {
       wx.hideLoading()
       if(res.code === 1 && res.data) {
-        const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
+        const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo } = res.data
         userInfo.login = true;
         userInfo.userId = id;
         userInfo.name = name;
@@ -224,9 +221,9 @@ Page({
         if (strongShareData && strongShareData.isShare === '1') {
           this.likeVAlid(strongShareData)
         } else {
-          this.setData({
-            tipsDialogVisible: true,
-          })
+            this.setData({
+                tipsDialogVisible: true,
+            })
         }
       } else {
         console.error('>>> dologin', res)
@@ -359,7 +356,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('>> ', options)
     const { type } = options
     if (type!== 'admin') {
       Utils.showLoading();
