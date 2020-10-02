@@ -18,28 +18,42 @@ export function init(cities){
   if(cities[0].children[0].children&&cities[0].children[0].length) {
     //市级数据
     let city = cities[0].children;
+    cityArray[1].push({
+        id: cities[0].regionCode,
+        name: cities[0].regionName
+    });
     for (let j = 0; j < city.length; j++) {
         let cObject = {
-        id: city[j].regionCode,
-        name: city[j].regionName
+            id: city[j].regionCode,
+            name: city[j].regionName
         }
         //赋值第二个数组 市级数据
         cityArray[1].push(cObject);
         //区级数据
-    
     }
-    let region = city[0].children;
-    for (let k = 0; k < region.length; k++) {
-        let rObject = {
-        id: region[k].regionCode,
-        name: region[k].regionName
-        }
-        // 赋值区级数据
-        cityArray[2].push(rObject);
-    }
+
+    cityArray[2].push({
+        id: cities[0].regionCode,
+        name: cities[0].regionName
+    });
+
+    // let region = city[0].children;
+    // for (let k = 0; k < region.length; k++) {
+    //     let rObject = {
+    //         id: region[k].regionCode,
+    //         name: region[k].regionName
+    //     }
+    //     // 赋值区级数据
+    //     cityArray[2].push(rObject);
+    // }
   } else {
       // 二级区域市区县相等
     cityArray[1].push({
+        id: cities[0].regionCode,
+        name: cities[0].regionName
+    });
+
+    cityArray[2].push({
         id: cities[0].regionCode,
         name: cities[0].regionName
     });
@@ -58,34 +72,44 @@ export function init(cities){
   return cityArray;
 }
 export function changeCloumt(cities, cityArray,index,column,province_index){
-    if (column == 0) {
-      cityArray[1] = [];
-      cityArray[2] = [];
-      console.log("cities[index]==>",cities[index])
+    if (column == 0) { // 第一列切换
+      cityArray[1] = Object.assign([],[]);
+      cityArray[2] = Object.assign([],[]);
       if(cities[index].children[0].children&&cities[index].children[0].children.length) {
-        //第一列切换
         let city = cities[index].children;
+        cityArray[1].push({
+            id: cities[index].regionCode,
+            name: cities[index].regionName
+        });
         for (let j = 0; j < city.length; j++) {
             let cObject = {
-            id: city[j].regionCode,
-            name: city[j].regionName
+                id: city[j].regionCode,
+                name: city[j].regionName
             }
             //赋值第二个数组 市级数据
             cityArray[1].push(cObject);
             //区级数据
         }
-        let region = city[0].children;
-        for (let k = 0; k < region.length; k++) {
-            let rObject = {
-            id: region[k].regionCode,
-            name: region[k].regionName
-            }
-            // 赋值区级数据
-            cityArray[2].push(rObject);
-        }
+        cityArray[2].push({  // 默认第一列是本省
+            id: cities[index].regionCode,
+            name: cities[index].regionName
+        });
+        // let region = city[0].children;
+        // for (let k = 0; k < region.length; k++) {
+        //     let rObject = {
+        //     id: region[k].regionCode,
+        //     name: region[k].regionName
+        //     }
+        //     // 赋值区级数据
+        //     cityArray[2].push(rObject);
+        // }
       } else {
         // 二级区域市区县相等
         cityArray[1].push({
+            id: cities[index].regionCode,
+            name: cities[index].regionName
+        });
+        cityArray[2].push({ // 默认第一列是本市
             id: cities[index].regionCode,
             name: cities[index].regionName
         });
@@ -106,24 +130,30 @@ export function changeCloumt(cities, cityArray,index,column,province_index){
     }
     if (column == 1) {
       //第二列切换
-      cityArray[2] = [];
-      let province = cityArray[0][province_index];
-      for (let i = 0, len = cities.length; i < len; i++) {
-        let p = cities[i];
-        if (province.id == p.regionCode) {
-          province = p;
+      if(index===0) {
+        let region = cityArray[1][0];
+        cityArray[2] = Object.assign([],[region]);
+      } else {
+        cityArray[2] = Object.assign([],[]);
+        cityArray[2].push(cityArray[1][index]); // 默认第一列是本市
+        let province = cityArray[0][province_index];
+        for (let i = 0, len = cities.length; i < len; i++) {
+            let p = cities[i];
+            if (province.id == p.regionCode) {
+            province = p;
+            }
         }
-      }
-      //获取已存在的省市区
-      let city = province.children;
-      let region = city[index].children;
-      for (let k = 0; k < region.length; k++) {
-        let rObject = {
-          id: region[k].regionCode,
-          name: region[k].regionName
+        //获取已存在的省市区
+        let city = province.children;
+        let region = city[index].children;
+        for (let k = 0; k < region.length; k++) {
+            let rObject = {
+            id: region[k].regionCode,
+            name: region[k].regionName
+            }
+            // 赋值区级数据
+            cityArray[2].push(rObject);
         }
-        // 赋值区级数据
-        cityArray[2].push(rObject);
       }
      return cityArray;
     }

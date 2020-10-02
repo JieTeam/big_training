@@ -100,5 +100,19 @@ Page({
       title: "2020年生态环境保护执法大练兵知识竞赛",
       path:`/pages/shareImg/shareImg?openId=${openId}&userId=${userId}` 
     }
+  },
+  /**
+   * 退出登录
+   */
+  loginOut() {
+    App.globalData.userInfo = Object.assign({}, {});
+    wx.removeStorage({
+        key: 'userInfo',
+        success (res) {
+            wx.redirectTo({
+                url: '/pages/loginType/loginType',
+            })
+        }
+    })
   }
 })

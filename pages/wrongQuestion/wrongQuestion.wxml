@@ -7,7 +7,7 @@
       </view>
       <view class="ranking__person__des">
         <view class="name">
-          {{userInfo.nickName}}
+          {{userInfo.name}}
         </view>
         <view class="level">
           <image src='/assets/images/grading.png'></image>

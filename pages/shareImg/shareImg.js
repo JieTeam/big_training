@@ -81,7 +81,7 @@ Page({
     wx.showLoading({
       title: '生成中'
     })
-    const { headUrl, nickName, userLevel, winCount, loseCount, score } = this.data.userInfo
+    const { headUrl, name, userLevel, winCount, loseCount, score } = this.data.userInfo
     const imgDraw = {
       width: '1500rpx',
       height: '2412rpx',
@@ -137,7 +137,7 @@ Page({
         },
         {
           type: 'text',
-          text: nickName,
+          text: name,
           css: {
             top: '1676rpx',
             fontSize: '60rpx',

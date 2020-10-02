@@ -6,7 +6,7 @@
     <view class="content__item">
       <view class="content__item__icon iconfont icon-yonghu"></view>
       <view class="content__item__content iconfont">
-        {{userInfo.nickName}}
+        {{userInfo.name}}
       </view>
     </view>
     <view class="content__item">

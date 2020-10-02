@@ -57,7 +57,7 @@ Page({
             this.setData({
               goodDialogVisible: true,
               reslut: {
-                nickName: res.data ? res.data.nickName : '' ,
+                name: res.data ? res.data.name||res.data.nickName : '' ,
                 avatarUrl: res.data ? res.data.headUrl : '' ,
               }
             })

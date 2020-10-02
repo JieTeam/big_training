@@ -5,7 +5,7 @@
       <image :src="{{reslut.avatarUrl}}"></image>
     </view>
     <view class="dialog-tips__content__name">
-      {{reslut.nickName}}
+      {{reslut.name}}
     </view>
     <view class="dialog-tips__content__good">
       <image wx:if="{{!reslut.success}}" src="/assets/images/share/btn-dz.png" bindtap="handleGoods"></image>

@@ -6,7 +6,7 @@
                 <view class="me pa df ar justBet bounceInLeft animated">
                     <view class="info pr5">
                         <view class="score fw900">{{meInfo.score}}分</view>
-                        <view class="name overeli fw900">{{meInfo.nickName||'我方'}}</view>
+                        <view class="name overeli fw900">{{meInfo.name||'我方'}}</view>
                     </view>
                     <view class="header">
                         <image src="{{meInfo.avatarUrl||'../../assets/images/test/user.png'}}"></image>
@@ -76,7 +76,7 @@
         <view class="both df flexCol justAround">
             <view class="me-box pr">
                 <view class="me pa df justBet">
-                    <view class="name overeli">{{meInfo.nickName}}</view>
+                    <view class="name overeli">{{meInfo.name}}</view>
                     <view class="header">
                         <image src="{{meInfo.avatarUrl}}"></image>
                     </view>

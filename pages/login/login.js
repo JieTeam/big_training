@@ -2,7 +2,6 @@ import { ApiCheckUser, ApiGetOpenId, ApiGetLogin, ApiGetRegion } from '../../uti
 import { getCityCode, init, changeCloumt,getCityIndex } from '../../utils/city';
 import { ApiLikeVAlid, ApiDoLike } from '../../utils/server/login';
 
-import cities from '../../utils/cities';
 const Utils = require('../../utils/util.js');
 
 const App = getApp()
@@ -207,6 +206,7 @@ Page({
         const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score } = res.data
         userInfo.login = true;
         userInfo.userId = id;
+        userInfo.name = name;
         userInfo.workingDivision = workingDivision; // 所属区域代码
         userInfo.userLevel = userLevel; // 等级
         userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
@@ -268,7 +268,7 @@ Page({
             this.setData({
               goodDialogVisible: true,
               reslut: {
-                nickName: res.data ? res.data.nickName : '' ,
+                name: res.data ? res.data.name||res.data.nickName : '' ,
                 avatarUrl: res.data ? res.data.headUrl : '' ,
               }
             })

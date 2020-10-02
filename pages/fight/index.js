@@ -420,7 +420,7 @@ Page({
                 roomId: data.roomId
             }
         }
-        fightResult.homeName = that.data.meInfo.nickName;
+        fightResult.homeName = that.data.meInfo.name;
         fightResult.homeHead = that.data.meInfo.avatarUrl;
         fightResult.awayName = that.data.rivalInfo.name;
         fightResult.awayHead = that.data.rivalInfo.headUrl;

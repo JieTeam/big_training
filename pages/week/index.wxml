@@ -8,7 +8,7 @@
                         <image src="{{meInfo.avatarUrl}}"></image>
                     </view>
                     <view class="info pr5">
-                        <view class="name overeli fw900">{{meInfo.nickName}}</view>
+                        <view class="name overeli fw900">{{meInfo.name}}</view>
                         <view class="rank">
                             
                         </view>
