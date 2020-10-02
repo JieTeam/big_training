@@ -167,10 +167,10 @@
           "scene": null
         },
         {
-          "id": -1,
+          "id": 14,
           "name": "点赞页面",
           "pathName": "pages/shareGood/shareGood",
-          "query": "userId=26",
+          "query": "userId=1",
           "scene": null
         }
       ]
