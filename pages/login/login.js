@@ -233,7 +233,7 @@ Page({
               this.getImgCode();
               return;
           }
-          
+          this.setInfo(result.data, userInfo);
       } catch (error) {
         Utils.hideLoading();
       }
@@ -258,35 +258,39 @@ Page({
       }).then(res => {
         wx.hideLoading()
         if(res.code === 1 && res.data) {
-          const { id, roleType, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo } = res.data
-          userInfo.login = true;
-          userInfo.userId = id;
-          userInfo.name = name;
-          userInfo.workingDivision = workingDivision; // 所属区域代码
-          userInfo.userLevel = userLevel; // 等级
-          userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
-          userInfo.winCount = winCount; // 胜利场次
-          userInfo.tieCount = tieCount; // 平局场次
-          userInfo.loseCount = loseCount; // 平局场次
-          userInfo.count = winCount + tieCount + loseCount;
-          userInfo.score = score;
-          userInfo.phoneNo = phoneNo;
-  
-          // 后台返回的是数字 转字符串
-          userInfo.roleType = roleType + '';
-          wx.setStorageSync('userInfo', userInfo)
-          const strongShareData = wx.getStorageSync('shareData');
-          if (strongShareData && strongShareData.isShare === '1') {
-            this.likeVAlid(strongShareData)
-          } else {
-              this.setData({
-                  tipsDialogVisible: true,
-              })
-          }
+          this.setInfo(res.data, userInfo);
         } else {
           console.error('>>> dologin', res)
         }
       }).catch(err => wx.hideLoading())
+  },
+  setInfo(data, userInfo) {
+    const { id, roleType, name, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo, fullRegionName } = data
+    userInfo.login = true;
+    userInfo.userId = id;
+    userInfo.name = name;
+    userInfo.workingDivision = workingDivision; // 所属区域代码
+    userInfo.userLevel = userLevel; // 等级
+    userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
+    userInfo.winCount = winCount; // 胜利场次
+    userInfo.tieCount = tieCount; // 平局场次
+    userInfo.loseCount = loseCount; // 平局场次
+    userInfo.count = winCount + tieCount + loseCount;
+    userInfo.score = score;
+    userInfo.phoneNo = phoneNo;
+    userInfo.fullRegionName = fullRegionName; // 用户所在地区
+
+    // 后台返回的是数字 转字符串
+    userInfo.roleType = roleType + '';
+    wx.setStorageSync('userInfo', userInfo)
+    const strongShareData = wx.getStorageSync('shareData');
+    if (strongShareData && strongShareData.isShare === '1') {
+      this.likeVAlid(strongShareData)
+    } else {
+        this.setData({
+            tipsDialogVisible: true,
+        })
+    }
   },
   likeVAlid(strongShareData) {
     wx.showLoading({
