@@ -4,7 +4,7 @@
     <view class="login-header__title">2020年生态环境</view>
     <view class="login-header__title">执法大练兵知识竞赛</view>
   </view>
-  <view class="login-content" wx:if="{{showLoginForm}}">
+  <view class="login-content">
     <view class="login-content__tips">
       <text wx:if="{{type === 'admin'}}">管理员登录</text>
       <text wx:else>完善信息</text>

@@ -84,7 +84,7 @@ Page({
         console.log(res)
         wx.hideLoading()
         if(res.code === 1) {
-          const { userLevel, winRate, winCount,tieCount, loseCount, score, rank, phoneNo, id, name, roleType, workingDivision } = res.data
+          const { userLevel, winRate, winCount,tieCount, loseCount, score, rank, phoneNo, id, name, roleType, workingDivision, fullRegionName } = res.data
           userInfo.userLevel = userLevel; // 等级
           userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
           userInfo.winCount = winCount; // 胜利场次
@@ -94,10 +94,10 @@ Page({
           userInfo.count = winCount + tieCount + loseCount;
           userInfo.score = score;
           userInfo.phoneNo = phoneNo;
-
           userInfo.userId = id;
           userInfo.name = name;
           userInfo.workingDivision = workingDivision; // 所属区域代码
+          userInfo.fullRegionName = fullRegionName;
           // 后台返回的是数字 转字符串
           userInfo.roleType = roleType + '';
 

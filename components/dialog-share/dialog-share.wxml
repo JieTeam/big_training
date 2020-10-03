@@ -2,7 +2,7 @@
 <view class="dialog-tips">
   <view class="dialog-tips__content">
     <view class="dialog-tips__content__avatar">
-      <image :src="{{reslut.avatarUrl}}"></image>
+      <image src="{{reslut.avatarUrl}}"></image>
     </view>
     <view class="dialog-tips__content__name">
       {{reslut.name}}

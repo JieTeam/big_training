@@ -65,7 +65,7 @@ page {
   flex: 1;
   height: 0;
   overflow-y: auto;
-  background: #efedf0;
+  /* background: #efedf0; */
 }
 .question__item{
   background: #fff;

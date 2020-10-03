@@ -2,7 +2,7 @@
   <image src='/assets/images/bg1.jpg'></image>
   <view class='bj-loginType'>
     <view class='bj-loginType__title'>2020年生态环境</view>
-    <view class='bj-loginType__title'>执法大练兵知识竞赛</view>
+    <view class='bj-loginType__title'>保护执法大练兵知识竞赛</view>
     <button 
       class='bj-loginType__lawEn'
       open-type="getUserInfo"
