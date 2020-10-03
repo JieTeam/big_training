@@ -1,1 +1,58 @@
-/* components/dialog-region/dialog-region.wxss */
+.region__wrap{
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.region{
+  width: 100%;
+  height: 650rpx;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.region__header{
+  height: 80rpx;
+  border-bottom: 1rpx solid #f9f7fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  font-weight: 400;
+  font-size: 30rpx;
+  color: #434144;
+}
+.fix{
+  color: #46d7b6;
+}
+.region__content{
+  flex: 1;
+  height: 0;
+  overflow: hidden;
+  display: flex;
+  background: #f9f7fa;
+}
+.region__column{
+  flex: 1;
+  color: #5d5b5e;
+  font-size: 28rpx;
+  overflow-y: auto;
+}
+.region__column:nth-of-type(1) {
+  background: #fff;
+}
+.region__column .region__item{
+  padding-left: 40rpx;
+}
+.region__item {
+  line-height: 80rpx;
+}
+.region__item.checked{
+  color: #46d7b6;
+}

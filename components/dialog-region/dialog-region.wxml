@@ -1,2 +1,40 @@
-<!--components/dialog-region/dialog-region.wxml-->
-<text>components/dialog-region/dialog-region.wxml</text>
+<view class="region__wrap">
+  <view class="region">
+    <view class="region__header">
+      <view class="title">选择所属地区</view>
+      <view class="fix" bindtap="handleFix">确定</view>
+    </view>
+    <view class="region__content">
+      <view class="region__column">
+        <view class="region__item {{item.checked ? 'checked': ''}}" 
+          wx:for="{{province}}" 
+          data-item="{{item}}"
+          bindtap="handleProvince"
+          wx:key="index"
+          data-index="{{index}}">
+            {{item.regionName}}
+        </view>
+      </view>
+      <view class="region__column">
+        <view class="region__item {{item.checked ? 'checked': ''}}" 
+          wx:for="{{city}}" 
+          data-item="{{item}}"
+          bindtap="handleCity"
+          wx:key="index"
+          data-index="{{index}}">
+            {{item.regionName}}
+        </view>
+      </view>
+      <view class="region__column">
+        <view class="region__item {{item.checked ? 'checked': ''}}" 
+          wx:for="{{area}}" 
+          data-item="{{item}}"
+          bindtap="handleArea"
+          wx:key="index"
+          data-index="{{index}}">
+            {{item.regionName}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -94,7 +94,7 @@ module.exports = {
                     
                 }
             });
-        }, 100)
+        }, 10)
     },
     showToast(title) {
         wx.showToast({

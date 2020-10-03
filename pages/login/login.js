@@ -14,6 +14,7 @@ Page({
    */
   data: {
     showLoginForm: false,
+    showRegionDialog: false,
     userInfo: {},
     tipsDialogVisible: false,
     // 点赞
@@ -42,14 +43,25 @@ Page({
       roleType: '3',
     }
   },
-  bindMultiPickerChange(e) {
-    let array = getCityIndex(this.data.cityArray,e.detail.value, this.data.cities);
+  handleRegion() {
     this.setData({
-      region: array.map(item => item.name),
-      region_code: array.map(item => item.id),
-      ['params.region']: array.map(item => item.id),
-      citysIndex:e.detail.value
+      showRegionDialog: true,
     })
+    wx.nextTick(() => {
+      this.selectComponent('#region') && this.selectComponent('#region').init()
+    })
+  },
+  bindMultiPickerChange(e) {
+    const newSelectData = e.detail || []
+    console.log('>> selectData', newSelectData,newSelectData.map(item => item.regionName), newSelectData.map(item => item.regionCode))
+
+    this.setData({
+      region: newSelectData.map(item => item.regionName),
+      region_code: newSelectData.map(item => item.regionCode),
+      ['params.region']: newSelectData.map(item => item.regionCode),
+      showRegionDialog: false,
+    })
+
   },
   bindMultiPickerColumnChange(e) {
     let column = e.detail.column;

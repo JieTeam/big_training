@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "dialog-tips": "/components/dialog-tips/dialog-tips"
+    "dialog-tips": "/components/dialog-tips/dialog-tips",
+    "dialog-region": "/components/dialog-region/dialog-region"
   },
   "navigationBarTitleText": "登录",
   "navigationBarTextStyle": "white",

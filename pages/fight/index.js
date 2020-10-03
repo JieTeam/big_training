@@ -57,16 +57,21 @@ Page({
             const result = await matchApi(this.data.meInfo.userId);
             Utils.hideLoading();
             if(result.code!==1) {
-                let timer = setTimeout(() => {
-                    clearTimeout(timer);
-                    wx.navigateBack();
-                }, 2000);
+                wx.showModal({
+                    showCancel: false,
+                    content: result.msg,
+                    title: '提示',
+                    success() {
+                        wx.navigateBack();
+                    }
+                })
                 return;
+            } else  {
+                this.setData({
+                    isAllow: true
+                })
+                this.connectWebSocket(); // 连接socket
             }
-            this.setData({
-                isAllow: true
-            })
-            this.connectWebSocket(); // 连接socket
         } catch (error) {
             Utils.hideLoading()
         }

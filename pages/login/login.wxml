@@ -9,7 +9,16 @@
       <text wx:if="{{type === 'admin'}}">管理员登录</text>
       <text wx:else>完善信息</text>
     </view>
-    <picker
+    <view class="login-content__item" wx:if="{{type !== 'admin'}}" bindtap="handleRegion">
+      <view class="login-content__icon iconfont icon-icon_dizhi">
+      </view>
+      <view class="login-content__input">
+        <text class="login-content__input__placeholder" wx:if="{{params.region.length === 0}}">所属省份</text>
+        <text wx:else>{{region}}</text> 
+      </view>
+      <view class="login-content__rightIcon">></view>
+    </view>
+    <!-- <picker
       wx:if="{{type !== 'admin'}}"
       header-text='选择所属省份'
       mode="multiSelector" 
@@ -27,7 +36,7 @@
         </view>
         <view class="login-content__rightIcon">></view>
       </view>
-    </picker>
+    </picker> -->
     <view 
       wx:if="{{type !== 'admin'}}"
       class="login-content__item">
@@ -138,6 +147,12 @@
     catch:handleGoods='handleGoods'  
     catch:handleFix='handleFix'>
   </dialog-share>
+  <dialog-region 
+    wx:if="{{showRegionDialog}}"
+    cities='{{cities}}'
+    catch:ok='bindMultiPickerChange'
+    id="region">
+  </dialog-region>
 </view>
 
 

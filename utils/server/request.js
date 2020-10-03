@@ -63,5 +63,5 @@ export const getAwardList = (userId, region_code) => {
 
 // 检测是否满足匹配对战条件
 export const matchApi = (userId) => {
-    return Api.request("POST",`${baseUrl}/bt/training/week/match?userId=${userId}`)
+    return Api.request("POST",`${baseUrl}/bt/training/week/match?userId=${userId}`, {notShowError: true})
 }

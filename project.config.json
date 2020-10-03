@@ -114,7 +114,7 @@
           "id": 6,
           "name": "登录",
           "pathName": "pages/login/login",
-          "query": "type=admin",
+          "query": "type=law",
           "scene": null
         },
         {
