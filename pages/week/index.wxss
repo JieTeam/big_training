@@ -65,6 +65,25 @@
   color: #3b393c;
   font-size: 32rpx;
 }
+.week-box .week .both .me-box .me .info .rank {
+  width: 170rpx;
+  height: 40rpx;
+  margin-top:20rpx ;
+  position: relative;
+}
+.week-box .week .both .me-box .me .info .rank image {
+  width: 100%;
+  height: 100%;
+}
+.week-box .week .both .me-box .me .info .rank text {
+  color: #fff;
+  font-size: 24rpx;
+  left: 60rpx;
+  top: 4rpx;
+  width: 100%;
+  position: absolute;
+}
+
 .week-box .week .both .me-box .me .header {
   padding: 0 20rpx 0 30rpx;
 }

@@ -23,7 +23,7 @@
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
-          {{item.option1}} {{item.userOption}} {{item.userOption.includes('option2')}}
+          A、 {{item.option1}}
         </view>
         <view wx:if="{{item.option1Right}}"
           class="content__item__icon right  iconfont icon-zhengque"></view>
@@ -32,7 +32,7 @@
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
-          {{item.option2}}
+          B、 {{item.option2}}
         </view>
         <view wx:if="{{item.option2Right}}"
           class="content__item__icon right  iconfont icon-zhengque"></view>
@@ -41,7 +41,7 @@
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
-          {{item.option3}}
+          C、 {{item.option3}}
         </view>
         <view wx:if="{{item.option3Right}}"
           class="content__item__icon right  iconfont icon-zhengque"></view>
@@ -50,7 +50,7 @@
       </view>
       <view class="question__content__item">
         <view class="content__item__text">
-          {{item.option4}}
+         D、 {{item.option4}}
         </view>
         <view wx:if="{{item.option4Right}}"
           class="content__item__icon right  iconfont icon-zhengque"></view>

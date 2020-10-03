@@ -19,7 +19,14 @@ Page({
         currentQuestion: {}, // 当前答题信息
         questionList: [], //返回的本次挑战题目所有数据的ID
         questionIndex: 0, //当前答题数组下标
-        subSuc: false
+        subSuc: false,
+        meInfo: {},
+        indexSwichText: {
+            0: 'A',
+            1: 'B',
+            2: 'C',
+            3: 'D',
+        }
     },
 
     /**
@@ -160,6 +167,7 @@ Page({
                 questionList: questionList
             })
         } 
+        console.log('>> question', question, questionList)
         that.setData({
             questionIndex: index,
             currentQuestion: question
@@ -343,7 +351,8 @@ Page({
      */
     nextTopic() {
         if(!cutTopic) return;
-        if(!this.data.currentQuestion.rightAnswer) {
+        console.log('>>> this.data.currentQuestion.rightAnswer', this.data.currentQuestion.rightAnswer)
+        if(!this.data.currentQuestion.isAnswer) {
             Utils.showModal('提示', '请确保当前题目已答题完毕！');
             return;
         }
@@ -380,6 +389,10 @@ Page({
      */
     sureAnswer() {
         const that = this;
+        if(!this.data.currentQuestion.activeResult || this.data.currentQuestion.activeResult.length === 0) {
+            Utils.showModal('提示', '请确保当前题目已答题完毕！');
+            return;
+        }
         let question = Object.assign({},that.data.currentQuestion);
         const questionList = that.data.questionList;
         question.isAnswer = true;

@@ -28,7 +28,7 @@ Page({
       wx.hideLoading()
       if (res.code === 1) {
         const data = res.data.map((item => {
-          // const { userType, awardsLevel}
+          const { awardsType, awardsLevel} = item;
           // item.imagePath = `${filePath}${}-${item.awardsLevel}`
           return item
         }))

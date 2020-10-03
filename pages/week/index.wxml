@@ -10,7 +10,8 @@
                     <view class="info pr5">
                         <view class="name overeli fw900">{{meInfo.name}}</view>
                         <view class="rank">
-                            
+                            <image src="/assets/images/grading.png" alt="" srcset=""></image>
+                            <text>{{meInfo.userLevel}}</text>
                         </view>
                     </view>
                 </view>
@@ -38,7 +39,7 @@
                             class="{{(currentQuestion.isAnswer?(item.active?item.className:''):item.active?'active':'')+' answer b-sizing al-center justBet'}}"
                             bindtap="selAnswer" data-id="{{index}}"
                         >
-                            <view class="text">{{item.value}}</view>
+                            <view class="text">{{indexSwichText[index + '']}}、 {{item.value}}</view>
                             <view wx:if="{{currentQuestion.isAnswer&&(item.active||item.isRight)}}" class="status">
                                 <text wx:if="{{item.isRight}}" class="iconfont icon-zhengque"></text>
                                 <text wx:else class="iconfont icon-cuohao"></text>

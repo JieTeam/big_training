@@ -12,6 +12,12 @@ Page({
      * 页面的初始数据
      */
     data: {
+        indexSwichText: {
+            0: 'A',
+            1: 'B',
+            2: 'C',
+            3: 'D',
+        },
         isAllow: false,  // 是否可以进行匹配对战
         hint: "匹配中...",
         meInfo: null,

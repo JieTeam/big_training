@@ -32,7 +32,6 @@ Component({
     },
     init() {
       // this.province = this.cities
-      console.log('>>> test', this.data.cities, cities)
       this.setData({
         province: this.data.cities
       })
