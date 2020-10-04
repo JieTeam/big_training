@@ -13,7 +13,7 @@
             </view>
             <view class="name overeli">{{fightResult.homeName}}</view>
             <view class="score fw600">{{fightResult.homeScore}}分</view>
-            <view class="{{(fightResult.homeScore>=rivalInfo.awayScore?'':'error')+' integral fw600'}}">{{fightResult.homeResult}}</view>
+            <view class="{{(fightResult.homeScore>=fightResult.awayScore?'':'error')+' integral fw600'}}">{{fightResult.homeResult}}</view>
         </view>
         <view class="vs">
             <image src="../../assets/images/fight_result/vs_res.png"></image>

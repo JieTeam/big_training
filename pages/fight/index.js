@@ -46,7 +46,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        count = 0;
+        countdownId = null; // 答题倒计时计时器ID
+        count = 0; // 倒计时累计秒数
+        activeResult=[]; // 用户选择结果
+        isRunAway = false; // 逃跑
+
         this.setData({
             meInfo: {
                 ...app.globalData.userInfo,
@@ -191,11 +195,12 @@ Page({
             });
         })
         wx.onSocketClose(res => {
+            console.log("关闭")
             clearInterval(countdownId);
         })
         wx.onSocketMessage(res => {
             var msg = JSON.parse(res.data);
-            console.log("msg==>",msg)
+            console.log("接收==>",msg)
             switch (msg.status) {
                 case 1||'1':
                     console.log("上线");
@@ -324,13 +329,15 @@ Page({
             })
         };
         clearInterval(countdownId);
-        if(isRunAway) return;
+        console.log("开始")
         countdownId = setInterval(animation, 1000);
     },
     /**获取下一道题目 */
     async getNextQuestion() {
         let that = this;
-        if(countdownId)clearInterval(countdownId);
+        if(countdownId){
+            clearInterval(countdownId);
+        }
         // 如果倒计时结束，用户还未选择答案，也算答错
         if(!that.data.meisAnswer) {
             await that.showAnswerResult([],false);
@@ -345,7 +352,7 @@ Page({
                 questionIndex: questionIndex
             })
             // 避免出现多余的题目
-            if (questionIndex >= that.data.questionList.length) {
+            if ((questionIndex >= that.data.questionList.length)||isRunAway) {
                 console.log("等待服务端发送结果");
             } else {
                 that.readyAnswer(questionIndex);
@@ -522,18 +529,18 @@ Page({
                 case 3:
                 case 4:
                 case 5:
-                case 6:
                     score = 100;
                     break;
-                case 7:
+                case 6:
                     score = 80;
                     break;
-                case 8:
+                case 7:
                     score = 60;
                     break;
-                case 9:
+                case 8:
                     score = 40;
                     break;
+                case 9:
                 case 10:
                     score = 20;
                     break;
@@ -559,6 +566,7 @@ Page({
                 subjectId: that.data.currentQuestion.id
             }
         });
+        console.log("send==>",msg)
         wx.sendSocketMessage({
             data: msg
         })

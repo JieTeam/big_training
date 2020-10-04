@@ -4,17 +4,28 @@ App({
         const number = Math.floor(Math.random()*50+1);
         // 展示本地存储能力
         const initUserInfo = {
-            login: false,
-            roleType: '2', // 1-省级管理员，2-执法人员，3-辅助执法人员，4-公众
-            // "login":true,
-            // "nickName":"水木青蓝"+number,
+            "login": false,
+            // "roleType":"2",
+            // "nickName":"花下木",
             // "gender":1,
             // "language":"zh_CN",
             // "city":"",
-            // "userId": number,
             // "province":"",
             // "country":"South Georgia and the South Sandwich Islands",
-            // "avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJLvDauOxz0icdCArvo8g2XQibj9uaOj3jZNpKGjYsA28gOFPjvfpFMR0CiacM9nFwedXBG9uYx33l0g/132"
+            // "avatarUrl":"./assets/images/test/me_logo.png",
+            // "openId":"oNQfV5Db727_nejfyID2WriDpLvo",
+            // "userId": 4,
+            // "name": "小白",
+            // "workingDivision":"11010000",
+            // "userLevel":"执法新兵",
+            // "winRate":"0.00",
+            // "winCount":1,
+            // "tieCount":0,
+            // "loseCount":1,
+            // "count":2,
+            // "score":6,
+            // "phoneNo":"13162238613",
+            // "fullRegionName":"北京市-东城区"
         }
         const userInfo = wx.getStorageSync('userInfo') || initUserInfo;
         this.globalData.userInfo = userInfo
