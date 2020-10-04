@@ -3,12 +3,12 @@
         <image class="title" src="../../assets/images/honor/ry.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
     </view>
     <view class="medal-box">
-        <view class="medal-item" wx:for="{{medalList}}" wx:key="index">
-            <image src="http://file.zmdup.com/big_training/group-1.png"></image>
+        <view class="medal-item" wx:for="{{honorData}}" wx:key="index" data-imagePath="{{item.imagePath}}" bindtap="handleView">
+            <image src="{{item.imagePath}}"></image>
         </view>
     </view>
     <view class="showImg" wx:if="{{showVisible}}">
-        <image class="content" src="http://file.zmdup.com/big_training/group-1.png"></image>
+        <image class="content" src="{{imagePath}}"></image>
         <image bindtap="close" class="close" src="/assets/images/icon/close.png"></image>
     </view>
 </view>

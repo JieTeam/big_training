@@ -11,6 +11,7 @@ Page({
   data: {
     showVisible: false,
     honorData: [],
+    imagePath: '',
     type: null
   },
   getListData() {
@@ -18,7 +19,9 @@ Page({
       title: '数据加载中...',
     })
     const userTypeSwichText = {
-      1: 'group',
+      3: 'group',
+      4: 'group',
+      5: 'group',
       2: 'personal',
       1: 'public',
     }
@@ -27,11 +30,18 @@ Page({
     getAwardList(userId,code).then(res => {
       wx.hideLoading()
       if (res.code === 1) {
+        console.log('>>> data', res)
+
         const data = res.data.map((item => {
           const { awardsType, awardsLevel} = item;
-          // item.imagePath = `${filePath}${}-${item.awardsLevel}`
+          const typeText = userTypeSwichText[awardsType]
+          item.imagePath = `${filePath}${typeText}-${awardsLevel}.png`
           return item
         }))
+        console.log('>>> data', data)
+        this.setData({
+          honorData: data
+        })
       }
     }).catch(err => {
       wx.hideLoading()
@@ -42,9 +52,11 @@ Page({
       showVisible: false,
     })
   },
-  open() {
+  handleView(e) {
+    // console.log('>> e', e, e.currentTarget.dataset.imagePath)
     this.setData({
       showVisible: true,
+      imagePath: e.currentTarget.dataset.imagepath
     })
   },
   /**
