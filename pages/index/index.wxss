@@ -198,7 +198,7 @@ page {
   height: 35rpx;
   position: absolute;
   left: 0;
-  bottom: 3%;
+  bottom: 4%;
   padding: 0 80rpx;
   box-sizing: border-box;
   display: flex;
