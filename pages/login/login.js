@@ -277,7 +277,7 @@ Page({
       }).catch(err => wx.hideLoading())
   },
   setInfo(data, userInfo) {
-    const { id, roleType, name, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo, fullRegionName } = data
+    const { id, roleType, name, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo, fullRegionName , likeCount} = data
     userInfo.login = true;
     userInfo.userId = id;
     userInfo.name = name;
@@ -290,6 +290,7 @@ Page({
     userInfo.count = winCount + tieCount + loseCount;
     userInfo.score = score;
     userInfo.phoneNo = phoneNo;
+    userInfo.likeCount = likeCount;
     userInfo.fullRegionName = fullRegionName; // 用户所在地区
 
     // 后台返回的是数字 转字符串

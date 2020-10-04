@@ -4,6 +4,10 @@
     <view class="top_userinfo">
      <view class="userinfo_left">
         <image data-type="personal" bindtap="go" class="headimg" src="{{userInfo.avatarUrl}}"></image>
+        <view class="good">
+          <text class="iconfont icon-zan"></text>
+          <text>{{userInfo.likeCount}}</text>
+        </view> 
         <image data-type="honor" bindtap="go" class="honor-logo" src='/assets/images/honor/honor-logo.png'></image>
      </view>
      <view class="userinfo_right">

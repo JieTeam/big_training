@@ -31,6 +31,20 @@ page {
   border-radius: 50%;
   position: relative;
 }
+.good{
+  position: absolute;
+  bottom: -60rpx;
+  text-align: center;
+  color: #fff;
+  width: 130rpx;
+  line-height: 30rpx;
+  font-size: 24rpx;
+}
+.good .iconfont {
+  color: red;
+  padding-right: 20rpx;
+  font-size: 36rpx;
+}
 .honor-logo {
   position: absolute;
   width: 40rpx;

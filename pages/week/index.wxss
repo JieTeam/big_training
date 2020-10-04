@@ -67,8 +67,8 @@
 }
 .week-box .week .both .me-box .me .info .rank {
   width: 170rpx;
-  height: 40rpx;
-  margin-top:20rpx ;
+  height: 50rpx;
+  margin-top:20rpx;
   position: relative;
 }
 .week-box .week .both .me-box .me .info .rank image {
@@ -79,7 +79,7 @@
   color: #fff;
   font-size: 24rpx;
   left: 60rpx;
-  top: 4rpx;
+  top: 8rpx;
   width: 100%;
   position: absolute;
 }
