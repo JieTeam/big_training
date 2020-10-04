@@ -236,7 +236,7 @@
   background: #de5a68;
 }
 .fight-box .fight .topic-box .topic-footer {
-  height: 120rpx;
+  height: 200rpx;
 }
 .fight-box .fight .topic-box .topic-footer .sub {
   background-color: #46d7b6;
