@@ -65,6 +65,19 @@
   color: #3b393c;
   font-size: 32rpx;
 }
+.week-box .week .both .me-box .me .info .rank image {
+  width: 180rpx;
+  height: 50rpx;
+}
+.week-box .week .both .me-box .me .info .rank .level {
+  height: 33rpx;
+  font-size: 24rpx;
+  color: #fff;
+  padding-right: 15rpx;
+  position: absolute;
+  left: 63rpx;
+  top: 8rpx;
+}
 .week-box .week .both .me-box .me .header {
   padding: 0 20rpx 0 30rpx;
 }
@@ -160,6 +173,9 @@
 }
 .week-box .week .topic-box .topic .answer-list.active {
   color: #ffffff;
+}
+.week-box .week .topic-box .topic .sureAnswer {
+  background: #43d9be;
 }
 .week-box .week .topic-box .topic-footer {
   height: 140rpx;

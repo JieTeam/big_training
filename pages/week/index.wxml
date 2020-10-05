@@ -9,9 +9,9 @@
                     </view>
                     <view class="info pr5">
                         <view class="name overeli fw900">{{meInfo.name}}</view>
-                        <view class="rank">
+                        <view class="rank pr">
                             <image src="/assets/images/grading.png" alt="" srcset=""></image>
-                            <text>{{meInfo.userLevel}}</text>
+                            <view class="level">{{meInfo.userLevel}}</view>
                         </view>
                     </view>
                 </view>
