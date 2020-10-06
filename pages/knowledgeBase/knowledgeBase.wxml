@@ -1,18 +1,17 @@
 <!--pages/knowledgeBase/knowledgeBase.wxml-->
 <view class="knowledgeBase">
-  <view class="title">
-    <image class="title_img" src="/assets/images/zsk.png"></image>
-  </view>
-  <view class="entry_list first">
-    政治理论
-  </view>
-  <view class="entry_list second">
-    生态环境相关政策
-  </view>
-  <view class="entry_list third">
-    生态环境相关法律法规规章
-  </view>
-  <view class="entry_list fourth">
-    监管执法相关制度规章
-  </view>
+    <view class="title">
+        <image class="title_img" src="/assets/images/zsk.png"></image>
+    </view>
+    <view class="rule-list">
+        <view 
+            wx:for="{{rules}}" 
+            class="rule-item"
+            data-index="{{index}}"
+            bindtap="selRule"
+            wx:key="index"
+        >
+            {{item.title}}
+        </view>
+    </view>
 </view>

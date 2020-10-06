@@ -1,6 +1,6 @@
 <!--pages/knowledgeBase_2/knowledgeBase_2.wxml-->
 <view class="page_box">
-  <view class="page_list">
+  <!-- <view class="page_list">
     <view class="title">法律</view>
     <view class="file_name">
       《中华人民共和国行政处罚法》
@@ -8,14 +8,17 @@
     <view class="file_name">
       《中华人民共和国行政强制法》
     </view>
-  </view>
+  </view> -->
   <view class="page_list">
-    <view class="title">法规</view>
-    <view class="file_name">
-      《中华人民共和国自然保护区条例》
-    </view>
-    <view class="file_name">
-      《畜禽规模养殖污染防治条例》
+    <!-- <view class="title">法规</view> -->
+    <view 
+        wx:for="{{list}}" 
+        class="file_name"
+        data-index="{{index}}"
+        bindtap="readRule"
+        wx:key="index"
+    >
+        《{{item.name}}》
     </view>
   </view>
 </view>

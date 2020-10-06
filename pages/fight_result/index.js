@@ -109,8 +109,8 @@ Page({
                 break;
         }
         if (!url) return;
-        wx.navigateTo({
-            url,
+        wx.redirectTo({
+            url: url
         });
     }
 })

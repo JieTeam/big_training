@@ -172,6 +172,13 @@
           "pathName": "pages/shareGood/shareGood",
           "query": "userId=1",
           "scene": null
+        },
+        {
+          "id": 15,
+          "name": "知识库",
+          "pathName": "pages/knowledgeBase/knowledgeBase",
+          "query": "",
+          "scene": null
         }
       ]
     }

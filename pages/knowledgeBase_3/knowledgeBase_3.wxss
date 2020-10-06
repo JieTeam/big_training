@@ -21,9 +21,10 @@ page {
 }
 .rules_text {
   width: 100%;
-  padding: 0 45rpx 15rpx;
+  padding: 0 45rpx 80rpx;
   box-sizing: border-box;
   font-size: 28rpx;
+  white-space: pre-line;
 }
 .paragraph {
   margin-bottom: 30rpx;
