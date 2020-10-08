@@ -25,7 +25,7 @@ Page({
             key: 'roomId',
             success: (result) => {
                 const data = result.data;
-                let resImg = data.homeScore>data.awayScore?'done':data.homeScore<data.awayScore?'filed':'draw';
+                let resImg = data.homeScore>data.awayScore?'win':data.homeScore<data.awayScore?'filed':'draw';
                 that.setData({
                     fightResult: data,
                     plate: `../../assets/images/fight_result/${resImg}.png`
