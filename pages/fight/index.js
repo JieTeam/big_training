@@ -80,7 +80,6 @@ Page({
                 this.setData({
                     isAllow: true
                 })
-                this.connectWebSocket(); // 连接socket
             }
         } catch (error) {
             Utils.hideLoading()
@@ -171,22 +170,27 @@ Page({
     connectWebSocket() {
         Utils.showLoading();
         const that = this;
-        wx.connectSocket({
-            url: Utils.service.wsUrl + '/' + that.data.meInfo.userId + '/2',
-            success: res => {
-                that.initWebSocketListener(); // 监听socket
-            }
-        });
+        try {
+            wx.closeSocket()
+        } catch (error) {
+            console.log("socket未连接")
+        }
+        setTimeout(() => {
+            wx.connectSocket({
+                url: Utils.service.wsUrl + '/' + that.data.meInfo.userId + '/2',
+                success: res => {
+                    that.initWebSocketListener(); // 监听socket
+                }
+            });
+        }, 500);
     },
     /**初始化websocket监听 */
     initWebSocketListener() {
         const that = this;
         wx.onSocketOpen(res => {
-            that.setData({
-                connectSocket: true
-            })
             console.log("建立连接");
             Utils.hideLoading();
+            that.startMatch();
         })
         wx.onSocketError(res => {
             Utils.hideLoading();
@@ -256,6 +260,9 @@ Page({
                         })
                     })
                     break;
+                case 6||'6': // 对方逃跑
+                    Utils.showModal('提示', '抱歉，服务器爆满，请稍后重试!');
+                    that.fqAgainst();
             }
         });
     },
