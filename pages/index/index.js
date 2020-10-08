@@ -47,9 +47,15 @@ Page({
         break;
     }
     if (!url) return;
-    wx.navigateTo({
-      url,
-    });
+    if(type=='fight'||type=='week') { // 匹配和每周一测页面重定向跳转，返回首页会重新加载获取战绩数据
+        wx.redirectTo({
+            url,
+        });
+    } else {
+        wx.navigateTo({
+            url,
+        });
+    }
   },
   rulesBoxShow() {
     this.setData({
