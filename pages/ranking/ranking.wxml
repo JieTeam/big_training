@@ -11,7 +11,7 @@
         {{item.title}}
       </view>
     </view>
-    <view class="ranking__person" wx:if="{{checkedType === '1'}}">
+    <view class="ranking__person" wx:if="{{checkedType === '1' && userInfo.roleType === '2'}}">
       <view class="ranking__person__headerpic">
         <image src="{{userInfo.avatarUrl}}"></image>
       </view>

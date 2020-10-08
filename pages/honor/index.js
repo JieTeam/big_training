@@ -11,7 +11,7 @@ Page({
   data: {
     showVisible: false,
     honorData: [],
-    imagePath: '',
+    detailData: {},
     type: null
   },
   getListData() {
@@ -25,6 +25,11 @@ Page({
       2: 'personal',
       1: 'public',
     }
+    const levelSwichText = {
+      1: '一',
+      2: '二',
+      3: '三',
+    }
     const { userId, workingDivision } = app.globalData.userInfo;
     const code = this.data.type === 'admin' ? workingDivision : null
     getAwardList(userId,code).then(res => {
@@ -34,8 +39,10 @@ Page({
 
         const data = res.data.map((item => {
           const { awardsType, awardsLevel} = item;
-          const typeText = userTypeSwichText[awardsType]
-          item.imagePath = `${filePath}${typeText}-${awardsLevel}.png`
+          // const typeText = userTypeSwichText[awardsType]
+          item.levelText = levelSwichText[awardsLevel]
+          item.gmtcreate = item.gmtcreate.split('-')
+          // item.imagePath = `${filePath}${typeText}-${awardsLevel}.png`
           return item
         }))
         console.log('>>> data', data)
@@ -56,7 +63,7 @@ Page({
     // console.log('>> e', e, e.currentTarget.dataset.imagePath)
     this.setData({
       showVisible: true,
-      imagePath: e.currentTarget.dataset.imagepath
+      detailData: e.currentTarget.dataset.item
     })
   },
   /**

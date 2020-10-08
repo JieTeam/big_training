@@ -1,6 +1,6 @@
 <view class="bj-page">
   <view class="page__header">
-    <view class="title">河北省</view>
+    <view class="title">{{userInfo.fullRegionName}}</view>
     <view class="tab">
       <view 
         wx:for="{{rankingTabData}}" 

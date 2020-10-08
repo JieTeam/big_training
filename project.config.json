@@ -125,10 +125,10 @@
           "scene": null
         },
         {
-          "id": -1,
+          "id": 8,
           "name": "分享下载图片",
           "pathName": "pages/shareImg/shareImg",
-          "query": "",
+          "query": "userId=3",
           "scene": null
         },
         {

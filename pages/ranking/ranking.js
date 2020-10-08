@@ -85,14 +85,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let checkedType = options.checkedType
+    let rankingTabData = this.data.rankingTabData
+
+    if (app.globalData.userInfo.roleType !== '2') {
+      console.log('>> app.globalData.userInfo.roleType', app.globalData.userInfo.roleType)
+      checkedType = '2'
+      rankingTabData.shift()
+    }
     this.setData({
-        checkedType: options.checkedType || '1',
-        userInfo: app.globalData.userInfo
+        checkedType: checkedType || '1',
+        userInfo: app.globalData.userInfo,
+        rankingTabData,
     })
-    if(options.checkedType) {
+    if(checkedType) {
         const newTabData = this.data.rankingTabData.map((item) => {
             item.checked = false
-            if (item.key === options.checkedType) {
+            if (item.key === checkedType) {
               item.checked = true
             }
             return item;

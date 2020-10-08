@@ -240,10 +240,11 @@ Page({
             "headUrl": avatarUrl,
             "roleType": roleType
           })
-          Utils.hideLoading();
           if(result.code!==1) {
               this.getImgCode();
               return;
+          } else {
+            Utils.hideLoading();
           }
           this.setInfo(result.data, userInfo);
       } catch (error) {

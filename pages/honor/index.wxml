@@ -1,14 +1,60 @@
 <view class="honor">
     <view class="header ac">
-        <image class="title" src="../../assets/images/honor/ry.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
+        <image class="title" src="/assets/images/honor/ry.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
     </view>
     <view class="medal-box">
-        <view class="medal-item" wx:for="{{honorData}}" wx:key="index" data-imagePath="{{item.imagePath}}" bindtap="handleView">
-            <image src="{{item.imagePath}}"></image>
+        <view class="medal-item__scale" wx:for="{{honorData}}" wx:key="index" data-item="{{item}}" bindtap="handleView">
+            <!-- <view class="honor-bj"></view> -->
+            <image class="honor-bj" src="/assets/images/honor/honor-bj.png"></image>
+            <view class="content">
+                <view class="title">荣誉证书</view>
+                <view class="name">{{item.userName}}:</view>
+                <view class="des1">
+                    在“202 0年生态环境保护执法大练兵知识竞赛”活动中,表现突出
+                    <text wx:if="{{item.awardsType === '1'}}">超越了{{item.overPercent}}%的选手,</text>
+                    获得
+                </view>
+                <view class="ranking" wx:if="{{item.awardsType === '2'}}">个人{{item.levelText}}等奖</view>
+                <view class="ranking"
+                wx:if="{{item.awardsType === '1'}}"
+                >{{item.levelText}}等奖</view>
+                <view class="ranking"
+                    wx:if="{{(item.awardsType === '3' || item.awardsType === '4' || item.awardsType === '5')}}"
+                >集体{{item.levelText}}等奖</view>
+                <view class="des2">特颁此证,以资鼓励。</view>
+                <view class="date">
+                    <view>生态环境部门生态环境执法局</view>
+                    <view>{{item.gmtcreate[0]}}年{{item.gmtcreate[1]}}月{{item.gmtcreate[2]}}日</view>
+                </view>
+            </view>
         </view>
     </view>
     <view class="showImg" wx:if="{{showVisible}}">
-        <image class="content" src="{{imagePath}}"></image>
+        <view class="medal-item" data-imagePath="{{item.imagePath}}" bindtap="handleView">
+            <image class="honor-bj" src="/assets/images/honor/honor-bj.png"></image>
+            <view class="content">
+                <view class="title">荣誉证书</view>
+                <view class="name">{{detailData.levelText}}:</view>
+                <view class="des1">
+                    在“202 0年生态环境保护执法大练兵知识竞赛”活动中,表现突出
+                    <text wx:if="{{detailData.awardsType === '1'}}">超越了{{detailData.overPercent}}%的选手,</text>
+                    获得
+                </view>
+                <view class="ranking" wx:if="{{detailData.awardsType === '2'}}">个人{{detailData.levelText}}等奖</view>
+                <view class="ranking"
+                wx:if="{{detailData.awardsType === '1'}}"
+                >{{detailData.levelText}}等奖</view>
+                <view class="ranking"
+                    wx:if="{{(detailData.awardsType === '3' || detailData.awardsType === '4' || detailData.awardsType === '5')}}"
+                >集体{{detailData.levelText}}等奖</view>
+                <view class="des2">特颁此证,以资鼓励。</view>
+                <view class="date">
+                    <view>生态环境部门生态环境执法局</view>
+                    <view>{{detailData.gmtcreate[0]}}年{{detailData.gmtcreate[1]}}月{{detailData.gmtcreate[2]}}日</view>
+                </view>
+            </view>
+            <!-- <image src="{{item.imagePath}}"></image> -->
+        </view>
         <image bindtap="close" class="close" src="/assets/images/icon/close.png"></image>
     </view>
 </view>

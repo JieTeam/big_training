@@ -9,12 +9,12 @@
         <view class="name">
           {{userInfo.name}}
         </view>
-        <view class="level">
+        <view class="level" wx:if="{{userInfo.roleType === '2'}}">
           <image src='/assets/images/grading.png'></image>
           <view class="level__content">{{userInfo.userLevel}}</view>
         </view>
       </view>
-      <view class="ranking__person__tips">
+      <view class="ranking__person__tips" wx:if="{{userInfo.roleType === '2'}}">
         胜率{{userInfo.winRate}}%
       </view>
     </view>
@@ -41,6 +41,7 @@
         <view wx:if="{{checkedType !== 'matching'}}" class="record__item__block2 week">每周一测</view>
         <view class="record__item__block3 less">{{item.trainPoint>=0?('+'+item.trainPoint):item.trainPoint}}积分</view>
       </view>
+      <view wx:if="{{recordData.length === 0}}" class="nodata">暂无数据</view>
     </view>
   </view>
 </view>

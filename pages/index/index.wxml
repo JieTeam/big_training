@@ -4,7 +4,7 @@
     <view class="top_userinfo">
      <view class="userinfo_left">
         <image data-type="personal" bindtap="go" class="headimg" src="{{userInfo.avatarUrl}}"></image>
-        <view class="good">
+        <view class="good" wx:if="{{userInfo.roleType === '2'}}">
           <text class="iconfont icon-zan"></text>
           <text>{{userInfo.likeCount}}</text>
         </view> 
@@ -13,14 +13,14 @@
      <view class="userinfo_right">
         <view class="userName">{{userInfo.name}}</view>
         <view class="other_info">
-          <view class="identity">
+          <view class="identity" wx:if="{{userInfo.roleType === '2'}}">
             <view class="identity_icon">
               <image class="icon_img" src="/assets/images/xc.png"/>
             </view>
             <view class="identity_name">{{userInfo.userLevel}}</view>
           </view>
           <view class="result">
-            <view class="result_left">{{userInfo.winCount}}胜{{userInfo.loseCount}}负</view>
+            <view class="result_left" wx:if="{{userInfo.roleType === '2'}}">{{userInfo.winCount}}胜{{userInfo.loseCount}}负</view>
             <view class="result_right">{{userInfo.score}}分</view>
           </view>
         </view>

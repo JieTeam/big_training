@@ -12,7 +12,7 @@
     <view class="login-content__item" wx:if="{{type !== 'admin'}}" bindtap="handleRegion">
       <view class="login-content__icon iconfont icon-icon_dizhi">
       </view>
-      <view class="login-content__input">
+      <view class="login-content__input overeli">
         <text class="login-content__input__placeholder" wx:if="{{params.region.length === 0}}">所属省份</text>
         <text wx:else>{{region}}</text> 
       </view>

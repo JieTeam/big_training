@@ -26,19 +26,129 @@
   align-content: flex-start;
 }
 
-.medal-item{
-  width: 200rpx;
-  height: 280rpx;
-  margin-bottom: 30rpx;
+.medal-item__scale {
+  width: 225rpx;
+  height: 313rpx;
+  margin-bottom: 30rpx; 
+  position: relative;
 }
-.medal-item image {
+.medal-item__scale .honor-bj {
   width: 100%;
   height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.medal-item__scale .content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 27.5rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: STKaiti;
+  color: #000012;
+  font-weight: 350;
+}
+.medal-item__scale .content .title {
+  font-size: 16rpx;
+  text-align: center;
+  margin-top: 62rpx;
+}
+.medal-item__scale .content .name {
+  font-size: 7.4rpx;
+  text-align: center;
+  margin-top: 15rpx;
+}
+.medal-item__scale .content .des1 {
+  margin-top: 15rpx;
+  text-indent: 16.1rpx;
+  font-size: 7.4rpx;
+  line-height: 11.5rpx;
+}
+
+.medal-item__scale .content .ranking {
+  line-height: 45rpx;
+  color: #bf1114;
+  font-size: 15rpx;
+  text-align: center;
+}
+.medal-item__scale .content .des2 {
+  font-size: 7.4rpx;
+  margin-bottom: 23rpx;
+}
+.medal-item__scale .content .date {
+  text-align: right;
+  line-height: 11.5rpx;
+  font-size: 7.4rpx;
+}
+
+
+
+
+.medal-item{
+  width: 970rpx;
+  height: 1359rpx;
+  margin-bottom: 30rpx; 
+  zoom: 0.6;
+  position: relative;
+}
+.medal-item .honor-bj {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.medal-item .content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 120rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: STKaiti;
+  color: #000012;
+  font-weight: 350;
+}
+.content .title {
+  font-size: 68rpx;
+  text-align: center;
+  margin-top: 270rpx;
+}
+.content .name {
+  font-size: 32rpx;
+  text-align: center;
+  margin-top: 65rpx;
+}
+.content .des1 {
+  margin-top: 65rpx;
+  text-indent: 70rpx;
+  font-size: 32rpx;
+  line-height: 70rpx;
+}
+
+.content .ranking {
+  line-height: 180rpx;
+  color: #bf1114;
+  font-size: 64rpx;
+  text-align: center;
+}
+.content .des2 {
+  font-size: 32rpx;
+  margin-bottom: 100rpx;
+}
+.content .date {
+  text-align: right;
+  line-height: 70rpx;
 }
 .showImg{
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, .3);
@@ -46,9 +156,8 @@
   align-items: center;
   justify-content: center;
 }
-.showImg .content {
-  width: 600rpx;
-  height: 840rpx;
+.showImg .medal-item {
+  background: #fff;
 }
 .showImg .close {
   width: 40rpx;

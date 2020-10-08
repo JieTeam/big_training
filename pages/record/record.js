@@ -44,10 +44,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const userInfo = app.globalData.userInfo
+    if (userInfo.roleType !== '2') {
+      this.setData({
+        checkedType: 'week',
+        rankingTabData: [{
+          title: '每周一测',
+          type: 'week',
+          checked: true,
+        }],
+      })
+    }
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo
     })
-    this.getRankList()
+    wx.nextTick(() => {
+      this.getRankList()
+    })
   },
 
   /**
