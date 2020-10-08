@@ -126,7 +126,7 @@ Page({
         // 二维码
         {
           type: 'image',
-          url: '/assets/images/share/code.png',
+          url: '/assets/images/share/qrcode.jpg',
           css: {
             top: '1600rpx',
             left: '980rpx',
@@ -216,7 +216,7 @@ Page({
     //     // 二维码
     //     {
     //       type: 'image',
-    //       url: '/assets/images/share/code.png',
+    //       url: '/assets/images/share/qrcode.jpg',
     //       css: {
     //         top: '800rpx',
     //         left: '490rpx',
