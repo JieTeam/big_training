@@ -80,6 +80,7 @@ Page({
                 this.setData({
                     isAllow: true
                 })
+                this.connectWebSocket(); // 连接socket
             }
         } catch (error) {
             Utils.hideLoading()
@@ -170,27 +171,22 @@ Page({
     connectWebSocket() {
         Utils.showLoading();
         const that = this;
-        try {
-            wx.closeSocket()
-        } catch (error) {
-            console.log("socket未连接")
-        }
-        setTimeout(() => {
-            wx.connectSocket({
-                url: Utils.service.wsUrl + '/' + that.data.meInfo.userId + '/2',
-                success: res => {
-                    that.initWebSocketListener(); // 监听socket
-                }
-            });
-        }, 500);
+        wx.connectSocket({
+            url: Utils.service.wsUrl + '/' + that.data.meInfo.userId + '/2',
+            success: res => {
+                that.initWebSocketListener(); // 监听socket
+            }
+        });
     },
     /**初始化websocket监听 */
     initWebSocketListener() {
         const that = this;
         wx.onSocketOpen(res => {
             console.log("建立连接");
+            that.setData({
+                connectSocket: true
+            })
             Utils.hideLoading();
-            that.startMatch();
         })
         wx.onSocketError(res => {
             Utils.hideLoading();
