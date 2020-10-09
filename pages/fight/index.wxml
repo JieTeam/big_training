@@ -82,7 +82,7 @@
                 </view>
             </view>
             <view class="start" wx:if="{{!isMatch}}">
-                <button wx:if="{{isAllow}}" disabled="{{!connectSocket}}" type="primary" class="start-btn match-btn" bindtap="startMatch">开始匹配</button>
+                <button wx:if="{{isAllow}}" type="primary" class="start-btn match-btn" bindtap="connectWebSocket">开始匹配</button>
             </view>
             <view class="stata" wx:else>
                 <view class="vs fw900">

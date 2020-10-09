@@ -1,6 +1,8 @@
 <!--pages/adminIndex/adminIndex.wxml-->
 <view class="adminIndex">
-  <view class="title">排行榜</view>
+  <view class="title">
+      <image class="" src="../../assets/images/rank/ranking.png" />
+  </view>
   <view class="province-item battle" data-type='provinceWarSituation' bindtap="go">
     <!-- <image class="province-ranking_icon" src="/assets/images/person2.png"></image> -->
     <!-- <text>本省战况</text> -->

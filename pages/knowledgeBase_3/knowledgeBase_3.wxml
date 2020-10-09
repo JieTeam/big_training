@@ -1,6 +1,6 @@
 <!--pages/knowledgeBase_3/knowledgeBase_3.wxml-->
 <view class="page_box">
-    <view class="file_name overeli">
+    <view class="file_name">
         《{{rule.name}}》
     </view>
     <view class="rules_text">

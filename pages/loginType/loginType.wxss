@@ -18,18 +18,27 @@ page {
   left: 0;
   width: 100%;
   text-align: center;
-  padding-top: 200rpx; 
+  padding-top: 300rpx; 
 }
-.bj-loginType__title{
+/* .bj-loginType__title{
   font-size: 45rpx;
   color: #46d7b6;
   line-height: 1.7;
   font-family: STKaiti;
+} */
+.loginType_title {
+    width: 100%;
+    padding-bottom: 87rpx;
+}
+.loginType_title image {
+    display: block;
+    width: 491rpx;
+    height: 99rpx;
+    margin: 0 auto;
 }
 .bj-loginType__lawEn{
   width: 380rpx !important;
   font-size: 30rpx;
-  margin-top: 180rpx;
   background: #46d7b6;
   color: #fff;
   border: 1rpx solid #46d7b6;
