@@ -43,9 +43,22 @@ Page({
         personData: []
     },
     handleTab(e) {
+
         const currentItem = e.target.dataset.item;
+
+        let personClomn=[];
+        if(currentItem.key=='7'){
+            personClomn = [
+                'id','field1','field2','rankId','field4'
+            ];
+        } else {
+            personClomn = [
+                'id','field1','rankId','field3','field4'
+            ];
+        }
         this.setData({
-            checkedType: currentItem.type
+            checkedType: currentItem.key,
+            personClomn: personClomn
         })
         const newTabData = this.data.rankingTabData.map((item) => {
             item.checked = false
