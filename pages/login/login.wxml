@@ -1,8 +1,8 @@
 <!--pages/login/login.wxml-->
 <view class="bj-page">
   <view class="login-header">
-    <view class="login-header__title">2020年生态环境</view>
-    <view class="login-header__title">执法大练兵知识竞赛</view>
+    <view class="login-header__title">2020年生态环境</view> 
+    <view class="login-header__title">保护执法大练兵知识竞赛</view>
   </view>
   <view class="login-content">
     <view class="login-content__tips">

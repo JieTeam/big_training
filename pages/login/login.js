@@ -400,11 +400,11 @@ Page({
   handleFix() {
     const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/adminIndex/adminIndex',
       })
     } else {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/index/index',
       })
     }

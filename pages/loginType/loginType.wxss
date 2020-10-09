@@ -24,6 +24,7 @@ page {
   font-size: 45rpx;
   color: #46d7b6;
   line-height: 1.7;
+  font-family: STKaiti;
 }
 .bj-loginType__lawEn{
   width: 380rpx !important;
