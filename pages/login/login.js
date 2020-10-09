@@ -314,8 +314,8 @@ Page({
     const userInfo = App.globalData.userInfo
     if(strongShareData && strongShareData.userId) {
       ApiLikeVAlid(
-        strongShareData.userId,
         userInfo.userId,
+        strongShareData.userId,
       ).then((res) => {
         wx.hideLoading()
         wx.removeStorageSync('shareData')
@@ -381,8 +381,8 @@ Page({
   // 点赞
   handleGoods() {
     ApiDoLike(
-      this.data.userId,
       App.globalData.userInfo.userId,
+      this.data.userId,
     ).then(res => {
       if(res.code === 1) {
         let reslut = this.data.reslut

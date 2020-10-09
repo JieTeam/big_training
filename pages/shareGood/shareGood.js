@@ -29,8 +29,8 @@ Page({
         title: '数据加载中...',
       })
       ApiLikeVAlid(
-        userId,
         userInfo.userId,
+        userId,
       ).then((res) => {
         console.log('>>> userInfo res sharegood' ,res, userInfo, userInfo.openId, userId)
         wx.hideLoading()
@@ -90,8 +90,8 @@ Page({
 
   handleGoods() {
     ApiDoLike(
-      this.data.userId,
       app.globalData.userInfo.userId,
+      this.data.userId,
     ).then(res => {
       if(res.code === 1) {
         let reslut = this.data.reslut
