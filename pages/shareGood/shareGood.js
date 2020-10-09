@@ -107,7 +107,7 @@ Page({
     })
   },
   handleFix() {
-    const userInfo = App.globalData.userInfo;
+    const userInfo = app.globalData.userInfo;
     if (userInfo.roleType === '1') {
       wx.navigateTo({
         url: '/pages/adminIndex/adminIndex',

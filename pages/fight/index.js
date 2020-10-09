@@ -245,6 +245,7 @@ Page({
                     break;
                 case 4||'4': // 答题结束
                     that.gameOver(msg.data);
+                    break;
                 case 5||'5': // 对方逃跑
                     Utils.showToast("对方逃跑");
                     clearInterval(countdownId);
@@ -259,6 +260,7 @@ Page({
                 case 6||'6': // 对方逃跑
                     Utils.showModal('提示', '抱歉，服务器爆满，请稍后重试!');
                     that.fqAgainst();
+                    break;
             }
         });
     },
