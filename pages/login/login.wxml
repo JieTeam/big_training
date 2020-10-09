@@ -140,7 +140,7 @@
       <block wx:else>提交</block>
     </button>
   </view>
-  <dialog-tips wx:if="{{tipsDialogVisible}}" catch:ok='handleFix'></dialog-tips>
+  <dialog-tips userInfo="{{userInfo}}"  wx:if="{{tipsDialogVisible}}" catch:ok='handleFix'></dialog-tips>
   <dialog-share 
     wx:if="{{goodDialogVisible}}"  
     reslut="{{reslut}}" 

@@ -13,6 +13,7 @@ Page({
       success (res) {
         if (res.confirm) {
           wx.removeStorageSync('userInfo')
+          app.globalData.userInfo = {}
           wx.redirectTo({
             url: '/pages/loginType/loginType',
           })

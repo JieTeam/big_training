@@ -303,6 +303,7 @@ Page({
     } else {
         this.setData({
             tipsDialogVisible: true,
+            userInfo,
         })
     }
   },

@@ -8,6 +8,9 @@
     <view class="dialog-tips__content__tips">
       {{tips}}
     </view>
+    <view class="dialog-tips__content__tips" wx:if="{{userInfo.roleType === '1'}}">
+      您是{{userInfo.fullRegionName}}管理员！
+    </view>
     <view class="dialog-tips__content_btn" bindtap="_handleFix">
       确定
     </view>

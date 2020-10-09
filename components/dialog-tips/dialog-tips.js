@@ -11,6 +11,10 @@ Component({
     tips: {
       type: String,
       value: '提交成功'
+    },
+    userInfo: {
+      type: Object,
+      value: {} 
     }
   },
 
