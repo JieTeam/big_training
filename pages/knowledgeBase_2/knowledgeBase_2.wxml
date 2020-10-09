@@ -13,7 +13,7 @@
     <!-- <view class="title">法规</view> -->
     <view 
         wx:for="{{list}}" 
-        class="file_name overeli"
+        class="file_name"
         data-index="{{index}}"
         bindtap="readRule"
         wx:key="index"

@@ -11,7 +11,7 @@
         </view>
         <view class="level">
           <image src='/assets/images/grading.png'></image>
-          <view class="level__content">{{userInfo.userLevel}}</view>
+          <!-- <view class="level__content">{{userInfo.userLevel}}</view> -->
         </view>
       </view>
     </view>
