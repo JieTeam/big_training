@@ -46,7 +46,7 @@ Page({
           item.option4Rrror = !item.rightAnswer.includes('option4') && item.userOption.includes('option4')
           return item;
         })
-        console.log('>>> wrongList', wrongList)
+        // console.log('>>> wrongList', wrongList)
         this.setData({
           wrongList
         })
