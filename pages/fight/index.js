@@ -156,6 +156,7 @@ Page({
      * 开始匹配
      */
     startMatch() {
+        console.log("开始匹配")
         // 开始匹配对手
         wx.sendSocketMessage({
             data: JSON.stringify({
