@@ -346,7 +346,7 @@ Page({
     },
     /**获取下一道题目 */
     async getNextQuestion() {
-        if(!allowNext) return;
+        if(!allowNext||(that.data.questionIndex >= that.data.questionList.length)) return;
         allowNext = false;
         let timer1 = setTimeout(() => {
             allowNext = true
