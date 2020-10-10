@@ -157,7 +157,7 @@ Page({
      * 开始匹配
      */
     startMatch() {
-        const thaat = this;
+        const that = this;
         console.log("开始匹配")
         // 开始匹配对手
         wx.sendSocketMessage({
@@ -174,7 +174,7 @@ Page({
             if(n>=120) { // 两分钟没有匹配到结束匹配
                 clearInterval(matchTimer);
                 matchTimer = null;
-                Utils.showToast('暂未匹配到符合条件的对手，请稍后再试');
+                Utils.showToast('暂未匹配到符合条件的对手，请稍后再试',3000);
                 that.fqAgainst();
             }
             n+=1;
