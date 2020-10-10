@@ -9,10 +9,10 @@
         <view class="name">
           {{userInfo.name}}
         </view>
-        <view class="level">
+        <!-- <view class="level">
           <image src='/assets/images/grading.png'></image>
-          <!-- <view class="level__content">{{userInfo.userLevel}}</view> -->
-        </view>
+          <view class="level__content">{{userInfo.userLevel}}</view>
+        </view> -->
       </view>
     </view>
   </view>
