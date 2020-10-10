@@ -177,7 +177,7 @@ Page({
             // if(n>=10) { // 分钟
                 clearTimeout(matchTimer);
                 matchTimer = null;
-                Utils.showToast('暂未匹配到符合条件的对手，请稍后再试',3000);
+                Utils.showToast('暂未匹配到符合条件的对手，请稍后再试');
                 that.fqAgainst();
             // }
             // n+=1;
