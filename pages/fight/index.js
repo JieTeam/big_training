@@ -171,7 +171,7 @@ Page({
         });
         let n=0;
         matchTimer = setInterval(() => {
-            if(n>=120) { // 两分钟没有匹配到结束匹配
+            if(n>=60) { // 两分钟没有匹配到结束匹配
                 clearInterval(matchTimer);
                 matchTimer = null;
                 Utils.showToast('暂未匹配到符合条件的对手，请稍后再试',3000);
