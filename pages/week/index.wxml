@@ -7,7 +7,7 @@
                     <view class="header">
                         <image src="{{meInfo.avatarUrl}}"></image>
                     </view>
-                    <view class="info pr5">
+                    <view class="info pr5 al-center">
                         <view class="name overeli fw900">{{meInfo.name}}</view>
                         <view class="rank pr" wx:if="{{meInfo.roleType === '2'}}">
                             <image src="/assets/images/grading.png" alt="" srcset=""></image>
@@ -17,7 +17,7 @@
                 </view>
             </view>
             <view class="countDown-box">
-                <view class="timer animation pr" wx:if="{{!subSuc}}">
+                <view class="timer animation pr">
                     <canvas class="countDown-bg" type="2d" id="countdownBg"></canvas>
                     <canvas class='countDown pa' type="2d" id="countDown"></canvas>
                 </view>

@@ -1,6 +1,7 @@
 // pages/fight/index.js
 const app = getApp();
 const Utils = require('../../utils/util.js');
+let allowNext = true; // 是否允许进入下一题
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
 let activeResult=[]; // 用户选择结果
@@ -272,6 +273,7 @@ Page({
      * 进入答题
      */
     readyAnswer(index) {
+        console.log(`第${index+1}题`)
         const that = this;
         that.setData({
             isAnswerLoaded: false
@@ -343,13 +345,18 @@ Page({
     },
     /**获取下一道题目 */
     async getNextQuestion() {
+        if(!allowNext) return;
+        allowNext = false;
+        let timer1 = setTimeout(() => {
+            allowNext = true
+        }, 800);
         let that = this;
         if(countdownId){
             clearInterval(countdownId);
         }
         // 如果倒计时结束，用户还未选择答案，也算答错
         if(!that.data.meisAnswer) {
-            await that.showAnswerResult([],false);
+            await that.showAnswerResult([],false,'auto');
         }
         // 下一题
         let timer = setTimeout(() => {
@@ -524,7 +531,7 @@ Page({
         let isRight = activeResult.length&&(activeResult.join(",") == that.data.currentQuestion.rightAnswer);
         this.showAnswerResult(activeResult,isRight);
     },
-    showAnswerResult(result,isRight) {
+    showAnswerResult(result,isRight, type='self') {
         const that = this;
         that.setData({
             meisAnswer: true,
@@ -579,7 +586,7 @@ Page({
         wx.sendSocketMessage({
             data: msg
         })
-        if(that.data.rivalisAnswer) {
+        if(that.data.rivalisAnswer&&type!='auto') {
             that.getNextQuestion()
         }
     }

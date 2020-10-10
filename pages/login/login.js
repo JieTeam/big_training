@@ -277,7 +277,10 @@ Page({
       }).catch(err => wx.hideLoading())
   },
   setInfo(data, userInfo) {
-    const { id, roleType, name, workingDivision, userLevel, winRate, winCount,tieCount, loseCount, score, phoneNo, fullRegionName , likeCount} = data
+    const { 
+        id, roleType, name, workingDivision, userLevel, winRate, winCount, rank,
+        tieCount, loseCount, score, phoneNo, fullRegionName , likeCount, awardsNum
+    } = data
     userInfo.login = true;
     userInfo.userId = id;
     userInfo.name = name;
@@ -288,10 +291,12 @@ Page({
     userInfo.tieCount = tieCount; // 平局场次
     userInfo.loseCount = loseCount; // 平局场次
     userInfo.count = winCount + tieCount + loseCount;
+    userInfo.rank = rank; // 排名
     userInfo.score = score;
     userInfo.phoneNo = phoneNo;
     userInfo.likeCount = likeCount;
     userInfo.fullRegionName = fullRegionName; // 用户所在地区
+    userInfo.awardsNum = awardsNum;  // 用户获奖次数
 
     // 后台返回的是数字 转字符串
     userInfo.roleType = roleType + '';

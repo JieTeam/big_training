@@ -409,7 +409,8 @@ Page({
         const that = this;
         this.setData({
             subSuc: true
-        })
+        });
+        clearInterval(countdownId);
         const topicData = Object.assign({},that.data.topicData);
         topicData.trainStartTime = trainStartTime;
         topicData.trainEndTime = trainEndTime;
@@ -423,7 +424,6 @@ Page({
             rightNum += (element.answerRight?1:0);
         }
         topicData.trainScore = scoreTotal;
-
         wx.setStorage({
             key: 'weekTestRes',
             data: {
@@ -436,7 +436,7 @@ Page({
         const result = await subWeekAnswerApi(topicData);
         if(result.code!==1) return;
         this.myModal.showModal("提交成功");
-        clearInterval(countdownId);
+        
         setTimeout(() => {
             this.myModal.hideModal();
             wx.redirectTo({
