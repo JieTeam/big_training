@@ -1,6 +1,7 @@
 // pages/fight/index.js
 const app = getApp();
 const Utils = require('../../utils/util.js');
+let matchTimer = null; // 匹配计时器
 let allowNext = true; // 是否允许进入下一题
 let countdownId = null; // 答题倒计时计时器ID
 let count = 0; // 倒计时累计秒数
@@ -156,6 +157,8 @@ Page({
      * 开始匹配
      */
     startMatch() {
+        const that = this;
+        console.log("开始匹配")
         // 开始匹配对手
         wx.sendSocketMessage({
             data: JSON.stringify({
@@ -166,6 +169,16 @@ Page({
         this.setData({
             isMatch: true
         });
+        let n=0;
+        matchTimer = setInterval(() => {
+            if(n>=60) { // 两分钟没有匹配到结束匹配
+                clearInterval(matchTimer);
+                matchTimer = null;
+                Utils.showToast('暂未匹配到符合条件的对手，请稍后再试',3000);
+                that.fqAgainst();
+            }
+            n+=1;
+        }, 1000);
     },
     /**连接websocket */
     connectWebSocket() {
@@ -211,6 +224,8 @@ Page({
                     console.log("上线");
                     break;
                 case 2||'2':  // 匹配成功
+                    clearInterval(matchTimer);
+                    matchTimer = null;
                     that.setData({
                         rivalInfo: {
                             ...msg.data.enemyUser,
@@ -345,12 +360,13 @@ Page({
     },
     /**获取下一道题目 */
     async getNextQuestion() {
-        if(!allowNext) return;
+        let that = this;
+        if(!allowNext||(that.data.questionIndex >= that.data.questionList.length)) return;
         allowNext = false;
         let timer1 = setTimeout(() => {
+            clearTimeout(timer1)
             allowNext = true
         }, 800);
-        let that = this;
         if(countdownId){
             clearInterval(countdownId);
         }
