@@ -61,5 +61,6 @@
         {{item.analysis}}
       </view>
     </view>
+    <view class="nodata" wx:if="{{wrongList.length === 0}}">暂无错题</view>
   </view>
 </view>
