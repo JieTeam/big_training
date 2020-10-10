@@ -224,6 +224,8 @@ Page({
                     console.log("上线");
                     break;
                 case 2||'2':  // 匹配成功
+                    clearInterval(matchTimer);
+                    matchTimer = null;
                     that.setData({
                         rivalInfo: {
                             ...msg.data.enemyUser,
