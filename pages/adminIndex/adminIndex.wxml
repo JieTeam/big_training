@@ -3,15 +3,15 @@
   <view class="title">
       <image class="" src="../../assets/images/rank/ranking.png" />
   </view>
-  <view class="province-item battle" data-type='provinceWarSituation' bindtap="go">
-    <!-- <image class="province-ranking_icon" src="/assets/images/person2.png"></image> -->
-    <!-- <text>本省战况</text> -->
-    <image src="/assets/images/adminIndex/province.png"></image>
-  </view>
   <view class="province-item national-ranking" data-type='adminRanking' bindtap="go">
     <!-- <text>全国排行榜</text>
     <image class="national-ranking_icon" src="/assets/images/person1.png"></image> -->
     <image src="/assets/images/adminIndex/country.png"></image>
+  </view>
+  <view class="province-item battle" data-type='provinceWarSituation' bindtap="go">
+    <!-- <image class="province-ranking_icon" src="/assets/images/person2.png"></image> -->
+    <!-- <text>本省战况</text> -->
+    <image src="/assets/images/adminIndex/province.png"></image>
   </view>
   <view class="province-item province-ranking" data-type='provinceRanking' bindtap="go">
     <!-- <image class="province-ranking_icon" src="/assets/images/organization.png"></image>

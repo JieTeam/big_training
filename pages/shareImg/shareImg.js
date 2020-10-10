@@ -81,13 +81,11 @@ Page({
     wx.showLoading({
       title: '生成中'
     })
-    const { headUrl, name, userLevel, winCount, loseCount, score } = this.data.userInfo
+    const { headUrl, name, userLevel, winCount, loseCount, score, roleType } = this.data.userInfo
     const imgDraw = {
       width: '1500rpx',
       height: '2412rpx',
-      // background: 'https://qiniu-image.qtshe.com/20190506share-bg.png',
       views: [
-        // 背景
         {
           type: 'image',
           url: '/assets/images/flower.png',
@@ -173,98 +171,87 @@ Page({
         },
       ]
     }
-    // const imgDraw = {
-    //   width: '750rpx',
-    //   height: '1206rpx',
-    //   // background: 'https://qiniu-image.qtshe.com/20190506share-bg.png',
-    //   views: [
-    //     // 背景
-    //     {
-    //       type: 'image',
-    //       url: '/assets/images/flower.png',
-    //       css: {
-    //         top: '140rpx',
-    //         left: '25rpx',
-    //         width: '705rpx',
-    //         height: '543rpx',
-    //       },
-    //     },
-    //     {
-    //       type: 'image',
-    //       url: '/assets/images/share/bg.png',
-    //       css: {
-    //         top: '800rpx',
-    //         left: '30rpx',
-    //         width: '440rpx',
-    //         height: '205rpx',
-    //       },
-    //     },
-    //     // 头像
-    //     {
-    //       type: 'image',
-    //       url: '/assets/images/test/logo.jpg',
-    //       css: {
-    //         top: '838rpx',
-    //         left: '60rpx',
-    //         width: '130rpx',
-    //         height: '130rpx',
-    //         borderWidth: '6rpx',
-    //         borderColor: '#FFF',
-    //         borderRadius: '130rpx'
-    //       }
-    //     },
-    //     // 二维码
-    //     {
-    //       type: 'image',
-    //       url: '/assets/images/share/qrcode.jpg',
-    //       css: {
-    //         top: '800rpx',
-    //         left: '490rpx',
-    //         width: '205rpx',
-    //         height: '205rpx',
-    //         borderRadius: '205rpx'
-    //       }
-    //     },
-    //     {
-    //       type: 'text',
-    //       text: '青团子',
-    //       css: {
-    //         top: '838rpx',
-    //         fontSize: '30rpx',
-    //         left: '210rpx',
-    //         align: 'left',
-    //         width: "240rpx",
-    //         color: '#ffffff'
-    //       }
-    //     },
-    //     {
-    //       type: 'text',
-    //       text: '青团子',
-    //       css: {
-    //         top: '885rpx',
-    //         fontSize: '30rpx',
-    //         left: '210rpx',
-    //         align: 'left',
-    //         width: "240rpx",
-    //         color: '#ffffff'
-    //       }
-    //     },
-    //     {
-    //       type: 'text',
-    //       text: '51胜10负｜100分',
-    //       css: {
-    //         top: '935rpx',
-    //         fontSize: '30rpx',
-    //         left: '210rpx',
-    //         align: 'left',
-    //         width: "240rpx",
-    //         color: '#ffffff'
-    //       }
-    //     },
-    //   ]
-    // }
+
+    const imgDraw2 = {
+      width: '1500rpx',
+      height: '2412rpx',
+      views: [
+        {
+          type: 'image',
+          url: '/assets/images/flower.png',
+          css: {
+            top: '280rpx',
+            left: '50rpx',
+            width: '1410rpx',
+            height: '1086rpx',
+          },
+        },
+        {
+          type: 'image',
+          url: '/assets/images/share/bg.png',
+          css: {
+            top: '1600rpx',
+            left: '60rpx',
+            width: '880rpx',
+            height: '410rpx',
+          },
+        },
+        // 头像
+        {
+          type: 'image',
+          // url: '/assets/images/test/logo.jpg',
+          url: headUrl,
+          css: {
+            top: '1676rpx',
+            left: '120rpx',
+            width: '260rpx',
+            height: '260rpx',
+            borderWidth: '12rpx',
+            borderColor: '#FFF',
+            borderRadius: '260rpx'
+          }
+        },
+        // 二维码
+        {
+          type: 'image',
+          url: '/assets/images/share/qrcode.jpg',
+          css: {
+            top: '1600rpx',
+            left: '980rpx',
+            width: '410rpx',
+            height: '410rpx',
+            borderRadius: '410rpx'
+          }
+        },
+        {
+          type: 'text',
+          text: name,
+          css: {
+            top: '1676rpx',
+            fontSize: '60rpx',
+            left: '420rpx',
+            align: 'left',
+            width: "480rpx",
+            color: '#ffffff'
+          }
+        },
+        {
+          type: 'text',
+          text: `${winCount}胜${loseCount}负｜${score}分`,
+          css: {
+            top: '1870rpx',
+            fontSize: '60rpx',
+            left: '420rpx',
+            align: 'left',
+            width: "480rpx",
+            color: '#ffffff'
+          }
+        },
+      ]
+    }
+    
     this.setData({
-      imgDraw
+      imgDraw: roleType !== 2 ? imgDraw2 : imgDraw
     })
   },
   onImgErr(e) {

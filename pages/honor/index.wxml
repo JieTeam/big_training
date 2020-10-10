@@ -34,7 +34,7 @@
             <image class="honor-bj" src="/assets/images/honor/honor-bj.png"></image>
             <view class="content">
                 <view class="title">荣誉证书</view>
-                <view class="name">{{detailData.levelText}}:</view>
+                <view class="name">{{detailData.userName}}:</view>
                 <view class="des1">
                     在“202 0年生态环境保护执法大练兵知识竞赛”活动中,表现突出
                     <text wx:if="{{detailData.awardsType === '1'}}">超越了{{detailData.overPercent}}%的选手,</text>

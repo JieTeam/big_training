@@ -135,7 +135,7 @@
           "id": 9,
           "name": "分享中间页",
           "pathName": "pages/shareGood/shareGood",
-          "query": "userId=36",
+          "query": "userId=3",
           "scene": null
         },
         {

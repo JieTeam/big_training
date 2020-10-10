@@ -15,12 +15,12 @@
         {{userInfo.phoneNo}}
       </view>
     </view>
-    <!-- <view class="content__item">
+    <view class="content__item" wx:if="{{userInfo.roleType === '2'}}">
       <view class="content__item__icon iconfont icon-ziyuan"></view>
       <view class="content__item__content iconfont">
         {{userInfo.userLevel}}
       </view>
-    </view> -->
+    </view>
     <view class="content__item">
       <view class="content__item__icon iconfont icon-icon_dizhi"></view>
       <view class="content__item__content iconfont">

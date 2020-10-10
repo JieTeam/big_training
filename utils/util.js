@@ -88,13 +88,13 @@ module.exports = {
         })
     },
     hideLoading() {
-        setTimeout(() => {
+        // setTimeout(() => {
             wx.hideLoading({
                 complete: ()=>{
                     
                 }
             });
-        }, 10)
+        // }, 10)
     },
     showToast(title) {
         wx.showToast({
