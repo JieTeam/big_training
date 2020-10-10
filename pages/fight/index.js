@@ -346,12 +346,13 @@ Page({
     },
     /**获取下一道题目 */
     async getNextQuestion() {
+        let that = this;
         if(!allowNext||(that.data.questionIndex >= that.data.questionList.length)) return;
         allowNext = false;
         let timer1 = setTimeout(() => {
+            clearTimeout(timer1)
             allowNext = true
         }, 800);
-        let that = this;
         if(countdownId){
             clearInterval(countdownId);
         }
