@@ -49,6 +49,7 @@ const Api = {
                     } = res;
                     if (res.statusCode === 200) {
                         if (data.code !== 1 && ( !params  || !params.notShowError)) {
+                            console.log("reponse==>",res)
                             wx.showToast({
                                 title: data.msg,
                                 icon: 'none',
