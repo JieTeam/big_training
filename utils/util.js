@@ -96,11 +96,11 @@ module.exports = {
             });
         // }, 10)
     },
-    showToast(title,time) {
+    showToast() {
         wx.showToast({
             icon: 'none',
             title: title,
-            duration: time||2000,
+            duration: 2000,
         })
     },
     success(title) {
