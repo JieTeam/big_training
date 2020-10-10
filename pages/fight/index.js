@@ -108,13 +108,15 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
+        matchTimer && clearTimeout(matchTimer);
+        // this.fqAgainst()
         // 返回后，关闭计时器，避免后台继续调用题目接口
         const that = this;
         if (that.data.isGameOver||!that.data.matchSuc) {
@@ -169,16 +171,17 @@ Page({
         this.setData({
             isMatch: true
         });
-        let n=0;
-        matchTimer = setInterval(() => {
-            if(n>=60) { // 两分钟没有匹配到结束匹配
-                clearInterval(matchTimer);
+        // let n=0;
+        matchTimer = setTimeout(() => {
+            // 60 秒 没有匹配到结束匹配
+            // if(n>=10) { // 分钟
+                clearTimeout(matchTimer);
                 matchTimer = null;
                 Utils.showToast('暂未匹配到符合条件的对手，请稍后再试',3000);
                 that.fqAgainst();
-            }
-            n+=1;
-        }, 1000);
+            // }
+            // n+=1;
+        }, 60000);
     },
     /**连接websocket */
     connectWebSocket() {
