@@ -21,7 +21,7 @@
           </view>
           <view class="result">
             <view class="result_left" wx:if="{{userInfo.roleType === '2'}}">{{userInfo.winCount}}胜{{userInfo.loseCount}}负</view>
-            <view class="result_right">{{userInfo.score}}分</view>
+            <view class="result_right">{{userInfo.score}}积分</view>
           </view>
         </view>
      </view>

@@ -75,7 +75,7 @@ page {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .bottom-fun_result {
   width: auto!important;
@@ -85,6 +85,7 @@ page {
   font-weight: 400;
   color: #46d7b6;
   line-height: 35rpx;
+  padding: 8px 0;
 }
 
 .bottom-fun_result.loginOut {

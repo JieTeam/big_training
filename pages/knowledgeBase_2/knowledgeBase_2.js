@@ -1,5 +1,6 @@
 // pages/knowledgeBase_2/knowledgeBase_2.js
 import rules from "../../utils/rules";
+import { filePath } from "../../utils/server/config"
 Page({
 
     /**
@@ -70,10 +71,50 @@ Page({
 
     },
     readRule(e) {
-        const key = e.currentTarget.dataset.index;
-        wx.navigateTo({
-            url: `/pages/knowledgeBase_3/knowledgeBase_3?index=${this.data.index}&key=${key}`,
-        });
+        const {name, type} = e.currentTarget.dataset.item;
+        wx.showLoading({
+          title: '文档加载中...',
+        })
+        // console.log('>>> `${filePath}${name}${type}`', `${filePath}${name}${type}`)
+        wx.downloadFile({
+            // 示例 url，并非真实存在
+            url: `${filePath}${name}${type}`,
+            success: function (res) {
+              const filePath = res.tempFilePath
+              wx.openDocument({
+                filePath: filePath,
+                success: function (res) {
+                  console.log('打开文档成功')
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
+                },
+                fail: function(err) {
+                    console.log('>>> err openDocument', err)
+                    wx.hideLoading({
+                      success: (res) => {},
+                    })
+                    wx.showToast({
+                      title: '文档加载失败,请重试',
+                      icon: 'none'
+                    })
+                }
+              })
+            },
+            fail: function(err) {
+                console.log('>>> err downloadFile', err)
+                wx.hideLoading({
+                  success: (res) => {},
+                })
+                wx.showToast({
+                  title: '文档加载失败,请重试',
+                  icon: 'none'
+                })
+            }
+        })
+        // wx.navigateTo({
+        //     url: `/pages/knowledgeBase_3/knowledgeBase_3?index=${this.data.index}&key=${key}`,
+        // });
           
     }
 })

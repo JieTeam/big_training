@@ -14,4 +14,5 @@
             {{item.title}}
         </view>
     </view>
+    <!-- <view bindtap="test">测试</view> -->
 </view>

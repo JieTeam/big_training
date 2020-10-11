@@ -159,7 +159,7 @@ Page({
         },
         {
           type: 'text',
-          text: `${winCount}胜${loseCount}负｜${score}分`,
+          text: `${winCount}胜${loseCount}负｜${score}积分`,
           css: {
             top: '1870rpx',
             fontSize: '60rpx',

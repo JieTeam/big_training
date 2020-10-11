@@ -330,11 +330,11 @@ Page({
             title: '提示',
             success() {
               if (userInfo.roleType === '1') {
-                wx.redirectTo({
+                wx.reLaunch({
                   url: '/pages/adminIndex/adminIndex',
                 })
               } else {
-                wx.redirectTo({
+                wx.reLaunch({
                   url: '/pages/index/index',
                 })
               }
@@ -405,11 +405,11 @@ Page({
   handleFix() {
     const userInfo = App.globalData.userInfo;
     if (userInfo.roleType === '1') {
-      wx.redirectTo({
+      wx.reLaunch({
         url: '/pages/adminIndex/adminIndex',
       })
     } else {
-      wx.redirectTo({
+      wx.reLaunch({
         url: '/pages/index/index',
       })
     }

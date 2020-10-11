@@ -10,7 +10,7 @@
           <view class="des__item"
             wx:if="{{userInfo.roleType === 2}}"
           >{{userInfo.userLevel}}</view>
-          <view class="des__item">{{userInfo.winCount}}胜{{userInfo.loseCount}}负｜{{userInfo.score}}分</view>
+          <view class="des__item">{{userInfo.winCount}}胜{{userInfo.loseCount}}负｜{{userInfo.score}}积分</view>
         </view>
       </view>
       <view class="save">

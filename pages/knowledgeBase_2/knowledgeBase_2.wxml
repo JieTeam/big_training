@@ -14,7 +14,7 @@
     <view 
         wx:for="{{list}}" 
         class="file_name"
-        data-index="{{index}}"
+        data-item="{{item}}"
         bindtap="readRule"
         wx:key="index"
     >

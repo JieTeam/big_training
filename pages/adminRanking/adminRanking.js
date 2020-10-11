@@ -47,7 +47,7 @@ Page({
         const currentItem = e.target.dataset.item;
 
         let personClomn=[];
-        if(currentItem.key=='7'){
+        if(currentItem.type=='7'){
             personClomn = [
                 'id','field1','field2','rankId','field4'
             ];
@@ -57,7 +57,7 @@ Page({
             ];
         }
         this.setData({
-            checkedType: currentItem.key,
+            checkedType: currentItem.type,
             personClomn: personClomn
         })
         const newTabData = this.data.rankingTabData.map((item) => {
