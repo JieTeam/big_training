@@ -321,25 +321,45 @@ Page({
         that.setData({
             enterAnswer: true,
             currentQuestion: question
-        })
-        wx.nextTick(()=> {
-            if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
-            that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
-            let rivalInfo = that.data.rivalInfo, meInfo = that.data.meInfo;
-            rivalInfo.score = 0; meInfo.score = 0;
-            activeResult = [];
-            that.setData({
-                isAnswerLoaded: true, // 题目加载完成
-                userAnswerResult: [], // 用户答题结果记录
-                meisAnswer: false, // 我方是否完成答题
-                rivalisAnswer: false, // 对方是否答题
-                isShowRightAnswer: false, // 是否显示正确答案
-                isSubDouble: false,  // 多选是否提交
-                meInfo: meInfo,  // 切题重置分数
-                rivalInfo: rivalInfo,
+        }, () => {
+            // 防止 enterAnswer 没有设置完成就执行方法
+            wx.nextTick(()=> {
+                if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
+                that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
+                let rivalInfo = that.data.rivalInfo, meInfo = that.data.meInfo;
+                rivalInfo.score = 0; meInfo.score = 0;
+                activeResult = [];
+                that.setData({
+                    isAnswerLoaded: true, // 题目加载完成
+                    userAnswerResult: [], // 用户答题结果记录
+                    meisAnswer: false, // 我方是否完成答题
+                    rivalisAnswer: false, // 对方是否答题
+                    isShowRightAnswer: false, // 是否显示正确答案
+                    isSubDouble: false,  // 多选是否提交
+                    meInfo: meInfo,  // 切题重置分数
+                    rivalInfo: rivalInfo,
+                })
+                that.startCountdown();  // 开始画圆
             })
-            that.startCountdown();  // 开始画圆
         })
+        // wx.nextTick(()=> {
+        //     if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
+        //     that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
+        //     let rivalInfo = that.data.rivalInfo, meInfo = that.data.meInfo;
+        //     rivalInfo.score = 0; meInfo.score = 0;
+        //     activeResult = [];
+        //     that.setData({
+        //         isAnswerLoaded: true, // 题目加载完成
+        //         userAnswerResult: [], // 用户答题结果记录
+        //         meisAnswer: false, // 我方是否完成答题
+        //         rivalisAnswer: false, // 对方是否答题
+        //         isShowRightAnswer: false, // 是否显示正确答案
+        //         isSubDouble: false,  // 多选是否提交
+        //         meInfo: meInfo,  // 切题重置分数
+        //         rivalInfo: rivalInfo,
+        //     })
+        //     that.startCountdown();  // 开始画圆
+        // })
     },
     /**开始倒计时 */
     startCountdown() {
@@ -516,6 +536,7 @@ Page({
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
         let that = this;
+        console.log('>>>>> submitAnswer', count, that.data.meisAnswer, that.data.isAnswerLoaded)
         if(count>=10 || that.data.meisAnswer) return false;
         if (that.data.isAnswerLoaded) { // 答案加载完成后才能答题
             let userAnswerIndex = event.currentTarget.dataset.id;

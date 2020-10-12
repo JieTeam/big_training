@@ -13,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!App.globalData.userInfo || App.globalData.userInfo.login === false) {
+    if (!App.globalData.userInfo || !App.globalData.userInfo.login) {
       wx.redirectTo({
         url: '/pages/loginType/loginType',
       })
@@ -110,7 +110,8 @@ Page({
       success (res) {
         if (res.confirm) {
           wx.removeStorageSync('userInfo')
-          wx.redirectTo({
+          App.globalData.userInfo = {}
+          wx.reLaunch({
             url: '/pages/loginType/loginType',
           })
         } else if (res.cancel) {

@@ -61,7 +61,7 @@ Page({
         this.loadData();
   },
   onLoad: function () {
-    if (!app.globalData.userInfo || app.globalData.userInfo.login === false) {
+    if (!app.globalData.userInfo || !app.globalData.userInfo.login) {
         wx.redirectTo({
         url: '/pages/loginType/loginType',
         })

@@ -28,6 +28,7 @@
                 </view>
             </view>
         </view>
+        <view wx:if="{{honorData.length === 0}}" class="nodata">暂无荣誉</view>
     </view>
     <view class="showImg" wx:if="{{showVisible}}">
         <view class="medal-item" data-imagePath="{{item.imagePath}}" bindtap="handleView">

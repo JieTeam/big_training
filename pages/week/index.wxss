@@ -60,6 +60,9 @@
 }
 .week-box .week .both .me-box .me .info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .week-box .week .both .me-box .me .info .name {
   color: #3b393c;
