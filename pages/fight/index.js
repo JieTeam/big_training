@@ -568,7 +568,12 @@ Page({
         that.setData({
             isSubDouble: true
         })
-        let isRight = activeResult.length&&(activeResult.join(",") == that.data.currentQuestion.rightAnswer);
+        // 判断答案是否正确
+        let isRight = false
+        if (activeResult.length > 0) {
+            const rightAnswer = that.data.currentQuestion.rightAnswer
+            isRight = (activeResult.length === rightAnswer.length && activeResult.every(item => rightAnswer.includes(item)))
+        }
         this.showAnswerResult(activeResult,isRight);
     },
     showAnswerResult(result,isRight, type='self') {
@@ -578,6 +583,7 @@ Page({
             isShowRightAnswer: true
         })
         let score = 0;
+        console.log('>>> isRight',result, isRight)
         if(isRight) {
             switch (count) {
                 case 1:
