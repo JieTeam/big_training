@@ -536,7 +536,7 @@ Page({
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
         let that = this;
-        // console.log('>>>>> submitAnswer', count, that.data.meisAnswer, that.data.isAnswerLoaded)
+        console.log('>>>>> submitAnswer', count, that.data.meisAnswer, that.data.isAnswerLoaded)
         if(count>=10 || that.data.meisAnswer) return false;
         if (that.data.isAnswerLoaded) { // 答案加载完成后才能答题
             let userAnswerIndex = event.currentTarget.dataset.id;
