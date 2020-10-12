@@ -1,7 +1,7 @@
 <!--pages/fight_result/index.wxml-->
 <view class="fight_result b-sizing">
     <view class="result pr df justBet ac">
-        <view class="me">
+        <view class="me pr">
             <view class="header">
                 <image src="{{fightResult.homeHead}}"></image>
                 <view 

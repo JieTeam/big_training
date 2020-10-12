@@ -116,15 +116,15 @@ Page({
      */
     onUnload: function () {
         matchTimer && clearTimeout(matchTimer);
-        // this.fqAgainst()
         // 返回后，关闭计时器，避免后台继续调用题目接口
         const that = this;
-        if (that.data.isGameOver||!that.data.matchSuc) {
+        if (that.data.isGameOver||!that.data.isMatch) {
             
         } else {
-            Utils.showModal('提示', '您放弃了挑战!');
+            Utils.showToast('您放弃了挑战!');
+            this.fqAgainst()
+            wx.closeSocket();
         }
-        wx.closeSocket();
     },
     accordCloseSocket() {
         wx.sendSocketMessage({
@@ -536,7 +536,7 @@ Page({
     /** 单选 答题并提交结果 */
     submitAnswer(event) {
         let that = this;
-        console.log('>>>>> submitAnswer', count, that.data.meisAnswer, that.data.isAnswerLoaded)
+        // console.log('>>>>> submitAnswer', count, that.data.meisAnswer, that.data.isAnswerLoaded)
         if(count>=10 || that.data.meisAnswer) return false;
         if (that.data.isAnswerLoaded) { // 答案加载完成后才能答题
             let userAnswerIndex = event.currentTarget.dataset.id;
@@ -583,9 +583,9 @@ Page({
             isShowRightAnswer: true
         })
         let score = 0;
-        console.log('>>> isRight',result, isRight)
         if(isRight) {
             switch (count) {
+                case 0:
                 case 1:
                 case 2:
                 case 3:
@@ -611,6 +611,7 @@ Page({
             }
             if(that.data.currentQuestion.questionType=='3')score=2*score;
         } 
+        // console.log('>>> isRight',result, isRight, count, score)
         let meInfo = that.data.meInfo;
         meInfo.score = score;
         that.setData({
