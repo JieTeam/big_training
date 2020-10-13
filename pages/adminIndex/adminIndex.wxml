@@ -34,12 +34,12 @@
       <view class="bottom-fun_result loginOut" bindtap="loginOut">
           退出登录
       </view>
-      <button class="bottom-fun_result" open-type="share">
+      <!-- <button class="bottom-fun_result" open-type="share">
         <text class="bottom-fun_icon">
           <text class="iconfont icon-fenxiang"></text>
         </text>
         <text>分享</text>
-      </button>
+      </button> -->
   </view>
 </view>
 <view class="modal" hidden="{{!rulesBox}}">

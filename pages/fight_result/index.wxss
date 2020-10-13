@@ -15,6 +15,7 @@
 .fight_result .result .me,
 .fight_result .result .rival {
   flex: 1;
+  width: 0;
   padding: 0 30rpx;
 }
 .fight_result .result .me .header image,
@@ -38,6 +39,7 @@
 .fight_result .result .rival .name {
   padding: 30rpx 0;
   font-size: 32rpx;
+  width: 100%;
 }
 .fight_result .result .me .score,
 .fight_result .result .rival .score {

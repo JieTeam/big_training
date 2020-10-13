@@ -6,7 +6,7 @@
         </image>
       </view>
       <view class="ranking__person__des">
-        <view class="name">
+        <view class="name overeli">
           {{userInfo.name}}
         </view>
         <view class="level" wx:if="{{userInfo.roleType === '2'}}">
@@ -61,6 +61,6 @@
         {{item.analysis}}
       </view>
     </view>
-    <view class="nodata" wx:if="{{wrongList.length === 0}}">暂无错题</view>
+    <view class="nodata" wx:if="{{!!(wrongList.length === 0 && loadingEnd)}}">暂无错题</view>
   </view>
 </view>

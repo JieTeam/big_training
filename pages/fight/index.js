@@ -172,6 +172,7 @@ Page({
             isMatch: true
         });
         // let n=0;
+        matchTimer && clearTimeout(matchTimer);
         matchTimer = setTimeout(() => {
             // 60 秒 没有匹配到结束匹配
             // if(n>=10) { // 分钟
@@ -571,7 +572,7 @@ Page({
         // 判断答案是否正确
         let isRight = false
         if (activeResult.length > 0) {
-            const rightAnswer = that.data.currentQuestion.rightAnswer
+            const rightAnswer = that.data.currentQuestion.rightAnswer.split(',')
             isRight = (activeResult.length === rightAnswer.length && activeResult.every(item => rightAnswer.includes(item)))
         }
         this.showAnswerResult(activeResult,isRight);

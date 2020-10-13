@@ -86,6 +86,11 @@ Page({
    */
   onLoad: function (options) {
     let checkedType = options.checkedType
+    if (options.checkedType) {
+      wx.setNavigationBarTitle({
+        title: '全国排行榜',
+      })
+    }
     let rankingTabData = this.data.rankingTabData
 
     if (app.globalData.userInfo.roleType !== '2') {
@@ -93,6 +98,7 @@ Page({
       checkedType = '2'
       rankingTabData.shift()
     }
+
     this.setData({
         checkedType: checkedType || '1',
         userInfo: app.globalData.userInfo,
@@ -106,8 +112,19 @@ Page({
             }
             return item;
         })
+        let personClomn = []
+        if(checkedType=='1'){
+            personClomn = [
+                'id','field1','field2','rankId','field4'
+            ];
+        } else {
+            personClomn = [
+                'id','field1','rankId','field3','field4'
+            ];
+        }
         this.setData({
-            rankingTabData: newTabData
+            rankingTabData: newTabData,
+            personClomn,
         })
     }
     wx.nextTick(() => {

@@ -9,6 +9,7 @@ Page({
   data: {
     wrongList: [],
     userInfo: {},
+    loadingEnd: false,
   },
 
   /**
@@ -48,7 +49,8 @@ Page({
         })
         // console.log('>>> wrongList', wrongList)
         this.setData({
-          wrongList
+          wrongList,
+          loadingEnd: true,
         })
 
       }

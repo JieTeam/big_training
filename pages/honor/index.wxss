@@ -11,6 +11,7 @@
   color: #605e5f;
   line-height: 100rpx;
   font-size: 24rpx;
+  width: 100%;
 }
 .honor .header {
   width: 100%;

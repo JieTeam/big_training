@@ -115,21 +115,21 @@ page {
   overflow: hidden;
 }
 .result {
-  width: 260rpx;
+  /* width: 260rpx; */
+  min-width: 100rpx;
   height: 62rpx;
-  margin-top: 4rpx;
   background: #fff;
   border-radius: 31rpx;
-  padding-top: 17rpx;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   /* box-shadow: 0px 4px 12px -4px rgba(0, 0, 0, 0.3); */
 }
 .result_left,.result_right {
-  float: left;
-  width: 50%;
+  width: 130rpx;
   font-size: 26rpx;
   color: #46d7b6;
-  line-height: 28rpx;
   text-align: center;
   box-sizing: border-box;
 }
@@ -198,7 +198,7 @@ page {
   height: 35rpx;
   position: absolute;
   left: 0;
-  bottom: 4%;
+  bottom: 3%;
   padding: 0 80rpx;
   box-sizing: border-box;
   display: flex;

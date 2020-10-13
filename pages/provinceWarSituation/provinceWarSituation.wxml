@@ -11,7 +11,7 @@
         </view>
       </view>
       <view class="result-info_data">
-        <view class="result-title">平均积分</view>
+        <view class="result-title">综合成绩</view>
         <view class="result-data">
           <text class="result-data_num">{{provinceData.avgScore}}</text>
           <text class="result-data_text">分</text>

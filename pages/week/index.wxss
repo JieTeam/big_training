@@ -61,12 +61,14 @@
 .week-box .week .both .me-box .me .info {
   flex: 1;
   display: flex;
+  width: 0;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .week-box .week .both .me-box .me .info .name {
   color: #3b393c;
   font-size: 32rpx;
+  width: 100%;
 }
 .week-box .week .both .me-box .me .info .rank image {
   width: 180rpx;

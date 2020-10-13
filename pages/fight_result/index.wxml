@@ -12,7 +12,7 @@
                 </view>
             </view>
             <view class="name overeli">{{fightResult.homeName}}</view>
-            <view class="score fw600">{{fightResult.homeScore}}分</view>
+            <view class="score fw600">{{fightResult.homeScore < 0 ? '0' : fightResult.homeScore}}分</view>
             <view class="{{(fightResult.homeScore>=fightResult.awayScore?'':'error')+' integral fw600'}}">{{fightResult.homeResult}}</view>
         </view>
         <view class="vs">
@@ -29,7 +29,7 @@
                 </view>
             </view>
             <view class="name overeli">{{fightResult.awayName||"--"}}</view>
-            <view class="score fw600">{{fightResult.awayScore}}分</view>
+            <view class="score fw600">{{fightResult.awayScore < 0 ? '0': fightResult.awayScore}}分</view>
             <view class="{{(fightResult.homeScore<=fightResult.awayScore?'':'error')+' integral fw600'}}">{{fightResult.awayResult}}</view>
         </view>
         <view wx:if="{{plate}}" class="plate pa animated fadeInDown">

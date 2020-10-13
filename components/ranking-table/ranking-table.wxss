@@ -39,6 +39,7 @@
 .content__item__block image {
   width: 46rpx;
   height: 62rpx;
+  vertical-align: top;
 }
 .ranking-table__content__item  .content__item__block{
   font-size: 28rpx;
