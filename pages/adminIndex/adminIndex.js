@@ -13,6 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu()
     if (!App.globalData.userInfo || !App.globalData.userInfo.login) {
       wx.redirectTo({
         url: '/pages/loginType/loginType',
@@ -27,7 +28,7 @@ Page({
             url='/pages/provinceWarSituation/provinceWarSituation'
             break;
         case 'adminRanking':
-            url='/pages/ranking/ranking?checkedType=2'
+            url='/pages/ranking/ranking?checkedType=1'
             break;
         case 'provinceRanking':
             url='/pages/adminRanking/adminRanking'

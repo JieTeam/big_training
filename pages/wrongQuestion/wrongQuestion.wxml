@@ -9,10 +9,12 @@
         <view class="name overeli">
           {{userInfo.name}}
         </view>
-        <view class="level" wx:if="{{userInfo.roleType === '2'}}">
-          <image src='/assets/images/grading.png'></image>
-          <view class="level__content">{{userInfo.userLevel}}</view>
-        </view>
+         <level wx:if="{{userInfo.roleType === '2'}}" level="{{userInfo.userLevel}}"></level>
+        <!-- <view class="level" wx:if="{{userInfo.roleType === '2'}}"> -->
+          <!-- <level></level> -->
+          <!-- <image src='/assets/images/grading.png'></image>
+          <view class="level__content">{{userInfo.userLevel}}</view> -->
+        <!-- </view> -->
       </view>
     </view>
   </view>

@@ -19,10 +19,11 @@
         <view class="name">
           {{userInfo.name}}
         </view>
-        <view class="level">
+        <level level="{{userInfo.userLevel}}"></level>
+        <!-- <view class="level">
           <image src='/assets/images/grading.png'></image>
           <view class="level__content">{{userInfo.userLevel}}</view>
-        </view>
+        </view> -->
       </view>
       <view class="ranking__person__tips">
         第{{userInfo.rank}}名

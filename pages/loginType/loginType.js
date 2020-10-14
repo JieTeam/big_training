@@ -43,6 +43,7 @@ Page({
    */
   onLoad: function (options) {
     console.log('>>> options', options)
+    wx.hideShareMenu()
     const { isShare } = options;
     if (isShare !== '1') {
       wx.removeStorageSync('shareData')

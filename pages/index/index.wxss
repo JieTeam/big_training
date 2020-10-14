@@ -97,7 +97,9 @@ page {
 }
 .icon_img {
   width: 40rpx;
-  height: 40rpx;
+  height: 36rpx;
+  object-position: center;
+  object-fit: cover;
   vertical-align: top;
 }
 .identity_name {

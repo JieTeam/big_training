@@ -20,6 +20,7 @@ Page({
             2: 'C',
             3: 'D',
         },
+        startNumber: 60,
         isAllow: false,  // 是否可以进行匹配对战
         hint: "匹配中...",
         meInfo: null,
@@ -48,6 +49,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        wx.hideShareMenu()
         countdownId = null; // 答题倒计时计时器ID
         count = 0; // 倒计时累计秒数
         activeResult=[]; // 用户选择结果
@@ -171,18 +173,22 @@ Page({
         this.setData({
             isMatch: true
         });
-        // let n=0;
+        let n=0;
         matchTimer && clearTimeout(matchTimer);
-        matchTimer = setTimeout(() => {
+        matchTimer = setInterval(() => {
             // 60 秒 没有匹配到结束匹配
-            // if(n>=10) { // 分钟
+            if(n>= 60) { // 分钟
                 clearTimeout(matchTimer);
                 matchTimer = null;
                 Utils.showToast('暂未匹配到符合条件的对手，请稍后再试');
                 that.fqAgainst();
-            // }
-            // n+=1;
-        }, 60000);
+            }
+            const startNumber = this.data.startNumber - 1
+            this.setData({
+                startNumber
+            })
+            n+=1;
+        }, 1000);
     },
     /**连接websocket */
     connectWebSocket() {
@@ -258,7 +264,7 @@ Page({
                             currentQuestion: question,
                         })
                     }
-                    rivalInfo.score = msg.data.score;
+                    rivalInfo.score += msg.data.score;
                     that.setData({
                         rivalInfo: rivalInfo,
                         rivalisAnswer: true
@@ -328,7 +334,7 @@ Page({
                 if(index==0)that.drawCountdown('#countdownBg', 0, 2*Math.PI, 'rgba(255,255,255, 0.3)');
                 that.drawCountdown('#countDown', -0.5*Math.PI, 1.5*Math.PI, '#ffffff', true);
                 let rivalInfo = that.data.rivalInfo, meInfo = that.data.meInfo;
-                rivalInfo.score = 0; meInfo.score = 0;
+                // rivalInfo.score = 0; meInfo.score = 0;
                 activeResult = [];
                 that.setData({
                     isAnswerLoaded: true, // 题目加载完成
@@ -419,8 +425,10 @@ Page({
      * 没匹配成功之前放弃对战
      */
     fqAgainst: function() {
+        matchTimer && clearTimeout(matchTimer);
         this.setData({
-            isMatch: false
+            isMatch: false,
+            startNumber: 60,
         })
         this.accordCloseSocket();
     },
@@ -614,7 +622,7 @@ Page({
         } 
         // console.log('>>> isRight',result, isRight, count, score)
         let meInfo = that.data.meInfo;
-        meInfo.score = score;
+        meInfo.score += score;
         that.setData({
             meInfo: meInfo
         })

@@ -88,7 +88,7 @@
                 <view class="vs fw900">
                     <image class="{{matchSuc?'':'animated infinite flipInY'}}" src="../../assets/images/matching/vs.png" />
                 </view>
-                <text class="hint">{{hint}}</text>
+                <text class="hint">{{startNumber}}</text>
             </view>
             <view class="rival-box pr">
                 <view wx:if="{{matchSuc}}" class="rival pa df justBet bounceInRight animated">

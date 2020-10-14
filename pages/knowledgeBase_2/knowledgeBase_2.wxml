@@ -11,14 +11,34 @@
   </view> -->
   <view class="page_list">
     <!-- <view class="title">法规</view> -->
-    <view 
-        wx:for="{{list}}" 
-        class="file_name"
-        data-item="{{item}}"
-        bindtap="readRule"
-        wx:key="index"
-    >
-        《{{item.name}}》
-    </view>
+    <block wx:if="{{index === 2}}">
+      <view wx:for="{{list}}" wx:key='index'>
+          <view class="title">
+            {{item.title}}
+          </view>
+          <view 
+                wx:for="{{item.list}}" 
+                wx:for-item="_item"
+                class="file_name"
+                data-item="{{_item}}"
+                bindtap="readRule"
+                wx:key="index"
+            >
+              《{{_item.name}}》
+          </view>
+      </view>
+    </block>
+    <block wx:if="{{index !== 2}}">
+      <view 
+          wx:for="{{list}}" 
+          class="file_name"
+          data-item="{{item}}"
+          bindtap="readRule"
+          wx:key="index"
+      >
+          《{{item.name}}》
+      </view>
+    </block>
+    
   </view>
 </view>

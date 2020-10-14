@@ -92,7 +92,7 @@ Page({
           if(res.code === 1) {
             const { 
                 userLevel, winRate, winCount,tieCount, loseCount, score, rank, phoneNo, id, name, 
-                roleType, workingDivision, fullRegionName,likeCount, headUrl, awardsNum
+                roleType, workingDivision, fullRegionName,likeCount, headUrl, awardsNum, overPercent
             } = res.data
             userInfo.userLevel = userLevel; // 等级
             userInfo.winRate = (winRate * 100).toFixed(2); // 胜率
@@ -100,6 +100,7 @@ Page({
             userInfo.tieCount = tieCount; // 平局场次
             userInfo.loseCount = loseCount; // 失败场次
             userInfo.rank = rank; // 排名
+            userInfo.overPercent = overPercent; // 超越多少
             userInfo.count = winCount + tieCount + loseCount;
             userInfo.score = score;
             userInfo.phoneNo = phoneNo;
@@ -141,14 +142,14 @@ Page({
     })
   },
   onShareAppMessage() {
-    const { openId, userId } = app.globalData.userInfo
-    return {
-      title: "欢迎您参与生态环境保护执法大练兵知识竞赛！",
-      path:`/pages/shareImg/shareImg?openId=${openId}&userId=${userId}` 
-    }
+    // const { openId, userId } = app.globalData.userInfo
     // return {
-    //   title: "2020年生态环境保护执法大练兵知识竞赛",
-    //   path:`/pages/shareGood/shareGood?openId=${openId}&userId=${userId}` 
+    //   title: "欢迎您参与生态环境保护执法大练兵知识竞赛！",
+    //   path:`/pages/shareImg/shareImg?openId=${openId}&userId=${userId}` 
     // }
+    return {
+      title: "2020年生态环境保护执法大练兵知识竞赛",
+      path:`/pages/index/index` 
+    }
   }
 });

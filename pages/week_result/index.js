@@ -62,7 +62,10 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-
+        return {
+            title: "欢迎您参与生态环境保护执法大练兵知识竞赛！",
+            path:`/pages/index/index` 
+        }
     },
     getWeekTestRes () {
         const that = this;

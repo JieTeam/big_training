@@ -419,6 +419,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    wx.hideShareMenu()
     wx.removeStorageSync('userInfo');  // 先清除缓存信息
     const { type } = options;
     Utils.showLoading();

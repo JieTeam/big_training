@@ -31,8 +31,8 @@
       辅助执法人员与公众
     </button> -->
     <button 
-      style="margin-top: 40rpx"
-      class='bj-loginType__lawEn'
+      style="width: 380rpx"
+      class='bj-loginType__public'
       open-type="getUserInfo"
       bindgetuserinfo="getUserInfoAdmin"
     >

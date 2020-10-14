@@ -104,6 +104,7 @@
 .fight-box .fight .both .me-box .rival .info,
 .fight-box .fight .both .rival-box .rival .info {
   flex: 1;
+  width: 0;
 }
 .fight-box .fight .both .me-box .me .info .score,
 .fight-box .fight .both .rival-box .me .info .score,

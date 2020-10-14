@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    
+    "level": "/components/level/level"
   },
   "navigationBarTitleText": "战绩",
   "navigationBarTextStyle": "white",

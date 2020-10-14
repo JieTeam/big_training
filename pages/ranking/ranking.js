@@ -85,6 +85,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('>>> options', options)
+    wx.hideShareMenu()
     let checkedType = options.checkedType
     if (options.checkedType) {
       wx.setNavigationBarTitle({
@@ -93,7 +95,7 @@ Page({
     }
     let rankingTabData = this.data.rankingTabData
 
-    if (app.globalData.userInfo.roleType !== '2') {
+    if (app.globalData.userInfo.roleType !== '2' && app.globalData.userInfo.roleType !== '1') {
       console.log('>> app.globalData.userInfo.roleType', app.globalData.userInfo.roleType)
       checkedType = '2'
       rankingTabData.shift()

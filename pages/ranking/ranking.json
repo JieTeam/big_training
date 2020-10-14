@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "ranking-table": "/components/ranking-table/ranking-table"
+    "ranking-table": "/components/ranking-table/ranking-table",
+    "level": "/components/level/level"
   },
   "navigationBarTitleText": "排行榜",
   "navigationBarTextStyle": "white",

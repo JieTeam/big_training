@@ -9,10 +9,14 @@
         <view class="name">
           {{userInfo.name}}
         </view>
-        <view class="level" wx:if="{{userInfo.roleType === '2'}}">
+        <view class="name" style="line-height: 1.2" wx:if="{{userInfo.roleType !== '2' && userInfo.rank >= 0}}">
+          本周成绩第{{userInfo.rank}}名, <br /> 超越{{userInfo.overPercent}}%的对手
+        </view>
+        <level wx:if="{{userInfo.roleType === '2'}}" level="{{userInfo.userLevel}}"></level>
+        <!-- <view class="level" wx:if="{{userInfo.roleType === '2'}}">
           <image src='/assets/images/grading.png'></image>
           <view class="level__content">{{userInfo.userLevel}}</view>
-        </view>
+        </view> -->
       </view>
       <view class="ranking__person__tips" wx:if="{{userInfo.roleType === '2'}}">
         胜率{{userInfo.winRate}}%

@@ -1,0 +1,12 @@
+<view class="level">
+  <view class="icon">
+    <image wx:if="{{level === '执法学徒'}}" src="/assets/images/level/学徒.png"></image>
+    <image wx:if="{{level === '执法新兵'}}" src="/assets/images/level/新兵.png"></image>
+    <image wx:if="{{level === '执法骨干'}}" src="/assets/images/level/骨干.png"></image>
+    <image wx:if="{{level === '执法专家'}}" src="/assets/images/level/专家.png"></image>
+    <image wx:if="{{level === '执法先锋'}}" src="/assets/images/level/先锋.png"></image>
+  </view>
+  <view class="name">
+    {{level}}
+  </view>
+</view>

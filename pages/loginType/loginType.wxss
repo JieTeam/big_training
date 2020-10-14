@@ -18,7 +18,7 @@ page {
   left: 0;
   width: 100%;
   text-align: center;
-  padding-top: 300rpx; 
+  padding-top: 250rpx; 
 }
 /* .bj-loginType__title{
   font-size: 45rpx;
@@ -45,8 +45,7 @@ page {
   font-weight: 400;
 }
 .bj-loginType__public{
-  width: 380rpx !important;
-  margin-top: 30rpx;
+  margin-top: 50rpx;
   font-size: 30rpx;
   background: transparent;
   border: 1rpx solid #46d7b6;
@@ -55,5 +54,5 @@ page {
 }
 button::after {
   content: '';
-  border: 0;
+  border: none;
 }

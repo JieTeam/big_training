@@ -33,6 +33,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        wx.hideShareMenu()
         this.setData({
             meInfo: app.globalData.userInfo
         })
@@ -293,6 +294,7 @@ Page({
     startCountdown(callback) {
         let that = this;
         let step = 30*60*100; // 计数动画次数
+        // let step = 200 // 计数动画次数
         that.drawLoadCircle('#countdownBg', 0, 2 * Math.PI, 10, 'rgba(255,255,255,0.4)');
         // 动画函数
         function animation() {
@@ -301,6 +303,8 @@ Page({
                 let eAngle = (step*Math.PI/90000)-(0.5*Math.PI);
                 that.drawCountdownCircle(-0.5*Math.PI, eAngle, step);
             } else {
+                let time = new Date();
+                trainEndTimeNum = time.getTime();
                 that.submitAnswer();
                 clearInterval(countdownId);
             }
@@ -333,7 +337,12 @@ Page({
         }
 
         question.userOption = question.activeResult.length?question.activeResult.join(","):'';
-        question.answerRight = question.userOption == that.data.currentQuestion.rightAnswer;
+        question.answerRight = false
+        if (question.userOption) {
+            const userOptionArr = question.userOption.split(',')
+            const rightAnswerArr = that.data.currentQuestion.rightAnswer.split(',')
+            question.answerRight = (userOptionArr.length === rightAnswerArr.length && userOptionArr.every(item => rightAnswerArr.includes(item)))
+        }
         if(question.questionType!=3) {
             question.isAnswer = true;
             question.score = question.answerRight? 3:0;
@@ -406,6 +415,9 @@ Page({
      * 提交答案
      */
     async submitAnswer() {
+        wx.showLoading({
+          title: '答案提交中...',
+        })
         const that = this;
         this.setData({
             subSuc: true
@@ -434,6 +446,9 @@ Page({
             success: (result) => {}
         });
         const result = await subWeekAnswerApi(topicData);
+        wx.hideLoading({
+          success: (res) => {},
+        })
         if(result.code!==1) return;
         this.myModal.showModal("提交成功");
         
