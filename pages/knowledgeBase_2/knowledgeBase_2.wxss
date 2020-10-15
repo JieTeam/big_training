@@ -12,9 +12,6 @@ page {
   width: 652rpx;
   margin: 50rpx auto 0;
 }
-.title {
-  font-size: 38rpx;
-}
 .file_name {
   width: 100%;
   background: #fefefe;
@@ -26,4 +23,9 @@ page {
   line-height: 64rpx;
   font-size: 36rpx;
   color: #46d7b6;
+}
+
+.file_name.title {
+  font-size: 38rpx;
+  color: #605e5f;
 }

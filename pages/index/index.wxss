@@ -93,11 +93,12 @@ page {
   text-align: center;
   line-height: 70rpx;
   box-sizing: border-box;
-  padding: 15rpx;
+  padding: 16rpx 14rpx;
+  z-index: 9;
 }
 .icon_img {
-  width: 40rpx;
-  height: 36rpx;
+  width: 42rpx;
+  height: 38rpx;
   object-position: center;
   object-fit: cover;
   vertical-align: top;
@@ -106,7 +107,7 @@ page {
   width: 175rpx;
   height: 62rpx;
   margin-left: -18rpx;
-  padding-left: 15rpx;
+  padding-left: 18rpx;
   background: #fff;
   border-radius:0 31rpx 31rpx 0;
   font-size: 26rpx;

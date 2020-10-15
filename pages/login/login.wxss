@@ -91,6 +91,8 @@ page {
   color: #fff;
   font-weight: 400;
   height: 80rpx;
+  padding: 0;
+  line-height: 80rpx;
   margin-top:  30rpx;
 }
 
