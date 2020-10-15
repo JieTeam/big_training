@@ -24,7 +24,7 @@
                     </view>
                     <view class="info pl5">
                         <view class="score fw900">{{rivalInfo.score}}分</view>
-                        <view class="name overeli fw900">{{rivalInfo.name||rivalInfo.nickName}}</view>
+                        <view class="name overeli fw900">{{rivalInfo.name||''}}</view>
                     </view>
                 </view>
             </view>

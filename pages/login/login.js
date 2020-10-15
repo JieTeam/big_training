@@ -346,7 +346,7 @@ Page({
             this.setData({
               goodDialogVisible: true,
               reslut: {
-                name: res.data ? res.data.name||res.data.nickName : '' ,
+                name: res.data ? res.data.name : '' ,
                 avatarUrl: res.data ? res.data.headUrl : '' ,
               }
             })

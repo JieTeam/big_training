@@ -13,7 +13,7 @@
     <!-- <view class="title">法规</view> -->
     <block wx:if="{{index === 2}}">
       <view wx:for="{{list}}" wx:key='index'>
-          <view class="title">
+          <view class="file_name title">
             {{item.title}}
           </view>
           <view 

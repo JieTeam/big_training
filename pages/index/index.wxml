@@ -16,11 +16,11 @@
           <view class="identity" wx:if="{{userInfo.roleType === '2'}}">
             <view class="identity_icon">
               <!-- <image class="icon_img" src="/assets/images/xc.png"/> -->
-              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法学徒'}}" src="/assets/images/level/学徒.png"></image>
-              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法新兵'}}" src="/assets/images/level/新兵.png"></image>
-              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法骨干'}}" src="/assets/images/level/骨干.png"></image>
-              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法专家'}}" src="/assets/images/level/专家.png"></image>
-              <image class="icon_img"  wx:if="{{userInfo.userLevel === '执法先锋'}}" src="/assets/images/level/先锋.png"></image>
+              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法学徒'}}" src="/assets/images/level/xt.png"></image>
+              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法新兵'}}" src="/assets/images/level/xb.png"></image>
+              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法骨干'}}" src="/assets/images/level/gg.png"></image>
+              <image class="icon_img" wx:if="{{userInfo.userLevel === '执法专家'}}" src="/assets/images/level/zj.png"></image>
+              <image class="icon_img"  wx:if="{{userInfo.userLevel === '执法先锋'}}" src="/assets/images/level/xf.png"></image>
             </view>
             <view class="identity_name">{{userInfo.userLevel}}</view>
           </view>
