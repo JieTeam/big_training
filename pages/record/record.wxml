@@ -10,7 +10,7 @@
           {{userInfo.name}}
         </view>
         <view class="name" style="line-height: 1.2" wx:if="{{userInfo.roleType !== '2' && userInfo.rank >= 0}}">
-          本周成绩第{{userInfo.rank}}名, <br /> 超越{{userInfo.overPercent}}%的对手
+          本周第{{userInfo.rank}}名,超越{{userInfo.overPercent}}%的对手
         </view>
         <level wx:if="{{userInfo.roleType === '2'}}" level="{{userInfo.userLevel}}"></level>
         <!-- <view class="level" wx:if="{{userInfo.roleType === '2'}}">
