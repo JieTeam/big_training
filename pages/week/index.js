@@ -273,7 +273,9 @@ Page({
             minute = minute < 1 ? '00':minute<10?'0'+minute:minute;
             second = second < 1 ? '00':second<10?'0'+second:second;
             second1 = second1 < 1 ? '00':second1<10?'0'+second1:second1;
-            let time = `${minute}:${second}:${second1}`;
+            // let time = `${minute}:${second}:${second1}`;
+            let time = `${minute}:${second}`;
+
 
             // 用时统计
             let useTime = 1800-Math.ceil(step/100);
@@ -285,7 +287,7 @@ Page({
             context.font = "bold 40px Arial";       // 设置字体大小
             context.fillStyle = "#ffffff";           // 设置文字颜色
             // 姓名（距左：间距 + 头像直径 + 间距）（距下：总高 - 间距 - 文字高 - 头像直径 + 下移一点 ）
-            context.fillText(time, 148-(time.length*16), 110);
+            context.fillText(time, 148-(time.length*16)-16, 110);
             context.restore();
             typeof callback == 'function' && callback();
         })

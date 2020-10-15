@@ -256,6 +256,10 @@ export default [
                 type: '.pdf',
             },
             {
+                name: '涂料、油墨及胶粘剂工业大气污染物排放标准',
+                type: '.pdf',
+            },
+            {
                 name: '危险废物贮存控制标准',
                 type: '.pdf',
             },

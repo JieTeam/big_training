@@ -5,12 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {}
+    userInfo: {},
+    isClick: false
   },
   loginOut() {
+    if (this.data.isClick) return;
+    this.setData({
+      isClick: true,
+    })
+    const _this = this;
     wx.showModal({
       content: '点击确认将退出登录!',
       success (res) {
+        _this.setData({
+          isClick: false,
+        })
         if (res.confirm) {
           wx.removeStorageSync('userInfo')
           app.globalData.userInfo = {}

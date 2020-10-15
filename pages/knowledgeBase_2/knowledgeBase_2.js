@@ -84,6 +84,7 @@ Page({
               const filePath = res.tempFilePath
               wx.openDocument({
                 filePath: filePath,
+                fileType: 'pdf',
                 success: function (res) {
                   console.log('打开文档成功')
                   wx.hideLoading({
