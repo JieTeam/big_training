@@ -1,6 +1,6 @@
 <!--pages/fight/index.wxml-->
 <view class="fight-box pr">
-    <view class="fight df flexCol" wx:if="{{enterAnswer}}">
+    <view class="fight" wx:if="{{enterAnswer}}">
         <view class="both pr pt10 df flexCol justAround pb30">
             <view class="me-box pr">
                 <view class="me pa df ar justBet bounceInLeft animated">
@@ -29,11 +29,11 @@
                 </view>
             </view>
         </view>
-        <view class="topic-box pt15 b-sizing df flexCol">
+        <view class="topic-box pt15 b-sizing pr">
             <view class="type pr df">
                 <view class="text ac b-sizing">{{currentQuestion.questionTypeName}}</view>
                 <image wx:if="{{currentQuestion.questionType=='3'}}" class="double pa" src="../../assets/images/fight/double.png" />
-                <view class="type">{{currentQuestion.questionCategoryName}}</view>
+                <view class="name">{{currentQuestion.questionCategoryName}}</view>
             </view>
             <view class="topic b-sizing">
                 <view class="subject">{{currentQuestion.num}}.{{currentQuestion.questionDesc}}</view>

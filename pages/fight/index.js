@@ -64,6 +64,26 @@ Page({
         wx.nextTick(() => {
             this.getAllowMatch();
         })
+
+        // 测试
+        // this.setData({
+        //     isAllow: true,  // 是否可以进行匹配对战
+        //     matchSuc: true, // 是否匹配成功
+        //     enterAnswer: true, // 是否进入答题
+        //     currentQuestion: {
+        //         questionType: '3',
+        //         questionCategoryName: "政治理论",
+        //         questionTypeName: "多选",
+        //         questionDesc: "测试题目过长界面无法向下滚动问题。。。。。。。。。。。？",
+        //         num: 1,
+        //         options: [
+        //             { key: "option1", value: "阿斯顿发生范德萨发生范德萨范德萨发撒的发生法萨芬的速度发", isRight: true, className: 'right' }, 
+        //             { key: "option2", value: "碍事法师法撒旦法发顺丰打单发发送到发沙发沙发撒发生", isRight: true, className: 'right' },
+        //             { key: "option3", value: "阿三哥单方事故大概多少广东省公司的各个公司公司的故事的故事的故事的故事的广泛受到广泛是的法规受到广泛受到广泛受到", isRight: false, className: 'error' },
+        //             { key: "option4", value: "暗示法第三个人一天如一日同样分为四个人合同和任何行业读后感东方红2", isRight: true, className: 'right' }
+        //         ]
+        //     }
+        // })
     },
     async getAllowMatch() {
         Utils.showLoading();

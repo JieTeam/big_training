@@ -119,7 +119,7 @@
         },
         {
           "id": -1,
-          "name": "荣耀墙",
+          "name": "荣誉墙",
           "pathName": "pages/honor/index",
           "query": "type=law",
           "scene": null
@@ -178,6 +178,19 @@
           "name": "知识库",
           "pathName": "pages/knowledgeBase/knowledgeBase",
           "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "匹配对战",
+          "pathName": "pages/fight/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "战绩",
+          "pathName": "pages/record/record",
           "scene": null
         }
       ]

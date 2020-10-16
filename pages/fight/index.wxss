@@ -34,7 +34,6 @@
   color: #3b393c;
   line-height: 130rpx;
   flex: 1;
-  width: 0;
   font-size: 36rpx;
 }
 .fight-box .matching .both .me-box .me .header image,
@@ -84,6 +83,9 @@
   width: 100%;
   overflow: hidden;
 }
+.fight-box .fight .both {
+  height: 20%;
+}
 .fight-box .fight .both .me-box,
 .fight-box .fight .both .rival-box {
   width: 100%;
@@ -104,7 +106,6 @@
 .fight-box .fight .both .me-box .rival .info,
 .fight-box .fight .both .rival-box .rival .info {
   flex: 1;
-  width: 0;
 }
 .fight-box .fight .both .me-box .me .info .score,
 .fight-box .fight .both .rival-box .me .info .score,
@@ -158,8 +159,7 @@
   width: 110rpx;
 }
 .fight-box .fight .topic-box {
-  flex: 1;
-  height: 0;
+  height: 80%;
   background: #ffffff;
   width: 100%;
   border-radius: 20rpx 20rpx 0 0;
@@ -182,10 +182,14 @@
   bottom: 70rpx;
   left: 40rpx;
 }
+.fight-box .fight .topic-box .type .name {
+  padding: 0 40rpx 18rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
 .fight-box .fight .topic-box .topic {
   color: #525053;
-  flex: 1;
-  height: 0;
+  max-height: 64%;
   width: 100%;
   padding: 0 20rpx;
   overflow-y: auto;
@@ -240,7 +244,7 @@
   background: #de5a68;
 }
 .fight-box .fight .topic-box .topic-footer {
-  height: 200rpx;
+  height: 120rpx;
   padding: 20rpx 0;
 }
 .fight-box .fight .topic-box .topic-footer .sub {

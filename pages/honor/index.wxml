@@ -10,7 +10,7 @@
                 <view class="title">荣誉证书</view>
                 <view class="name">{{item.userName}}:</view>
                 <view class="des1">
-                    在“202 0年生态环境保护执法大练兵知识竞赛”活动中,表现突出
+                    在“2020年生态环境保护执法大练兵知识竞赛”活动中,表现突出,
                     <text wx:if="{{item.awardsType === '1'}}">超越了{{item.overPercent}}%的选手,</text>
                     获得
                 </view>

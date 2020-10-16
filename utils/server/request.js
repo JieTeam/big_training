@@ -51,7 +51,7 @@ export const getProvinceCityListApi = (params) => {
     return Api.request("POST",`${baseUrl}/bt/rank/getProvinceCityList?pvcode=${params.pvcode}&pvtype=${params.pvtype}`)
 }
 
-// 荣耀墙
+// 荣誉墙
 export const getAwardList = (userId, region_code) => {
     return Api.request("POST",`${baseUrl}/bt/rank/getAwardList?userId=${userId}${region_code?'&region_code=' + region_code :''}`)
 }

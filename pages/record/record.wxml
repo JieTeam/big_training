@@ -43,10 +43,10 @@
         <view class="record__item__block1">{{index+1}}</view>
         <view wx:if="{{checkedType === 'matching'}}" class="record__item__block2 ">匹配对战</view>
         <view wx:if="{{checkedType !== 'matching'}}" class="record__item__block2 week">每周一测</view>
-        <view wx:if="{{checkedType !== 'matching'}}" class="record__item__block3 less">{{item.trainPoint>=0?('+'+item.trainPoint):item.trainPoint}}积分</view>
+        <view wx:if="{{checkedType !== 'matching'}}" class="record__item__block3 less">{{(item.trainPoint==-10)?'积分统计中':((item.trainPoint>=0?('+'+item.trainPoint):item.trainPoint)+'积分')}}</view>
         <view wx:if="{{checkedType === 'matching'}}" class="record__item__block3 less">{{item.trainResult}}</view>
       </view>
-      <view wx:if="{{recordData.length === 0}}" class="nodata">积分统计中</view>
+      <view wx:if="{{recordData.length === 0}}" class="nodata">暂无数据</view>
     </view>
   </view>
 </view>

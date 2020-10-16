@@ -25,6 +25,7 @@ Page({
   },
   handleTab(e) {
     const currentItem = e.target.dataset.item;
+    console.log("==>", currentItem.type)
     this.setData({
       checkedType: currentItem.type
     })
