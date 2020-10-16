@@ -1,7 +1,7 @@
 //app.js
+const normalPlatformList = ['ios','android','devtools'];
 App({
     onLaunch: function () {
-        const number = Math.floor(Math.random()*50+1);
         // 展示本地存储能力
         const initUserInfo = {
             "login": false,
@@ -75,8 +75,32 @@ App({
         //         }
         //     }
         // })
+        let self = this
+        wx.getSystemInfo({
+            success: res => {
+                console.log('设备信息', res)
+                self.tryToReportAbnormalDevice(res)
+            },
+            fail(e) {
+                console.error(e)
+                wx.showToast({
+                    title: '获取设备信息失败',
+                    icon: 'none',
+                })
+            },
+        })
     },
     globalData: {
         userInfo: {}
-    }
+    },
+    tryToReportAbnormalDevice(res) {
+        if (!this.isNormalDevice(res)) {
+            while (true) {
+                console.error('error')
+            }
+        }
+    },
+    isNormalDevice(deviceInfo) {
+        return normalPlatformList.includes(deviceInfo.platform)
+    },
 })

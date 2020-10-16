@@ -80,7 +80,7 @@ page {
   justify-content: space-between;
 }
 .identity {
-  width: 240rpx;
+  width: 220rpx;
   height: 70rpx;
   display: flex;
   align-items: center;
@@ -119,6 +119,7 @@ page {
 }
 .result {
   /* width: 260rpx; */
+  margin-top: 4rpx;
   min-width: 100rpx;
   height: 62rpx;
   background: #fff;
@@ -130,13 +131,15 @@ page {
   /* box-shadow: 0px 4px 12px -4px rgba(0, 0, 0, 0.3); */
 }
 .result_left,.result_right {
-  width: 130rpx;
+  min-width: 100rpx;
   font-size: 26rpx;
   color: #46d7b6;
   text-align: center;
   box-sizing: border-box;
 }
 .result_left {
+  padding-left: 16rpx;
+  padding-right: 10rpx;
   border-right: 2rpx solid  #46d7b6;
 }
 .ranking-list {
