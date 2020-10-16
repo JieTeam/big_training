@@ -76,7 +76,7 @@ Page({
         wx.showLoading({
           title: '文档加载中...',
         })
-        // console.log('>>> `${filePath}${name}${type}`', `${filePath}${name}${type}`)
+        console.log('>>> `${filePath}${name}${type}`', `${filePath}${name}${type}`)
         wx.downloadFile({
             // 示例 url，并非真实存在
             url: `${filePath}${name}${type}`,

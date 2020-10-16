@@ -287,8 +287,8 @@ Page({
                         })
                     })
                     break;
-                case 6||'6': // 对方逃跑
-                    Utils.showModal('提示', '抱歉，服务器爆满，请稍后重试!');
+                case 6||'6': // 爆满
+                    Utils.showModal('提示', '当前访问人数已达上限，请稍后再试！');
                     that.fqAgainst();
                     break;
             }
