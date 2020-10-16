@@ -27,7 +27,8 @@ Page({
     const currentItem = e.target.dataset.item;
     console.log("==>", currentItem.type)
     this.setData({
-      checkedType: currentItem.type
+      checkedType: currentItem.type,
+      recordData: []
     })
     const newTabData = this.data.rankingTabData.map((item) => {
       item.checked = false

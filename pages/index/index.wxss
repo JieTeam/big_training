@@ -232,7 +232,7 @@ page {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 999999;
 }
 .rules-box {
   width: 79%;
@@ -246,6 +246,7 @@ page {
   margin: auto;
   border-radius: 37rpx;
   overflow: hidden;
+  z-index: 999999;
 }
 .rules-box_title {
   width: 100%;
