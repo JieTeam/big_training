@@ -15,6 +15,10 @@ export const subWeekAnswerApi = (params) => {
     return Api.request('POST', `${baseUrl}/bt/training/week/submit`, params);
 }
 
+// 用户开始答题
+export const startWeekAnswerApi = (trainId) => {
+    return Api.request('POST', `${baseUrl}/bt/training/week/start?trainId=${trainId}`);
+}
 
 /**
  * 排行榜

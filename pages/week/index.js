@@ -5,8 +5,9 @@ let progressTime = null;
 let countdownId = null; // 答题倒计时计时器ID
 let cutTopic = true; // 是否可以切题
 let trainStartTime = "", trainStartTimeNum=0, trainEndTime = "", trainEndTimeNum=0; // 答题开始结束时间
+let trainId = null;
 let gameTime = '';
-import { getWeektoPicApi,subWeekAnswerApi } from "../../utils/server/request";
+import { getWeektoPicApi, subWeekAnswerApi, startWeekAnswerApi } from "../../utils/server/request";
 Page({
 
     /**
@@ -114,7 +115,8 @@ Page({
                     questionList: result.data.questionList
                 })
                 wx.nextTick(() => {
-                    that.readyAnswer(0)
+                    trainId = result.data.trainId;
+                    that.readyAnswer(0);
                 });
             }
         } catch (error) {
@@ -129,6 +131,13 @@ Page({
                 wx.navigateBack();
             }, 1000);
         }
+    },
+    /**
+     * 进入答题
+     * @param {trainId} 训练记录ID 
+     */
+    async startWeekAnswer () {
+        const res = await startWeekAnswerApi(trainId);
     },
     /**
      * 获取当前题目
@@ -173,9 +182,6 @@ Page({
             questionIndex: index,
             currentQuestion: question
         })
-        wx.nextTick(() => {
-            console.log("that.data.questionIndex==>",that.data.questionIndex)
-        })
         if(index===0) {
             that.setData({
                 done: true
@@ -211,6 +217,7 @@ Page({
                         progressTime = null;
                         setTimeout(() => {
                             that.startCountdown();
+                            that.startWeekAnswer();
                         }, 200);
                     }
                 });
