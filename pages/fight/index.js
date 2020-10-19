@@ -197,16 +197,17 @@ Page({
         matchTimer && clearTimeout(matchTimer);
         matchTimer = setInterval(() => {
             // 60 秒 没有匹配到结束匹配
-            if(n>= 60) { // 分钟
+            if(n >= 60) {
                 clearTimeout(matchTimer);
                 matchTimer = null;
                 Utils.showToast('暂未匹配到符合条件的对手，请稍后再试');
                 that.fqAgainst();
+            } else {
+                const startNumber = this.data.startNumber - 1
+                this.setData({
+                    startNumber
+                })
             }
-            const startNumber = this.data.startNumber - 1
-            this.setData({
-                startNumber
-            })
             n+=1;
         }, 1000);
     },
