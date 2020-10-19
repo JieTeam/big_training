@@ -6,7 +6,7 @@ let countdownId = null; // 答题倒计时计时器ID
 let cutTopic = true; // 是否可以切题
 let trainStartTime = "", trainStartTimeNum=0, trainEndTime = "", trainEndTimeNum=0; // 答题开始结束时间
 let trainId = null;
-let gameTime = '';
+let gameTime = '', step = 0;
 import { getWeektoPicApi, subWeekAnswerApi, startWeekAnswerApi } from "../../utils/server/request";
 Page({
 
@@ -177,7 +177,6 @@ Page({
                 questionList: questionList
             })
         } 
-        console.log('>> question', question, questionList)
         that.setData({
             questionIndex: index,
             currentQuestion: question
@@ -187,7 +186,7 @@ Page({
                 done: true
             })
             let time = new Date();
-            trainStartTimeNum = time.getTime();
+            trainStartTimeNum = time.getTime()+200;
             trainStartTime = Utils.dateFormat(time);
         }
     },
@@ -252,7 +251,7 @@ Page({
     },
 
     /**绘制倒计时圆环 */
-    drawCountdownCircle(sAngle, eAngle, step, callback) {
+    drawCountdownCircle(sAngle, eAngle, callback) {
         const query = wx.createSelectorQuery();
         query.select('#countDown')
         .fields({ node: true, size: true })
@@ -302,7 +301,7 @@ Page({
     /**开始倒计时 */
     startCountdown(callback) {
         let that = this;
-        let step = 30*60*100; // 计数动画次数
+        step = 30*60*100; // 计数动画次数
         // let step = 200 // 计数动画次数
         that.drawLoadCircle('#countdownBg', 0, 2 * Math.PI, 10, 'rgba(255,255,255,0.4)');
         // 动画函数
@@ -310,7 +309,7 @@ Page({
             if (step > 1) { // 30分钟
                 step-=1;
                 let eAngle = (step*Math.PI/90000)-(0.5*Math.PI);
-                that.drawCountdownCircle(-0.5*Math.PI, eAngle, step);
+                that.drawCountdownCircle(-0.5*Math.PI, eAngle);
             } else {
                 let time = new Date();
                 trainEndTimeNum = time.getTime();
@@ -369,7 +368,6 @@ Page({
      */
     nextTopic() {
         if(!cutTopic) return;
-        console.log('>>> this.data.currentQuestion.rightAnswer', this.data.currentQuestion.rightAnswer)
         if(!this.data.currentQuestion.isAnswer) {
             Utils.showModal('提示', '请确保当前题目已答题完毕！');
             return;
@@ -383,9 +381,8 @@ Page({
         if(index<this.data.questionList.length) {
             this.readyAnswer(index)
         } else {
-            let time = new Date();
-            trainEndTimeNum = time.getTime();
-            trainEndTime = Utils.dateFormat(time);
+            trainEndTimeNum = trainStartTimeNum+((1800-Math.ceil(step/100))*1000);
+            trainEndTime = Utils.dateFormat(trainEndTimeNum);
             this.submitAnswer()
         }
     },
