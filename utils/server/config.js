@@ -4,8 +4,8 @@ const testUrl = 'http://10.134.62.106:8080';
 // const testUrl = 'http://192.168.1.4:8090';
 
 // const testUrl = 'http://3435k69g44.zicp.vip:47355';
-// const prdUrl = 'http://125.35.101.176:8090';
-const prdUrl = 'https://dlb.591hb.net';
+const prdUrl = 'http://125.35.101.176:8090';
+// const prdUrl = 'https://dlb.591hb.net';
 
 
 export const baseUrl = production ? prdUrl : testUrl;

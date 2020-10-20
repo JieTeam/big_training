@@ -180,6 +180,7 @@ Page({
     })
   },
   async getImgCode() {
+      Utils.showLoading();
       let num = Math.floor(Math.random()*1000)+1;
       let imgCodeUrl = `${baseUrl}/bt/login/img?openId=${App.globalData.userInfo.openId}&num=${num}`;
       this.setData({
@@ -443,7 +444,11 @@ Page({
             cities: cities,
             cityArray: array,
           })
-          Utils.hideLoading();
+          let timer = setTimeout(() => {
+              clearTimeout(timer);
+              timer = null;
+              Utils.hideLoading();
+          }, 1000);
         }
       }).catch(()=> {
           Utils.hideLoading();
@@ -452,8 +457,8 @@ Page({
       this.setData({
         type
       })
-      this.getImgCode();
       Utils.hideLoading();
+      this.getImgCode();
     }
     this.setData({
         showLoginForm: true
@@ -507,5 +512,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  imageLoad() {
+    Utils.hideLoading();
   }
 })

@@ -116,7 +116,7 @@
         />
         <view class="login-content__rightIcon">
             <button class="login-content__getImgcode" bindtap="getImgCode">
-                <image src="{{imgCodeUrl}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false" />
+                <image src="{{imgCodeUrl}}" mode="aspectFit|aspectFill|widthFix" lazy-load="false"  bindload="imageLoad" />
             </button>
         </view>
     </view>
