@@ -41,7 +41,7 @@
         <view wx:if="{{item.option2Rrror}}"
           class="content__item__icon error iconfont icon-cuohao"></view>
       </view>
-      <view class="question__content__item">
+      <view class="question__content__item" wx:if="{{item.option3}}">
         <view class="content__item__text">
           C、 {{item.option3}}
         </view>
@@ -50,7 +50,7 @@
         <view wx:if="{{item.option3Rrror}}"
           class="content__item__icon error iconfont icon-cuohao"></view>
       </view>
-      <view class="question__content__item">
+      <view class="question__content__item" wx:if="{{item.option4}}">
         <view class="content__item__text">
          D、 {{item.option4}}
         </view>

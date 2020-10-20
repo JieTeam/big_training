@@ -340,7 +340,10 @@ Page({
             /**
              * 正确选项默认错误类名，用户选中才改为正确类名
              */
-        question.options = [
+        question.options = question.questionType===1?[
+            { key: "option1", value: question.option1, isRight: optFlag1, className: optFlag1? 'right':'error' }, 
+            { key: "option2", value: question.option2, isRight: optFlag2, className: optFlag2? 'right':'error' }
+        ]:[
             { key: "option1", value: question.option1, isRight: optFlag1, className: optFlag1? 'right':'error' }, 
             { key: "option2", value: question.option2, isRight: optFlag2, className: optFlag2? 'right':'error' },
             { key: "option3", value: question.option3, isRight: optFlag3, className: optFlag3? 'right':'error' },
