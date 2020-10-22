@@ -200,6 +200,8 @@ Page({
               if (res.code === 1) {
                 resolve(res.data)
               }
+            }).catch(error=> {
+                reject()
             })
           }
         }

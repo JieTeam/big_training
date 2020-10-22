@@ -3,17 +3,17 @@ import Api from './api'
 
 // 校验用户信息
 export const ApiCheckUser = (params) => {
-  return Api.request('POST', `${baseUrl}/bt/login/enforcerValid`, params).then(res => res);
+  return Api.request('POST', `${baseUrl}/bt/login/enforcerValid`, params);
 }
 
 // 获取open_id
 export const ApiGetOpenId = (code) => {
-  return Api.request('POST', `${baseUrl}/bt/login/auth?code=${code}`, {}).then(res => res);
+  return Api.request('POST', `${baseUrl}/bt/login/auth?code=${code}`, {});
 }
 
 // 登录
 export const ApiGetLogin = (params) => {
-  return Api.request('POST', `${baseUrl}/bt/login/doLogin`, params).then(res => res);
+  return Api.request('POST', `${baseUrl}/bt/login/doLogin`, params);
 }
 
 // 根据openId 获取用户信息
@@ -23,7 +23,7 @@ export const ApiGetUserMsgByOpenId = (userId) => {
 
 // 城区
 export const ApiGetRegion = () => {
-  return Api.request('POST', `${baseUrl}/bt/region/query`, {}).then(res => res);
+  return Api.request('POST', `${baseUrl}/bt/region/query`, {});
 }
 
 /**
@@ -34,7 +34,7 @@ export const ApiGetRegion = () => {
 export const ApiLikeVAlid = (curUserId, userId) => {
   return Api.request('POST', `${baseUrl}/bt/like/valid?curUserId=${curUserId}&userId=${userId}`, {
     notShowError: true,
-  }).then(res => res);
+  });
 }
 
 
@@ -42,7 +42,7 @@ export const ApiLikeVAlid = (curUserId, userId) => {
 export const ApiDoLike = (curUserId, userId) => {
   return Api.request('POST', `${baseUrl}/bt/like/doLike?curUserId=${curUserId}&userId=${userId}`, {
     notShowError: true,
-  }).then(res => res);
+  });
 }
 
 // 管理员登录

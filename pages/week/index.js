@@ -121,7 +121,7 @@ Page({
             }
         } catch (error) {
             wx.showToast({
-                title: "网络错误",
+                title: "当前用户访问量大，请稍候再试！",
                 icon: 'none',
                 duration: 1000
             })

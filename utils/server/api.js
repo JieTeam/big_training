@@ -65,7 +65,7 @@ const Api = {
                             clearTimeout(timer);
                             timer = null;
                             wx.showToast({
-                                title: `服务器异常 - ${statusCode}`,
+                                title: `当前用户访问量大，请稍候再试！`,
                                 icon: 'none',
                                 duration: 2000
                             })
@@ -74,6 +74,11 @@ const Api = {
                     }
                 },
                 fail: function (err) {
+                    wx.showToast({
+                        title: `当前用户访问量大，请稍候再试！`,
+                        icon: 'none',
+                        duration: 2000
+                    })
                     reject(err);
                 },
                 complete: function (e) {
