@@ -149,13 +149,28 @@ Page({
         }
     },
     accordCloseSocket() {
-        wx.sendSocketMessage({
-            data: JSON.stringify({
-                status: 4,
-                data: 'close'
-            })
-        });
+        const that= this;
         clearInterval(countdownId);
+        try {
+            wx.closeSocket();
+        } catch (error) {
+            console.log("socket未连接")
+        }
+        setTimeout(() => {
+            wx.connectSocket({
+                url: Utils.service.wsUrl + '/' + that.data.meInfo.userId + '/2',
+                success: res => {
+                    wx.onSocketOpen(res => {
+                        wx.sendSocketMessage({
+                            data: JSON.stringify({
+                                status: 4,
+                                data: 'close'
+                            })
+                        });
+                    })
+                }
+            });
+        }, 500);
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
@@ -198,6 +213,7 @@ Page({
         matchTimer = setInterval(() => {
             // 60 秒 没有匹配到结束匹配
             if(n >= 60) {
+                console.log("匹配倒计时结束")
                 clearTimeout(matchTimer);
                 matchTimer = null;
                 Utils.showToast('暂未匹配到符合条件的对手，请稍后再试');
