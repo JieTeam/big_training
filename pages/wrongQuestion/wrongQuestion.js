@@ -35,7 +35,7 @@ Page({
           arr1.every((item) => arr2.includes(item))
         }
         const wrongList = res.data.map((item) => {
-          item.userOption = item.userOption.split(',')
+          item.userOption = item.userOption?item.userOption.split(','):[];
           item.rightAnswer = item.rightAnswer.split(',')
           item.isRight = isRight(item.userOption, item.rightAnswer)
           item.option1Right = item.rightAnswer.includes('option1')
