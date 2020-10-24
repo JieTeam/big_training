@@ -38,7 +38,7 @@ Page({
             "排名","用户","地区","综合成绩","等级"
         ],
         personClomn: [
-          'id','field1','field2','rankId','field4'
+          'rank','field1','field2','rankId','field4'
         ],
         personData: []
     },
@@ -49,11 +49,11 @@ Page({
         let personClomn=[];
         if(currentItem.type=='7'){
             personClomn = [
-                'id','field1','field2','rankId','field4'
+                'rank','field1','field2','rankId','field4'
             ];
         } else {
             personClomn = [
-                'id','field1','rankId','field3','field4'
+                'rank','field1','rankId','field3','field4'
             ];
         }
         this.setData({

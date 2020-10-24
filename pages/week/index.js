@@ -435,24 +435,25 @@ Page({
         topicData.trainEndTime = trainEndTime;
         topicData.trainCostTime = Math.floor((trainEndTimeNum-trainStartTimeNum)/10);
         const questionList = Object.assign([],that.data.questionList);
-        const rightList = questionList.filter(v=>{
-            return v.answerRight
-        }).map(v=>{
-            return {
-                questionId: v.id,
-                userOption: v.userOption
-            }
-        })
-        const wrongList = questionList.filter(v=>{
-            return !v.answerRight
-        }).map(v=>{
-            return {
-                questionId: v.id,
-                userOption: v.userOption
-            }
-        })
-        topicData.rightList = rightList;
-        topicData.wrongList = wrongList;
+        // const rightList = questionList.filter(v=>{
+        //     return v.answerRight
+        // }).map(v=>{
+        //     return {
+        //         questionId: v.id,
+        //         userOption: v.userOption
+        //     }
+        // })
+        // const wrongList = questionList.filter(v=>{
+        //     return !v.answerRight
+        // }).map(v=>{
+        //     return {
+        //         questionId: v.id,
+        //         userOption: v.userOption
+        //     }
+        // })
+        // topicData.rightList = rightList;
+        // topicData.wrongList = wrongList;
+        topicData.questionList = questionList;
         let scoreTotal = 0, rightNum = 0;
         for (let i = 0; i < questionList.length; i++) {
             const element = questionList[i];

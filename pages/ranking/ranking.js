@@ -47,7 +47,7 @@ Page({
     ],
     tableHead: [],
     personClomn: [
-      'id','field1','field2','rankId','field4'
+      'rank','field1','field2','rankId','field4'
     ],
     personData: [
     ]
@@ -58,11 +58,11 @@ Page({
     let personClomn=[];
     if(currentItem.key=='1'){
         personClomn = [
-            'id','field1','field2','rankId','field4'
+            'rank','field1','field2','rankId','field4'
         ];
     } else {
         personClomn = [
-            'id','field1','rankId','field3','field4'
+            'rank','field1','rankId','field3','field4'
         ];
     }
     this.setData({
@@ -117,11 +117,11 @@ Page({
         let personClomn = []
         if(checkedType=='1'){
             personClomn = [
-                'id','field1','field2','rankId','field4'
+                'rank','field1','field2','rankId','field4'
             ];
         } else {
             personClomn = [
-                'id','field1','rankId','field3','field4'
+                'rank','field1','rankId','field3','field4'
             ];
         }
         this.setData({
