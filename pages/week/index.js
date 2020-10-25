@@ -103,6 +103,7 @@ Page({
             const result = await getWeektoPicApi({
                 userId: app.globalData.userInfo.userId
             });
+            console.log("题目数据==》",result);
             if(result.code!==1) {
                 clearInterval(progressTime);
                 let timer = setTimeout(() => {

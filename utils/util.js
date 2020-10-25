@@ -54,8 +54,8 @@ module.exports = {
         // wsUrl: `ws://3435k69g44.zicp.vip:47355/websocket`, // 焦家服务
         // wsUrl: `ws://3435k69g44.zicp.vip:47355/websocket`, // 董服务
         // wsUrl: `ws://192.168.1.4:8090/websocket`, // 本机服务
-        // wsUrl: `ws://125.35.101.176:8090/websocket`, // 测试服务
-        wsUrl: `wss://dlb.591hb.net/websocket`, // 正式服务
+        wsUrl: `ws://125.35.101.176:8090/websocket`, // 测试服务
+        // wsUrl: `wss://dlb.591hb.net/websocket`, // 正式服务
     },
     request: request,
     throttle: throttle,
