@@ -1,4 +1,4 @@
-const production = false;
+const production = true;
 // const testUrl = 'http://10.134.62.106:8080';
 // const testUrl = 'http://3435k69g44.zicp.vip';
 // const testUrl = 'http://10.134.53.153:8080';
